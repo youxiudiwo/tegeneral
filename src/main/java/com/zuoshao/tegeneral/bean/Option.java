@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class User {
+public class Option {
 
     @Column
     private Integer id;
@@ -39,5 +39,4 @@ public class User {
     public void setFraction(Integer fraction) {
         this.fraction = fraction;
     }
-}
 }

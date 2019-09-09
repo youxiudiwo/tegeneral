@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class User {
+public class Index{
 
     @Column
     private Integer id;
@@ -17,6 +17,8 @@ public class User {
     private Double weight;
     @Column
     private Integer pid;
+    @Column
+    private Integer sort;
 
     public Integer getId() {
         return id;
@@ -57,9 +59,4 @@ public class User {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
-
-    @Column
-    private Integer sort;
-
-}
 }

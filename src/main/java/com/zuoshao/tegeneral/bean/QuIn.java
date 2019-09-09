@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class User {
+public class QuIn{
 
     @Column
     private Integer qid;
@@ -29,5 +29,4 @@ public class User {
     public void setLid(Integer lid) {
         this.lid = lid;
     }
-}
 }

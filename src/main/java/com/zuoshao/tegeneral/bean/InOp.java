@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class User {
+public class InOp{
 
     @Column
     private Integer lid;
@@ -29,5 +29,4 @@ public class User {
     public void setOid(Integer oid) {
         this.oid = oid;
     }
-}
 }

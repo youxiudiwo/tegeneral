@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class User {
+public class General {
     @Id
     @Column
     private Integer id;
@@ -59,5 +59,4 @@ public class User {
     public void setOpid(Integer opid) {
         this.opid = opid;
     }
-}
 }

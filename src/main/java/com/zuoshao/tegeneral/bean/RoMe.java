@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class User {
+public class RoMe {
 
     @Column
     private Integer rid;
@@ -29,5 +29,4 @@ public class User {
     public void setMid(Integer mid) {
         this.mid = mid;
     }
-}
 }

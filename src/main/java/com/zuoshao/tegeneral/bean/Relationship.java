@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class User {
+public class Relationship{
     @Id
     @Column
     private Integer id;
@@ -60,4 +60,4 @@ public class User {
         this.collegeid = collegeid;
     }
 }
-}
+

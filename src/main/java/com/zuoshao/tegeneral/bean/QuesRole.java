@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class User {
+public class QuesRole {
 
     @Column
     private Integer quesid;
@@ -29,5 +29,4 @@ public class User {
     public void setRoleid(Integer roleid) {
         this.roleid = roleid;
     }
-}
 }
