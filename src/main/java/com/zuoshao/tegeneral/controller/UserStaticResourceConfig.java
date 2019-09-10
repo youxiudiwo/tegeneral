@@ -1,5 +1,6 @@
 package com.zuoshao.tegeneral.controller;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.MessageCodesResolver;
@@ -10,7 +11,8 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.List;
-
+@Configuration
+@EnableWebMvc
 public class UserStaticResourceConfig implements WebMvcConfigurer {
 
     @Override
@@ -45,7 +47,7 @@ public class UserStaticResourceConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/umiEVA");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
     }
 
     @Override

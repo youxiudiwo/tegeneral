@@ -26,7 +26,7 @@ spring:
   ###################ant.design 前端########################
   #thymelafe\u914D\u7F6E
   thymeleaf:
-    prefix: classpath:/umiEVA/
+    prefix: classpath:static/
     suffix: .html
     encoding: UTF-8
     content-type: text/html
