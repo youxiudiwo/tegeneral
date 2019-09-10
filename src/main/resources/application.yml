@@ -1,0 +1,47 @@
+server:
+  port: 8089
+
+
+
+#jdbc
+spring:
+#注明国际化访问的路径
+  messages:
+    basename: i18n.login
+  datasource:
+    url: jdbc:mysql://120.77.219.77:3306/evaluation?useSSL=false
+    username: root
+    password: 199828
+#thymelafe\u914D\u7F6E
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+    check-template-location: true
+    mode: LEGACYHTML5
+#   #    \u914D\u7F6Edubbo
+#   #zookeeper\u5730\u5740 \u6CE8\u518C\u7684\u9879\u76EE\u540D\u79F0 \u626B\u63CF\u7684\u5305
+#  dubbo:
+#    registry:
+#      address: 120.77.219.77:2181
+#      protocol: zookeeper
+#    application:
+#      name: gmall-user
+#    protocol:
+#      name: dubbo
+#    base-package: com.zuoshao.gmall
+
+
+#mybatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:mapper/*.xml
+
+#
+##\u5F00\u542Fdebug\u8C03\u8BD5
+logging:
+  level: debug
+
