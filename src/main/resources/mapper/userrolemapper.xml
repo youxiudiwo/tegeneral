@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+       mamespace：命名空间;指定为接口的全类名可以进行接口绑定
+       id：唯一标识
+       resultType：返回值类型
+-->
+<mapper namespace="com.zuoshao.tegeneral.mapper.Userrolemapper">
+    <select id="selectuserrole" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.Menu">
+        SELECT m.`id`,m.`Name` FROM `user` AS u JOIN us_ro AS ur ON u.`id`=ur.uid
+ JOIN role AS r ON ur.`rid`=r.`id`
+ JOIN ro_me AS rm ON r.`id`=rm.`rid`
+ JOIN menu AS m ON rm.`mid`=m.`id`
+ WHERE u.`id`=#{id}
+    </select>
+</mapper>

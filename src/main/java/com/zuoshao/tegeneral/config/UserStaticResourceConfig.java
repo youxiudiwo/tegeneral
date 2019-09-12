@@ -1,4 +1,4 @@
-package com.zuoshao.tegeneral.controller;
+package com.zuoshao.tegeneral.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
