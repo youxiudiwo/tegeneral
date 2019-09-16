@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login")
     @ResponseBody
     public List<Menu> userlogin(User user, HttpSession session){
         user.setUsername("zuolei");
@@ -43,4 +43,6 @@ public class UserController {
         }
 
     }
+
+
 }
