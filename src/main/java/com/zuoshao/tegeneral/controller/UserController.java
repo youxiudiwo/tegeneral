@@ -32,26 +32,22 @@ public class UserController {
     public Map<String,Object> userlogin(User user, HttpSession session){
         user.setUsername(user.getUsername());
         user.setPassword(user.getPassword());
-
+        Map<String,Object> menuss=new HashMap<>();
         User userlogin = userService.userlogin(user);
 
         if (userlogin != null)
         {
             List<List<Menu>> lists = new ArrayList<>();
             List<Menu> menus = userService.userMenu(userlogin);
-            Map<String,Object> menuss=new HashMap<>();
             menuss.put("menu",menus);
             menuss.put("code",1);
 
-
-            session.setAttribute("user",userlogin);
-            return menuss;
-
         }else {
-            session.setAttribute("mags","用户名或者密码不正确");
-            return null;
-        }
+            menuss.put("mags","用户名或者密码不正确");
+            menuss.put("code",0);
 
+        }
+        return menuss;
     }
 
     @RequestMapping(value = "/getmenu")
