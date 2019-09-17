@@ -29,9 +29,11 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public Map<String,Object> userlogin(User user, HttpSession session){
-        user.setUsername(user.getUsername());
-        user.setPassword(user.getPassword());
+    public Map<String,Object> userlogin(@Param("password")String password, @Param("username")String username, HttpSession session){
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
         Map<String,Object> menuss=new HashMap<>();
         User userlogin = userService.userlogin(user);
 
