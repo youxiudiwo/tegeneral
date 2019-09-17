@@ -13,6 +13,8 @@ public class Menu{
     private Integer id;
     @Column
     private String name;
+    @Column
+    private String img;
 
     public Integer getId() {
         return id;
@@ -28,5 +30,13 @@ public class Menu{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
