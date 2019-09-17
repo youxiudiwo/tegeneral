@@ -37,7 +37,7 @@ public class CollegeController {
     @ResponseBody
     public List<College> getCollege(){
         return  collegeService.getCollege();
-
     }
+
 
 }

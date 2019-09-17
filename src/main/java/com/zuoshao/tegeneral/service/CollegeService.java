@@ -12,4 +12,5 @@ public interface CollegeService {
     Integer updateCollege(College college);
 
     List<College> getCollege();
+
 }

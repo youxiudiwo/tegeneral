@@ -21,7 +21,7 @@ public class CollegeServiceImpl implements CollegeService {
 
     @Override
     public Integer deleteCollege(College college) {
-        return collegeMapper.deleteByPrimaryKey(college);
+        return collegeMapper.delete(college);
     }
 
     @Override
@@ -33,4 +33,5 @@ public class CollegeServiceImpl implements CollegeService {
     public List<College> getCollege() {
         return collegeMapper.selectAll();
     }
+
 }
