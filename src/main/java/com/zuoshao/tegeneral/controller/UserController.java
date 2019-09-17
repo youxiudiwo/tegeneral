@@ -64,6 +64,7 @@ public class UserController {
 
         if (user == null)
         {
+            menuss.put("code",0);
             menuss.put("msg","没有查询结果");
 
         }else {
