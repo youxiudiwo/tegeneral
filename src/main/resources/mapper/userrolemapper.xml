@@ -9,7 +9,7 @@
 -->
 <mapper namespace="com.zuoshao.tegeneral.mapper.Userrolemapper">
     <select id="selectuserrole" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.Menu">
-        SELECT m.`id`,m.`Name`,m.`img` FROM `user` AS u JOIN us_ro AS ur ON u.`id`=ur.uid
+        SELECT m.`id`,m.`Name`,m.`img`,m.`path` FROM `user` AS u JOIN us_ro AS ur ON u.`id`=ur.uid
  JOIN role AS r ON ur.`rid`=r.`id`
  JOIN ro_me AS rm ON r.`id`=rm.`rid`
  JOIN menu AS m ON rm.`mid`=m.`id`

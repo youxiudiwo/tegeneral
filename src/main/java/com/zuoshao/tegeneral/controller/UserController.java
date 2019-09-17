@@ -59,19 +59,21 @@ public class UserController {
     public Map<String,Object> userlogin(@Param("username")String username, HttpSession session){
         User user = new User();
         user.setUsername(username);
-
         User userlogin = userService.userlogin(user);
+        Map<String,Object> menuss=new HashMap<>();
 
+        if (user == null)
+        {
+            menuss.put("msg","没有查询结果");
+
+        }else {
             List<List<Menu>> lists = new ArrayList<>();
             List<Menu> menus = userService.userMenu(userlogin);
-            Map<String,Object> menuss=new HashMap<>();
             menuss.put("menu",menus);
             menuss.put("code",1);
-
-
             session.setAttribute("user",userlogin);
-            return menuss;
 
-
+        }
+        return menuss;
     }
 }

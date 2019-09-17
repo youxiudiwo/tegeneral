@@ -15,6 +15,8 @@ public class Menu{
     private String name;
     @Column
     private String img;
+    @Column
+    private String path;
 
     public Integer getId() {
         return id;
@@ -38,5 +40,13 @@ public class Menu{
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
