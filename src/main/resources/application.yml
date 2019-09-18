@@ -44,3 +44,9 @@ mybatis:
 ##\u5F00\u542Fdebug\u8C03\u8BD5
 logging:
   level: debug
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
+

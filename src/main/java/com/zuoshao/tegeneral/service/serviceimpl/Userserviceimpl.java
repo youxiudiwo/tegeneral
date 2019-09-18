@@ -4,6 +4,7 @@ import com.zuoshao.tegeneral.bean.Menu;
 import com.zuoshao.tegeneral.bean.Role;
 import com.zuoshao.tegeneral.bean.UsRo;
 import com.zuoshao.tegeneral.bean.User;
+import com.zuoshao.tegeneral.bean.beanexa.UserCple;
 import com.zuoshao.tegeneral.mapper.Usermapper;
 import com.zuoshao.tegeneral.mapper.Userrolemapper;
 import com.zuoshao.tegeneral.service.UserService;
@@ -33,6 +34,12 @@ public class Userserviceimpl implements UserService {
     public List<Menu> userMenu(User user) {
         List<Menu> menus = userrolemapper.selectuserrole(user);
         return menus;
+    }
+
+    @Override
+    public List<UserCple> selectuserall() {
+        List<UserCple> selectuserall = userrolemapper.selectuserall();
+        return selectuserall;
     }
 
 

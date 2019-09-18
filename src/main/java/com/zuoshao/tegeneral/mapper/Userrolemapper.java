@@ -3,6 +3,7 @@ package com.zuoshao.tegeneral.mapper;
 import com.zuoshao.tegeneral.bean.Menu;
 import com.zuoshao.tegeneral.bean.Role;
 import com.zuoshao.tegeneral.bean.User;
+import com.zuoshao.tegeneral.bean.beanexa.UserCple;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ import java.util.List;
  */
 public interface Userrolemapper {
     public List<Menu> selectuserrole(User user);
+
+    public List<UserCple> selectuserall();
 }

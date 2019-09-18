@@ -15,4 +15,9 @@
  JOIN menu AS m ON rm.`mid`=m.`id`
  WHERE u.`id`=#{id}
     </select>
+    <select id="selectuserall" resultType="com.zuoshao.tegeneral.bean.beanexa.UserCple">
+        SELECT u.`id`,u.`name`,u.`username`,c.`name`,r.`name` FROM `user` AS u JOIN college AS c ON  u.`collid`=c.`id`
+JOIN us_ro AS ur ON u.`id`=ur.`uid`
+ JOIN  role AS r ON ur.`rid` =r.`id`
+    </select>
 </mapper>

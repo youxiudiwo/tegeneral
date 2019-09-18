@@ -1,15 +1,17 @@
 package com.zuoshao.tegeneral.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zuoshao.tegeneral.bean.Menu;
 import com.zuoshao.tegeneral.bean.Role;
 import com.zuoshao.tegeneral.bean.User;
+import com.zuoshao.tegeneral.bean.beanexa.UserCple;
 import com.zuoshao.tegeneral.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.xml.crypto.Data;
@@ -29,12 +31,13 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public Map<String,Object> userlogin(@Param("password")String password, @Param("username")String username, HttpSession session){
+    public Map<String,Object> userlogin(@Param("password")String password, @Param("username")String username, HttpSession session) throws Exception{
 
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         Map<String,Object> menuss=new HashMap<>();
+
         User userlogin = userService.userlogin(user);
 
         if (userlogin != null)
@@ -74,5 +77,16 @@ public class UserController {
 
         }
         return menuss;
+    }
+
+
+    @GetMapping("/getuserall")
+    @ResponseBody
+    public PageInfo<UserCple> getAllPerson(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@Param("pageSize")Integer pageSize) {
+
+        PageHelper.startPage(pageNum, pageSize);
+        List<UserCple> list = userService.selectuserall();
+        PageInfo<UserCple> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }
