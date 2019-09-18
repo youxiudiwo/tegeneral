@@ -15,4 +15,8 @@ public interface Userrolemapper {
     public List<Menu> selectuserrole(User user);
 
     public List<UserCple> selectuserall();
+
+    public UserCple selectuserforid(User user);
+
+    public List<UserCple> selectuserforexa(User user);
 }

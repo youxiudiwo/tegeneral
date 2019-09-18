@@ -42,5 +42,17 @@ public class Userserviceimpl implements UserService {
         return selectuserall;
     }
 
+    @Override
+    public UserCple selectuserforid(User user) {
+        UserCple selectuserforid = userrolemapper.selectuserforid(user);
+        return selectuserforid;
+    }
+
+    @Override
+    public List<UserCple> selectuserforexa(User user) {
+        List<UserCple> selectuserforexa = userrolemapper.selectuserforexa(user);
+        return selectuserforexa;
+    }
+
 
 }

@@ -83,10 +83,33 @@ public class UserController {
     @GetMapping("/getuserall")
     @ResponseBody
     public PageInfo<UserCple> getAllPerson(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@Param("pageSize")Integer pageSize) {
-
         PageHelper.startPage(pageNum, pageSize);
         List<UserCple> list = userService.selectuserall();
         PageInfo<UserCple> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @RequestMapping("/getuserforid")
+    @ResponseBody
+    public Map<String, Object> getuserfotid(@Param("id")Integer id){
+        User user = new User();
+        user.setId(id);
+        UserCple selectuserforid = userService.selectuserforid(user);
+        Map<String,Object> menuss=new HashMap<>();
+        menuss.put("code",1);
+        menuss.put("userforid",selectuserforid);
+        return menuss;
+    }
+
+    @RequestMapping("/getuserforuserexa")
+    @ResponseBody
+    public Map<String, Object> getuserforuserexa(@Param("exa")String exa){
+        User user = new User();
+        user.setName(exa);
+        List<UserCple> selectuserforexa = userService.selectuserforexa(user);
+        Map<String,Object> menuss=new HashMap<>();
+        menuss.put("code",1);
+        menuss.put("userforexa",selectuserforexa);
+        return menuss;
     }
 }

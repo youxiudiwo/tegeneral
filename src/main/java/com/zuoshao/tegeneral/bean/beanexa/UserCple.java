@@ -9,6 +9,9 @@ import javax.persistence.Id;
  */
 public class UserCple {
 
+    @Id
+    @Column
+    private Integer id;
     @Column
     private String name;
     @Column
@@ -20,6 +23,22 @@ public class UserCple {
     @Column
     private String role;
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getName() {
         return name;
@@ -37,13 +56,6 @@ public class UserCple {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getCollege() {
         return college;

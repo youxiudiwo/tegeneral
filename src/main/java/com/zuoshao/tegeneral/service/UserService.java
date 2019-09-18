@@ -21,4 +21,8 @@ public interface UserService {
     public List<Menu> userMenu(User user);
     //查询当前所有用户的信息
     public List<UserCple> selectuserall();
+    //根据用户id查询当前用户信息
+    public UserCple selectuserforid(User user);
+    //模糊查询当前列表中的用户
+    public List<UserCple> selectuserforexa(User user);
 }

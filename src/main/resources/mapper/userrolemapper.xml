@@ -16,8 +16,20 @@
  WHERE u.`id`=#{id}
     </select>
     <select id="selectuserall" resultType="com.zuoshao.tegeneral.bean.beanexa.UserCple">
-        SELECT u.`id`,u.`name`,u.`username`,c.`name`,r.`name` FROM `user` AS u JOIN college AS c ON  u.`collid`=c.`id`
+        SELECT u.`id`,u.`name`,u.`password`,u.`username`,c.`name` AS college,r.`name` AS role FROM `user` AS u JOIN college AS c ON  u.`collid`=c.`id`
 JOIN us_ro AS ur ON u.`id`=ur.`uid`
  JOIN  role AS r ON ur.`rid` =r.`id`
     </select>
+    <select id="selectuserforid" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.beanexa.UserCple">
+        SELECT u.`id`,u.`name`,u.`password`,u.`username`,c.`name` AS college,r.`name` AS role FROM `user` AS u JOIN college AS c ON  u.`collid`=c.`id`
+JOIN us_ro AS ur ON u.`id`=ur.`uid`
+ JOIN  role AS r ON ur.`rid` =r.`id` WHERE u.`id`=#{id}
+    </select>
+    <select id="selectuserforexa" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.beanexa.UserCple">
+SELECT u.`id`,u.`name`,u.`username`,c.`name` AS college,r.`name` AS role FROM `user` AS u JOIN college AS c ON  u.`collid`=c.`id`
+JOIN us_ro AS ur ON u.`id`=ur.`uid`
+ JOIN  role AS r ON ur.`rid` =r.`id` WHERE CONCAT(u.`id`,u.`name`,u.`username`,c.`name`,r.`name`) LIKE '%'#{name}'%'
+    </select>
+
+
 </mapper>
