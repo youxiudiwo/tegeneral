@@ -120,14 +120,22 @@ public class UserController {
 
         String username =(String) map.get("username");
         String name =(String) map.get("name");
-        Integer college = (Integer)map.get("college");
-        Integer[] roles =(Integer[]) map.get("role");
+        String colleges = (String) map.get("college");
+        Integer collegei =Integer.parseInt(colleges);
+
+        String[] roles =(String[]) map.get("role");
+        Integer[] rolei = new Integer[]{};
+        int i=0;
+        for (String role:roles) {
+            rolei[i]=Integer.parseInt(role);
+            i++;
+        }
 
         User user = new User();
         user.setName(name);
         user.setUsername(username);
         user.setPassword("111111");
-        user.setCollid(college);
+        user.setCollid(collegei);
 
         Integer adduser = userService.adduser(user);
         Map<String,Object> menuss=new HashMap<>();
@@ -141,7 +149,7 @@ public class UserController {
             usro.setUid(userlogin.getId());
 
             List<Object> list = new ArrayList<>();
-            for (Integer roleid:roles) {
+            for (Integer roleid:rolei) {
                 usro.setRid(roleid);
                 Integer integer = userService.adduserrole(usro);
                 list.add(integer);
