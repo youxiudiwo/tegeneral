@@ -125,9 +125,9 @@ public class UserController {
 
         ArrayList<Integer> listss= (ArrayList<Integer>) map.get("role");
 
+        System.out.println(listss);
 
-
-        Integer[] rolei = new Integer[]{};
+        Integer[] rolei = new Integer[20];
         int i=0;
         for (Integer role:listss) {
             rolei[i]=role;
