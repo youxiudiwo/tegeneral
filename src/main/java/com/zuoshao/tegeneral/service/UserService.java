@@ -25,4 +25,7 @@ public interface UserService {
     public UserCple selectuserforid(User user);
     //模糊查询当前列表中的用户
     public List<UserCple> selectuserforexa(User user);
+    //添加用户（角色也要添加）
+    public Integer adduser(User user);
+    public Integer adduserrole(UsRo usro);
 }

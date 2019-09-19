@@ -5,6 +5,7 @@ import com.zuoshao.tegeneral.bean.Role;
 import com.zuoshao.tegeneral.bean.UsRo;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.UserCple;
+import com.zuoshao.tegeneral.mapper.UsRomapper;
 import com.zuoshao.tegeneral.mapper.Usermapper;
 import com.zuoshao.tegeneral.mapper.Userrolemapper;
 import com.zuoshao.tegeneral.service.UserService;
@@ -23,6 +24,8 @@ public class Userserviceimpl implements UserService {
     Usermapper usermapper;
     @Autowired
     Userrolemapper userrolemapper;
+    @Autowired
+    UsRomapper usromapper;
 
     @Override
     public User userlogin(User user) {
@@ -52,6 +55,18 @@ public class Userserviceimpl implements UserService {
     public List<UserCple> selectuserforexa(User user) {
         List<UserCple> selectuserforexa = userrolemapper.selectuserforexa(user);
         return selectuserforexa;
+    }
+
+    @Override
+    public Integer adduser(User user) {
+        int insert = usermapper.insert(user);
+        return insert;
+    }
+
+    @Override
+    public Integer adduserrole(UsRo usro) {
+        int insert = usromapper.insert(usro);
+        return insert;
     }
 
 

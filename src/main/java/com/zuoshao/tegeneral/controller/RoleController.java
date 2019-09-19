@@ -37,5 +37,4 @@ public class RoleController {
         return roleService.getRole();
     }
 
-
 }

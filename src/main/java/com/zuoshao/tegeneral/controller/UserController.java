@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zuoshao.tegeneral.bean.Menu;
 import com.zuoshao.tegeneral.bean.Role;
+import com.zuoshao.tegeneral.bean.UsRo;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.UserCple;
 import com.zuoshao.tegeneral.service.UserService;
@@ -112,4 +113,40 @@ public class UserController {
         menuss.put("userforexa",selectuserforexa);
         return menuss;
     }
+
+    @RequestMapping("/adduser")
+    @ResponseBody
+    public Map<String,Object> adduser(@Param("name")String name,@Param("username")String username,@Param("college")Integer college,@Param("role")Integer[] roles) throws Exception{
+
+        User user = new User();
+        user.setName(name);
+        user.setUsername(username);
+        user.setPassword("111111");
+        user.setCollid(college);
+        Integer adduser = userService.adduser(user);
+        Map<String,Object> menuss=new HashMap<>();
+
+        if (adduser==1){
+
+            User user1 = new User();
+            user1.setUsername(username);
+            User userlogin = userService.userlogin(user1);
+            UsRo usro = new UsRo();
+            usro.setUid(userlogin.getId());
+
+            List<Object> list = new ArrayList<>();
+            for (Integer roleid:roles) {
+                usro.setRid(roleid);
+                Integer integer = userService.adduserrole(usro);
+                list.add(integer);
+            }
+            menuss.put("code",1);
+            return menuss;
+        }else {
+            menuss.put("code",0);
+            return menuss;
+        }
+
+    }
+
 }
