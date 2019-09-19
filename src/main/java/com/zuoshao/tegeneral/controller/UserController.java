@@ -123,11 +123,14 @@ public class UserController {
         String colleges = (String) map.get("college");
         Integer collegei =Integer.parseInt(colleges);
 
-        String[] roles =(String[]) map.get("role");
+        ArrayList<Integer> listss= (ArrayList<Integer>) map.get("role");
+
+
+
         Integer[] rolei = new Integer[]{};
         int i=0;
-        for (String role:roles) {
-            rolei[i]=Integer.parseInt(role);
+        for (Integer role:listss) {
+            rolei[i]=role;
             i++;
         }
 
