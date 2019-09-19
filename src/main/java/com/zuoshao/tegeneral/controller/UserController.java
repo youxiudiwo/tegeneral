@@ -116,13 +116,19 @@ public class UserController {
 
     @RequestMapping("/adduser")
     @ResponseBody
-    public Map<String,Object> adduser(@Param("name")String name,@Param("username")String username,@Param("college")Integer college,@Param("role")Integer[] roles) throws Exception{
+    public Map<String,Object> adduser(@RequestBody Map map) throws Exception{
+
+        String username =(String) map.get("username");
+        String name =(String) map.get("name");
+        Integer college = (Integer)map.get("college");
+        Integer[] roles =(Integer[]) map.get("role");
 
         User user = new User();
         user.setName(name);
         user.setUsername(username);
         user.setPassword("111111");
         user.setCollid(college);
+
         Integer adduser = userService.adduser(user);
         Map<String,Object> menuss=new HashMap<>();
 
