@@ -69,5 +69,17 @@ public class Userserviceimpl implements UserService {
         return insert;
     }
 
+    @Override
+    public Integer updateuser(User user) {
+        int i = usermapper.updateByPrimaryKey(user);
+        return i;
+    }
+
+    @Override
+    public Integer deleteuserrole(UsRo usro) {
+        int delete = usromapper.delete(usro);
+        return delete;
+    }
+
 
 }

@@ -5,6 +5,7 @@ import com.zuoshao.tegeneral.bean.Role;
 import com.zuoshao.tegeneral.bean.UsRo;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.UserCple;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,4 +29,8 @@ public interface UserService {
     //添加用户（角色也要添加）
     public Integer adduser(User user);
     public Integer adduserrole(UsRo usro);
+    //修改用户（修改关联角色）
+    public Integer updateuser(User user);
+    public Integer deleteuserrole(UsRo usro);
+
 }

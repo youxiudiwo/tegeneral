@@ -9,6 +9,7 @@ import javax.persistence.Id;
  */
 public class Batch{
 
+    @Id
     @Column
     private Integer id;
     @Column

@@ -2,11 +2,10 @@ package com.zuoshao.tegeneral.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zuoshao.tegeneral.bean.Menu;
-import com.zuoshao.tegeneral.bean.Role;
-import com.zuoshao.tegeneral.bean.UsRo;
-import com.zuoshao.tegeneral.bean.User;
+import com.zuoshao.tegeneral.bean.*;
 import com.zuoshao.tegeneral.bean.beanexa.UserCple;
+import com.zuoshao.tegeneral.mapper.Usermapper;
+import com.zuoshao.tegeneral.service.CollegeService;
 import com.zuoshao.tegeneral.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,9 @@ import java.util.Map;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    CollegeService collegeService;
+
 
     @RequestMapping(value = "/login")
     @ResponseBody
@@ -114,6 +116,82 @@ public class UserController {
         return menuss;
     }
 
+    @RequestMapping("/edituser")
+    @ResponseBody
+    public Map<String,Object> updateuser() throws Exception{
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userid","1");
+        map.put("username","zuolei");
+        map.put("name","左雷");
+        map.put("college","软件学院");
+        map.put("reset",true);
+        List<Object> listtest = new ArrayList<>();
+        listtest.add("学生");
+        listtest.add("老师");
+        map.put("role",listtest);
+
+        String username =(String) map.get("username");
+        String name =(String) map.get("name");
+        String colleges = (String) map.get("college");
+        Boolean reset= (Boolean) map.get("reset");
+
+        String userid1 = (String)map.get("userid");
+        Integer userid = Integer.parseInt(userid1);
+
+        User user = new User();
+        user.setUsername(username);
+        User userlogin = userService.userlogin(user);
+
+        College college = new College();
+        college.setName(colleges);
+        College college1 = collegeService.getCollege(college);
+
+        if (reset==true){
+            User user1 = new User();
+            user1.setCollid(college1.getId());
+            user1.setUsername(username);
+            user1.setName(name);
+            user1.setPassword("111111");
+            user1.setId(userid);
+            userService.updateuser(user1);
+
+        }else {
+            User user2 = new User();
+            user2.setCollid(college1.getId());
+            user2.setUsername(username);
+            user2.setName(name);
+            user2.setId(userid);
+            userService.updateuser(user2);
+        }
+
+        //添加该用户的角色关联
+        try {
+            List<String> listss= (ArrayList<String>) map.get("role");
+            //删除该用户的角色关联
+            UsRo usRo = new UsRo();
+            usRo.setUid(userlogin.getId());
+            userService.deleteuserrole(usRo);
+
+            UsRo usRo1 = new UsRo();
+            usRo1.setUid(userlogin.getId());
+            for (String role:listss) {
+                int anInt = Integer.parseInt(role);
+                usRo1.setRid(anInt);
+                Integer integer = userService.adduserrole(usRo1);
+            }
+            Map<String,Object> menuss=new HashMap<>();
+            menuss.put("code",1);
+            return menuss;
+        }catch (Exception e){
+            Map<String,Object> menuss=new HashMap<>();
+            menuss.put("code",2);
+            return menuss;
+        }
+
+    }
+
+
     @RequestMapping("/adduser")
     @ResponseBody
     public Map<String,Object> adduser(@RequestBody Map map) throws Exception{
@@ -140,28 +218,38 @@ public class UserController {
         user.setPassword("111111");
         user.setCollid(collegei);
 
-        Integer adduser = userService.adduser(user);
+        User user2 = new User();
+        user2.setUsername(username);
+        User userlogin1 = userService.userlogin(user2);
+
         Map<String,Object> menuss=new HashMap<>();
 
-        if (adduser==1){
-
-            User user1 = new User();
-            user1.setUsername(username);
-            User userlogin = userService.userlogin(user1);
-            UsRo usro = new UsRo();
-            usro.setUid(userlogin.getId());
-
-            List<Object> list = new ArrayList<>();
-            for (Integer roleid:rolei) {
-                usro.setRid(roleid);
-                Integer integer = userService.adduserrole(usro);
-                list.add(integer);
-            }
-            menuss.put("code",1);
+        if (userlogin1!=null){
+            menuss.put("code",0);
+            menuss.put("msg","添加失败用户名重复");
             return menuss;
         }else {
-            menuss.put("code",0);
-            return menuss;
+            Integer adduser = userService.adduser(user);
+            if (adduser==1){
+
+                User user1 = new User();
+                user1.setUsername(username);
+                User userlogin = userService.userlogin(user1);
+                UsRo usro = new UsRo();
+                usro.setUid(userlogin.getId());
+
+                List<Object> list = new ArrayList<>();
+                for (Integer roleid:rolei) {
+                    usro.setRid(roleid);
+                    Integer integer = userService.adduserrole(usro);
+                    list.add(integer);
+                }
+                menuss.put("code",1);
+                return menuss;
+            }else {
+                menuss.put("code",0);
+                return menuss;
+            }
         }
 
     }

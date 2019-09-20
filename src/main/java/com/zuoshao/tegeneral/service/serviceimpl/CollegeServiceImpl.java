@@ -30,6 +30,12 @@ public class CollegeServiceImpl implements CollegeService {
     }
 
     @Override
+    public College getCollege(College college) {
+        College select = collegeMapper.selectOne(college);
+        return select;
+    }
+
+    @Override
     public List<College> getCollege() {
         return collegeMapper.selectAll();
     }

@@ -37,4 +37,9 @@ public class RoleController {
         return roleService.getRole();
     }
 
+    @RequestMapping(value = "/test")
+    public String test(){
+        return "test";
+    }
+
 }

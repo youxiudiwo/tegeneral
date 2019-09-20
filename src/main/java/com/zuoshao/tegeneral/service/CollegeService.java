@@ -11,6 +11,8 @@ public interface CollegeService {
 
     Integer updateCollege(College college);
 
+    College getCollege(College college);
+
     List<College> getCollege();
 
 }
