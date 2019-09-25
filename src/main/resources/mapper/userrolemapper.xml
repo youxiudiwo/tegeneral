@@ -28,8 +28,31 @@ JOIN us_ro AS ur ON u.`id`=ur.`uid`
     <select id="selectuserforexa" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.beanexa.UserCple">
 SELECT u.`id`,u.`name`,u.`username`,c.`name` AS college,GROUP_CONCAT(r.`name`) AS role FROM `user` AS u JOIN college AS c ON  u.`collid`=c.`id`
 JOIN us_ro AS ur ON u.`id`=ur.`uid`
- JOIN  role AS r ON ur.`rid` =r.`id` WHERE CONCAT(u.`id`,u.`name`,u.`username`,c.`name`,r.`name`) LIKE '%'#{name}'%' GROUP BY u.`id`
+ JOIN  role AS r ON ur.`rid` =r.`id` WHERE CONCAT(u.`id`,u.`name`,u.`username`,c.`name`,r.`name`) LIKE CONCAT('%',#{name},'%') GROUP BY u.`id`
     </select>
-
+    <select id="selectuserrolemeun" resultType="com.zuoshao.tegeneral.bean.beanexa.RoleMenu">
+SELECT r.`name` as role,GROUP_CONCAT(m.`name`) as menu,GROUP_CONCAT(m.`img`) as img FROM ro_me AS rm JOIN role AS r ON rm.`rid`=r.`id`
+JOIN menu AS m ON rm.`mid`=m.`id` GROUP BY r.`id`
+    </select>
+    <select id="selectrealationship" resultType="com.zuoshao.tegeneral.bean.beanexa.RelationShipmapping">
+        SELECT rs.`id`,u.`name`,c.`name` AS classname,cu.`name` AS curr,ce.`name` AS college FROM relationship AS rs JOIN `user` AS u ON rs.`teacherid`=u.`id`
+JOIN class AS c ON rs.`classid`=c.`id`
+JOIN curriculum AS cu ON rs.`currid`=cu.`id`
+JOIN college AS ce ON rs.`collegeid`=ce.`id`
+    </select>
+    <select id="selectrealationshipasexa" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.beanexa.RelationShipmapping">
+                SELECT rs.`id`,u.`name`,c.`name` AS classname,cu.`name` AS curr,ce.`name` AS college FROM relationship AS rs JOIN `user` AS u ON rs.`teacherid`=u.`id`
+JOIN class AS c ON rs.`classid`=c.`id`
+JOIN curriculum AS cu ON rs.`currid`=cu.`id`
+JOIN college AS ce ON rs.`collegeid`=ce.`id` WHERE CONCAT(rs.`id`,u.`name`,c.`name`,cu.`name`,ce.`name`) LIKE CONCAT('%',#{name},'%')
+    </select>
+    <select id="selectstudentclass" resultType="com.zuoshao.tegeneral.bean.beanexa.StudentClass">
+SELECT sc.`id`,u.`name` AS stname,u.`username`,c.`name` AS clname FROM studentclass AS sc JOIN `user` AS u ON sc.`studentid`=u.`id`
+JOIN class AS c ON sc.`classid`= c.`id`
+    </select>
+    <select id="selctclassstudentasexa" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.beanexa.StudentClass">
+SELECT sc.`id`,u.`name` AS stname,u.`username`,c.`name` AS clname FROM studentclass AS sc JOIN `user` AS u ON sc.`studentid`=u.`id`
+JOIN class AS c ON sc.`classid`= c.`id` WHERE CONCAT(u.`name`,u.`username`,c.`name`) LIKE CONCAT('%',#{name},'%')
+    </select>
 
 </mapper>

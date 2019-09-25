@@ -9,6 +9,7 @@ import javax.persistence.Id;
  */
 public class  Class{
 
+    @Id
     @Column
     private Integer id;
     @Column

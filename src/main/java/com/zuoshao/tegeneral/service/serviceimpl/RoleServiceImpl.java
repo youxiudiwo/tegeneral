@@ -1,7 +1,10 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
 import com.zuoshao.tegeneral.bean.Role;
+import com.zuoshao.tegeneral.bean.beanexa.RoleMenu;
+import com.zuoshao.tegeneral.bean.beanexa.UserCple;
 import com.zuoshao.tegeneral.mapper.RoleMapper;
+import com.zuoshao.tegeneral.mapper.Userrolemapper;
 import com.zuoshao.tegeneral.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     RoleMapper roleMapper;
+    @Autowired
+    Userrolemapper userrolemapper;
 
     @Override
     public Integer saveRole(Role role) {
@@ -35,6 +40,13 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> getRole() {
         return roleMapper.selectAll();
+    }
+
+    @Override
+    public List<RoleMenu> getrolemenu() {
+
+        List<RoleMenu> selectrolemenu = userrolemapper.selectuserrolemeun();
+        return selectrolemenu;
     }
 
 }

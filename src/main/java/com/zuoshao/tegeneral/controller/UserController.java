@@ -118,18 +118,18 @@ public class UserController {
 
     @RequestMapping("/edituser")
     @ResponseBody
-    public Map<String,Object> updateuser() throws Exception{
+    public Map<String,Object> updateuser(@RequestBody Map map) throws Exception{
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("userid","1");
-        map.put("username","zuolei");
-        map.put("name","左雷");
-        map.put("college","软件学院");
-        map.put("reset",true);
-        List<Object> listtest = new ArrayList<>();
-        listtest.add("学生");
-        listtest.add("老师");
-        map.put("role",listtest);
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("userid","1");
+//        map.put("username","zuolei");
+//        map.put("name","左雷");
+//        map.put("college","软件学院");
+//        map.put("reset",true);
+//        List<Object> listtest = new ArrayList<>();
+//        listtest.add("学生");
+//        listtest.add("老师");
+//        map.put("role",listtest);
 
         String username =(String) map.get("username");
         String name =(String) map.get("name");
