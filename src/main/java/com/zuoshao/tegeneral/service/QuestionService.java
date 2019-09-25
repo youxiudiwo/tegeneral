@@ -3,6 +3,7 @@ package com.zuoshao.tegeneral.service;
 import com.zuoshao.tegeneral.bean.Index;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zuoshao
@@ -11,6 +12,6 @@ import java.util.List;
 public interface QuestionService {
 
     //查询所有指标
-    List<Index> getindexalltrue();
+    List<Map<String, Object>> getindexalltrue(Integer id);
     //
 }
