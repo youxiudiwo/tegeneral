@@ -1,8 +1,10 @@
 package com.zuoshao.tegeneral.controller;
 
+import com.zuoshao.tegeneral.bean.Menu;
 import com.zuoshao.tegeneral.bean.Role;
 import com.zuoshao.tegeneral.bean.beanexa.RoleMenu;
 import com.zuoshao.tegeneral.service.RoleService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,4 +58,27 @@ public class RoleController {
         menuss.put("rolemenu",getrolemenu);
         return menuss;
     }
+
+    @RequestMapping(value = "/getmenuall")
+    @ResponseBody
+    public  Map<String,Object> getmenuall(){
+        List<Menu> menus = roleService.getmenuall();
+        Map<String,Object> menuss = new HashMap<>();
+        menuss.put("code",1);
+        menuss.put("getmenuall",menus);
+        return menuss;
+    }
+
+    @RequestMapping(value = "/getmenuforrole")
+    @ResponseBody
+    public  Map<String,Object> getmenuforrole(@Param("exa")String exa){
+        Role role = new Role();
+        role.setName(exa);
+        List<Menu> menus = roleService.getmenuforrole(role);
+        Map<String,Object> menuss = new HashMap<>();
+        menuss.put("code",1);
+        menuss.put("getmenuforrole",menus);
+        return menuss;
+    }
+
 }

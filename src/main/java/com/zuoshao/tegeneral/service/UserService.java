@@ -33,4 +33,7 @@ public interface UserService {
     public Integer updateuser(User user);
     public Integer deleteuserrole(UsRo usro);
 
+    //根据班级id获取学生
+    List<UserCple> getstudentforclassid(Role role);
+
 }

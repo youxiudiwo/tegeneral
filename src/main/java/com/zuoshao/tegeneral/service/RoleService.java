@@ -1,5 +1,6 @@
 package com.zuoshao.tegeneral.service;
 
+import com.zuoshao.tegeneral.bean.Menu;
 import com.zuoshao.tegeneral.bean.Role;
 import com.zuoshao.tegeneral.bean.beanexa.RoleMenu;
 import com.zuoshao.tegeneral.bean.beanexa.UserCple;
@@ -19,4 +20,8 @@ public interface RoleService {
     List<Role> getRole();
 
     List<RoleMenu> getrolemenu();
+
+    List<Menu> getmenuall();
+
+    List<Menu> getmenuforrole(Role role);
 }

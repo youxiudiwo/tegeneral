@@ -33,5 +33,8 @@ public interface Userrolemapper {
     public List<StudentClass> selectstudentclass();
     //匹配查询学生班级信息
     public List<StudentClass> selctclassstudentasexa(User user);
-
+    //根据角色名字获取对应的菜单
+    List<Menu> selectmenuforrole(Role role);
+    //根据班级id获取所有的学生
+    List<UserCple> selectstudentclassforid(Role role);
 }

@@ -1,7 +1,6 @@
 package com.zuoshao.tegeneral.controller;
 
 import com.zuoshao.tegeneral.bean.Class;
-import com.zuoshao.tegeneral.bean.Relationship;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.RelationShipmapping;
 import com.zuoshao.tegeneral.bean.beanexa.StudentClass;
@@ -84,5 +83,7 @@ public class RelationshipController {
         menuss.put("getstudentclassasexa",list);
         return menuss;
     }
+
+
 
 }

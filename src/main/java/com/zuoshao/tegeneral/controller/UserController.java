@@ -92,6 +92,9 @@ public class UserController {
         return pageInfo;
     }
 
+
+
+
     @RequestMapping("/getuserforid")
     @ResponseBody
     public Map<String, Object> getuserfotid(@Param("id")Integer id){
@@ -115,6 +118,30 @@ public class UserController {
         menuss.put("userforexa",selectuserforexa);
         return menuss;
     }
+
+
+
+    @RequestMapping("/getstudent")
+    @ResponseBody
+    public  PageInfo<UserCple> getstudent(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@Param("pageSize")Integer pageSize,@Param("solter")Integer solter){
+        if (solter==0) {
+            User user = new User();
+            user.setName("学生");
+            PageHelper.startPage(pageNum, pageSize);
+            List<UserCple> selectuserforexa = userService.selectuserforexa(user);
+            PageInfo<UserCple> pageInfo = new PageInfo<>(selectuserforexa);
+            return pageInfo;
+        }else {
+            Role role = new Role();
+            role.setId(solter);
+            PageHelper.startPage(pageNum, pageSize);
+            List<UserCple> getstudentforclassid = userService.getstudentforclassid(role);
+            PageInfo<UserCple> pageInfo = new PageInfo<>(getstudentforclassid);
+            return pageInfo;
+        }
+    }
+
+
 
     @RequestMapping("/edituser")
     @ResponseBody

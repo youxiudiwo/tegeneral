@@ -81,5 +81,11 @@ public class Userserviceimpl implements UserService {
         return delete;
     }
 
+    @Override
+    public List<UserCple> getstudentforclassid(Role role) {
+        List<UserCple> selectstudentclassforid = userrolemapper.selectstudentclassforid(role);
+        return selectstudentclassforid;
+    }
+
 
 }

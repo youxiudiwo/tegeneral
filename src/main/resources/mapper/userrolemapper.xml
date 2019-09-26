@@ -55,4 +55,16 @@ SELECT sc.`id`,u.`name` AS stname,u.`username`,c.`name` AS clname FROM studentcl
 JOIN class AS c ON sc.`classid`= c.`id` WHERE CONCAT(u.`name`,u.`username`,c.`name`) LIKE CONCAT('%',#{name},'%')
     </select>
 
+    <select id="selectmenuforrole" parameterType="com.zuoshao.tegeneral.bean.Role" resultType="com.zuoshao.tegeneral.bean.Menu">
+        SELECT m.* FROM ro_me AS rm JOIN role AS r ON rm.`rid`=r.`id`
+JOIN menu AS m ON rm.`mid`=m.`id` WHERE r.`name`= #{name}
+    </select>
+
+    <select id="selectstudentclassforid" parameterType="com.zuoshao.tegeneral.bean.Role" resultType="com.zuoshao.tegeneral.bean.beanexa.UserCple">
+        SELECT u.*,co.`name` AS college FROM studentclass AS sc JOIN `user` AS u
+    ON sc.`studentid`=u.`id` JOIN class AS c ON sc.`classid`=c.`id`
+    JOIN college AS co ON u.`collid`=co.`id`
+    WHERE c.`id`= #{id}
+    </select>
+
 </mapper>
