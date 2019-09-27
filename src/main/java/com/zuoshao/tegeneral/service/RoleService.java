@@ -23,5 +23,5 @@ public interface RoleService {
 
     List<Menu> getmenuall();
 
-    List<Menu> getmenuforrole(Role role);
+    List<Menu> getmenuforrole(Role role );
 }
