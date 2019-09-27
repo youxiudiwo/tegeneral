@@ -14,7 +14,7 @@ public class Index{
     @Column
     private String name;
     @Column
-    private Double weight;
+    private String weight;
     @Column
     private Integer pid;
     @Column
@@ -36,11 +36,11 @@ public class Index{
         this.name = name;
     }
 
-    public Double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
