@@ -1,6 +1,7 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
 import com.zuoshao.tegeneral.bean.Index;
+import com.zuoshao.tegeneral.bean.Option;
 import com.zuoshao.tegeneral.mapper.IndexMapper;
 import com.zuoshao.tegeneral.service.IndexService;
 import org.apache.ibatis.annotations.Param;
@@ -41,7 +42,6 @@ public class IndexServiveImpl implements IndexService {
             if(!childs.isEmpty()){
                 map.put("children", childs);
             }
-
             result.add(map);
         });
 
@@ -59,8 +59,31 @@ public class IndexServiveImpl implements IndexService {
     }
 
     @Override
-    public  Integer updateindex(@Param("name")String name, @Param("weight")String weight,@Param("id")Integer id){
-        return indexmapper.updateindex(name,weight,id);
+    public  Integer updateindex1(@Param("name")String name,@Param("id")Integer id){
+        return indexmapper.updateindex1(name,id);
+    }
+    @Override
+    public  Integer updateindex2(@Param("weight")String weight,@Param("id")Integer id){
+        return indexmapper.updateindex2(weight,id);
     }
 
+    @Override
+    public List<Index> selectindex1(Integer id){
+        return indexmapper.selectindex1(id);
+    }
+
+    @Override
+    public List<Option> selectoption(){
+        return indexmapper.selectoption();
+    }
+
+    @Override
+    public Integer insertoption(@Param("name")String name, @Param("fraction")Integer fraction){
+        return indexmapper.insertoption(name,fraction);
+    }
+
+    @Override
+    public Integer deleteoption(){
+        return indexmapper.deleteoption();
+    }
 }

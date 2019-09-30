@@ -20,7 +20,29 @@
         delete from `index` where id = #{id}
     </delete>
 
-    <update id="updateindex">
-        update `index` set name = #{name},weight = #{weight} where id = #{id}
+    <update id="updateindex1">
+        update `index` set name = #{name} where id = #{id}
     </update>
+    <update id="updateindex2">
+        update `index` set weight = #{weight} where id = #{id}
+    </update>
+
+    <select id="selectindex1" resultType="com.zuoshao.tegeneral.bean.Index">
+        select name,weight from `index` where id=#{id}
+    </select>
+    <select id="selectoption" resultType="com.zuoshao.tegeneral.bean.Option">
+        select * from `option`
+    </select>
+
+    <!--<update id="updateoption">-->
+        <!--update `option` set weight = #{weight} where id = #{id}-->
+    <!--</update>-->
+
+    <delete id="deleteoption" >
+        truncate table `option`
+    </delete>
+
+    <insert id="insertoption">
+        insert into `option` (name,fraction) value (#{name},#{fraction})
+    </insert>
 </mapper>

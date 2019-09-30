@@ -12,7 +12,7 @@ public class Option {
     @Column
     private Integer id;
     @Column
-    private Integer name;
+    private String name;
     @Column
     private Integer fraction;
 
@@ -24,11 +24,11 @@ public class Option {
         this.id = id;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 
