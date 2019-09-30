@@ -80,10 +80,10 @@ public class IndexController {
     @ResponseBody
     public Integer updateoption(String name1,Integer fraction1,String name2,Integer fraction2,String name3,Integer fraction3,String name4,Integer fraction4){                            //修改选项
         Integer s = indexService.deleteoption();
-        Integer a = indexService.insertoption("name1",0);
-        Integer b = indexService.insertoption("name2",0);
-        Integer c = indexService.insertoption("name3",0);
-        Integer d = indexService.insertoption("name4",0);
+        Integer a = indexService.insertoption(name1,fraction1);
+        Integer b = indexService.insertoption(name2,fraction2);
+        Integer c = indexService.insertoption(name3,fraction3);
+        Integer d = indexService.insertoption(name4,fraction4);
         return s + a + b + c + d;
     }
 
