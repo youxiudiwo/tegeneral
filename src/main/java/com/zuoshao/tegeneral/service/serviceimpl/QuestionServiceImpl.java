@@ -1,14 +1,18 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
 import com.zuoshao.tegeneral.bean.Index;
+import com.zuoshao.tegeneral.bean.Relationship;
+import com.zuoshao.tegeneral.bean.Studentclass;
+import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.mapper.IndexMapper;
+import com.zuoshao.tegeneral.mapper.RelationshipMapper;
+import com.zuoshao.tegeneral.mapper.Studentclassmapper;
+import com.zuoshao.tegeneral.mapper.Usermapper;
 import com.zuoshao.tegeneral.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -19,10 +23,43 @@ import java.util.stream.Collectors;
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
     IndexMapper indexmapper;
+    @Autowired
+    Studentclassmapper studentclassmapper;
+    @Autowired
+    RelationshipMapper relationshipMapper;
+    @Autowired
+    Usermapper usermapper;
+
     @Override
     public List<Map<String, Object>> getindexalltrue(Integer id) {
         List<Index> indices = indexmapper.selectAll();
         return buildTree(id,indices);
+    }
+
+    @Override
+    public Studentclass getstudentclass(Studentclass studentclass) {
+        Studentclass studentclass1 = studentclassmapper.selectOne(studentclass);
+        return studentclass;
+    }
+
+    @Override
+    public List<User> getclassteacher(Relationship relationship) {
+        List<Relationship> select = relationshipMapper.select(relationship);
+        List<Integer> lists = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        User user = new User();
+        List<User> users=new ArrayList<>();
+        for (Relationship relationship1:select) {
+            if (set.add(relationship1.getTeacherid())) {
+                lists.add(relationship1.getTeacherid());
+            }
+        }
+        for (Integer list:lists) {
+            user.setId(list);
+            User select1 = usermapper.selectOne(user);
+            users.add(select1);
+        }
+        return users;
     }
 
 
