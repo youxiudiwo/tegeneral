@@ -34,15 +34,21 @@
         select * from `option`
     </select>
 
-    <!--<update id="updateoption">-->
-        <!--update `option` set weight = #{weight} where id = #{id}-->
-    <!--</update>-->
-
     <delete id="deleteoption" >
         truncate table `option`
     </delete>
 
     <insert id="insertoption">
         insert into `option` (name,fraction) value (#{name},#{fraction})
+    </insert>
+
+    <select id="selectId" resultType="Integer">
+        select pid from `index` where id = #{pid}
+    </select>
+    <select id="selectSort"  resultType="Integer">
+        select sort from `index` where id = #{pid}
+    </select>
+    <insert id="insertIndexF">
+        insert into `index` (name,weight,pid,sort) value (#{name},0,#{pid},#{sort})
     </insert>
 </mapper>

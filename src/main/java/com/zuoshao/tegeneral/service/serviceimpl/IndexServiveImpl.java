@@ -86,4 +86,19 @@ public class IndexServiveImpl implements IndexService {
     public Integer deleteoption(){
         return indexmapper.deleteoption();
     }
+
+    @Override
+    public Integer selectId(Integer pid){
+        return indexmapper.selectId(pid);
+    }
+
+    @Override
+    public Integer selectSort(Integer pid){
+        return indexmapper.selectSort(pid);
+    }
+
+    @Override
+    public Integer insertIndexF(@Param("name")String name, @Param("pid")Integer pid, @Param("sort")Integer sort){
+        return indexmapper.insertIndexF(name,pid,sort);
+    }
 }

@@ -18,4 +18,8 @@ public interface IndexService {
     List<Option> selectoption();
     Integer insertoption(@Param("name")String name, @Param("fraction")Integer fraction);
     Integer deleteoption();
+
+    Integer selectId(Integer pid);
+    Integer selectSort(Integer pid);
+    Integer insertIndexF(@Param("name")String name, @Param("pid")Integer pid, @Param("sort")Integer sort);
 }

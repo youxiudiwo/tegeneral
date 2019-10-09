@@ -110,4 +110,22 @@ public class IndexController {
         return  result;
     }
 
+    @RequestMapping( "/insertIndexF")
+    @ResponseBody
+    @ApiOperation(value = "增加父级指标",httpMethod = "POST")
+    public Integer insertIndexF(@RequestParam String name,@RequestParam Integer pid){
+        Integer integer1 = indexService.selectId(pid);
+        Integer integer2 = indexService.selectSort(pid);
+        Integer a = integer2 + 1;
+        Integer integer3 = indexService.insertIndexF(name,integer1,a);
+        return integer3;
+    }
+
+    @RequestMapping( "/insertIndexZ")
+    @ResponseBody
+    @ApiOperation(value = "增加子级指标",httpMethod = "POST")
+    public Integer insertIndexZ(@RequestParam String name,@RequestParam Integer id){
+        Integer integer = indexService.insertIndexF(name,id,0);
+        return integer ;
+    }
 }
