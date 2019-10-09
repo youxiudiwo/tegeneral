@@ -32,4 +32,10 @@ public class BatchServiceImpl implements BatchService {
     public List<Batch> getBatch() {
         return batchMapper.selectAll();
     }
+
+    @Override
+    public Batch getbatchstate(Batch batch) {
+        Batch batch1 = batchMapper.selectOne(batch);
+        return batch1;
+    }
 }

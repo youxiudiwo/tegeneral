@@ -12,5 +12,7 @@ public interface BatchService {
     Integer updateBatch(Batch batch);
 
     List<Batch> getBatch();
+    //查看当前批次是否开启
+    Batch getbatchstate(Batch batch);
 
 }
