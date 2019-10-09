@@ -32,10 +32,10 @@ public class IndexServiveImpl implements IndexService {
         // 2.前进段
         childList.stream().forEach(item->{
             Map<String, Object> map = new LinkedHashMap<>();
-            map.put("id", item.getId());
+            map.put("key", item.getId());
             map.put("title", item.getName());
             map.put("pid", item.getPid());
-            map.put("key", item.getSort());
+            map.put("sort", item.getSort());
             map.put("weight", item.getWeight());
 
             List<Map<String, Object>> childs = buildTree(item.getId(), list);
