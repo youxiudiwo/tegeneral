@@ -8,6 +8,7 @@ import com.zuoshao.tegeneral.mapper.MenuMapper;
 import com.zuoshao.tegeneral.mapper.RoleMapper;
 import com.zuoshao.tegeneral.mapper.Userrolemapper;
 import com.zuoshao.tegeneral.service.RoleService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,4 +66,21 @@ public class RoleServiceImpl implements RoleService {
         return selectmenuforrole;
     }
 
+    @Override
+    public Integer insertRole(String rolename){                //以下新增
+        return roleMapper.insertRole(rolename);
+    }
+    @Override
+    public Integer insertRo_Me(@Param("rolename") String rolename, @Param("menuId") Integer menuId){
+        return roleMapper.insertRo_Me(rolename,menuId);
+    }
+    @Override
+    public Role selectRole(String rolename){
+        return roleMapper.selectRole(rolename);
+    }
+
+    @Override
+    public Integer insertMenu(@Param("name") String name, @Param("img") String img,@Param("path") String path){
+        return menuMapper.insertMenu(name,img,path);
+    }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+       mamespace：命名空间;指定为接口的全类名可以进行接口绑定
+       id：唯一标识
+       resultType：返回值类型
+-->
+<mapper namespace="com.zuoshao.tegeneral.mapper.RoleMapper">
+    <insert id="insertRole">
+        insert into role (name) value (#{rolename})
+    </insert>
+
+    <insert id="insertRo_Me">
+        insert into ro_me (rid,mid) value ((select id from role where name = #{rolename}),#{menuId})
+    </insert>
+
+    <select id="selectRole" resultType="com.zuoshao.tegeneral.bean.Role">
+        select * from role where name = #{rolename}
+    </select>
+</mapper>
