@@ -6,6 +6,7 @@ import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.RelationShipmapping;
 import com.zuoshao.tegeneral.bean.beanexa.StudentClass;
 import com.zuoshao.tegeneral.mapper.ClassMapper;
+import com.zuoshao.tegeneral.mapper.RelationshipMapper;
 import com.zuoshao.tegeneral.mapper.Userrolemapper;
 import com.zuoshao.tegeneral.service.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class RelationshipServiceimpl implements RelationshipService {
     Userrolemapper userrolemapper;
     @Autowired
     ClassMapper classmapper;
+    @Autowired
+    RelationshipMapper relationshipmapper;
 
     @Override
     public List<RelationShipmapping> getrelationship() {
@@ -53,5 +56,17 @@ public class RelationshipServiceimpl implements RelationshipService {
     public List<StudentClass> getstudentclassasexa(User user) {
         List<StudentClass> list = userrolemapper.selctclassstudentasexa(user);
         return list;
+    }
+
+    @Override
+    public List<Relationship> getteacherrelationship(Relationship relationship) {
+        List<Relationship> select = relationshipmapper.select(relationship);
+        return select;
+    }
+
+    @Override
+    public List<Relationship> getcollegeteacher(Relationship relationship) {
+        List<Relationship> select = relationshipmapper.select(relationship);
+        return select;
     }
 }
