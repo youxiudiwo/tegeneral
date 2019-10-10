@@ -4,6 +4,7 @@ import com.zuoshao.tegeneral.bean.*;
 import com.zuoshao.tegeneral.bean.Class;
 import com.zuoshao.tegeneral.bean.beanexa.Querytionexa;
 import com.zuoshao.tegeneral.bean.beanexa.QustionBatch;
+import com.zuoshao.tegeneral.bean.beanexa.UserCple;
 import com.zuoshao.tegeneral.service.BatchService;
 import com.zuoshao.tegeneral.service.QuestionService;
 import com.zuoshao.tegeneral.service.RelationshipService;
@@ -18,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author zuoshao
@@ -98,25 +96,72 @@ public class QuestionnaireController {
 
 
     @ApiOperation(value="根据当前登陆老师获取评价同行试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷")
-    @ApiImplicitParam(paramType="query", name = "teacherid", value = "用户id", required = true, dataType = "int")
+    @ApiImplicitParam(paramType="query", name = "teachername", value = "老师用户名", required = true, dataType = "string")
     @RequestMapping("/getteacherquestionnaire")
     @ResponseBody
-    public Map<String,Object> getteacherquestionnaire(@RequestParam("teacherid")Integer teacherid) {
+    public Map<String,Object> getteacherquestionnaire(@RequestParam("teachername")String teachername) {
+
+        Integer teacherid = null;
+        User user2 = new User();
+        user2.setUsername(teachername);
+        User userlogin = userService.userlogin(user2);
 
         //查询当前老师所在的学院中所有同行老师
         Relationship relationship = new Relationship();
-        relationship.setTeacherid(teacherid);
+        relationship.setTeacherid(userlogin.getId());
         List<Relationship> list1 = relationshipservice.getteacherrelationship(relationship);
         Integer collegeid =  list1.get(0).getCollegeid();
         Relationship relationship2 = new Relationship();
         relationship2.setCollegeid(collegeid);
         List<Relationship> getcollegeteacher = relationshipservice.getcollegeteacher(relationship2);
-        //循环封装成试卷格式
-//        new
-//        for (Relationship re:getcollegeteacher) {
-//            userService.selectuserforid()
-//        }
+        // 根据id去重
+        Set<Integer> setid = new TreeSet<>();
+        for (Relationship relat:getcollegeteacher) {
+            setid.add(relat.getTeacherid());
+        }
 
+        User user1 = new User();
+        List<UserCple> list= new ArrayList<>();
+        for (Integer ins:setid) {
+            user1.setId(ins);
+            UserCple selectuserforid = userService.selectuserforid(user1);
+            list.add(selectuserforid);
+        }
+
+        //循环封装成试卷格式
+//        1.获取当前批次状态为开启的试卷，2.获取当前同行评价接口的试卷
+        Batch batch = new Batch();
+        batch.setState(1);
+        Batch getbatchstate = batchService.getbatchstate(batch);
+
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setBatch(getbatchstate.getId());
+        questionnaire.setName("评价同行");
+        Questionnaire getqeustionexa = questionService.getqeustionexa(questionnaire);
+
+        User user = new User();
+        List<UserCple> listss = new ArrayList<>();
+        for (Relationship re:getcollegeteacher) {
+            user.setId(re.getTeacherid());
+            UserCple selectuserforid = userService.selectuserforid(user);
+            listss.add(selectuserforid);
+        }
+
+
+        List<Querytionexa> lists = new ArrayList<>();
+        for (UserCple userCple:list){
+            Querytionexa querytionexa = new Querytionexa();
+            querytionexa.setState(1);
+            querytionexa.setName(getbatchstate.getName());
+            querytionexa.setQid(getqeustionexa.getId());
+            querytionexa.setQname(getqeustionexa.getName());
+            querytionexa.setTid(userCple.getId());
+            querytionexa.setTname(userCple.getName());
+            lists.add(querytionexa);
+        }
+
+        menuss.put("studentquestion", lists);
+        menuss.put("code", 1);
         return menuss;
     }
 
