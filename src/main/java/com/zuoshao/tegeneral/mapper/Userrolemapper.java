@@ -33,4 +33,7 @@ public interface Userrolemapper {
     List<UserCple> selectstudentclassforid(Role role);
     //根据传入的名称查询相关试卷（传入对应批次和试卷名称得到当前批次的该试卷）
     Questionnaire selectquestionexa(Questionnaire questionnaire);
+    //返回所有的试卷（批次）
+    List<QustionBatch> selectquestionall();
+
 }
