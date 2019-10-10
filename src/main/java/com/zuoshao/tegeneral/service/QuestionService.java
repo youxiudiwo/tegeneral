@@ -1,9 +1,7 @@
 package com.zuoshao.tegeneral.service;
 
-import com.zuoshao.tegeneral.bean.Index;
-import com.zuoshao.tegeneral.bean.Relationship;
-import com.zuoshao.tegeneral.bean.Studentclass;
-import com.zuoshao.tegeneral.bean.User;
+import com.zuoshao.tegeneral.bean.*;
+import com.zuoshao.tegeneral.bean.beanexa.Querytionexa;
 
 import java.util.List;
 import java.util.Map;
@@ -14,11 +12,10 @@ import java.util.Map;
  */
 public interface QuestionService {
 
-    //查询所有指标
-    List<Map<String, Object>> getindexalltrue(Integer id);
     //查询该学生对应班级
     Studentclass getstudentclass(Studentclass studentclass);
     //查询该班级下的所有老师
     List<User> getclassteacher(Relationship relationship);
-    //
+    //根据传入的名称查询相关试卷（传入对应批次和试卷名称得到当前批次的该试卷）
+    Questionnaire getqeustionexa(Questionnaire questionnaire);
 }

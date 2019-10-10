@@ -1,13 +1,7 @@
 package com.zuoshao.tegeneral.mapper;
 
-import com.zuoshao.tegeneral.bean.Menu;
-import com.zuoshao.tegeneral.bean.Relationship;
-import com.zuoshao.tegeneral.bean.Role;
-import com.zuoshao.tegeneral.bean.User;
-import com.zuoshao.tegeneral.bean.beanexa.RelationShipmapping;
-import com.zuoshao.tegeneral.bean.beanexa.RoleMenu;
-import com.zuoshao.tegeneral.bean.beanexa.StudentClass;
-import com.zuoshao.tegeneral.bean.beanexa.UserCple;
+import com.zuoshao.tegeneral.bean.*;
+import com.zuoshao.tegeneral.bean.beanexa.*;
 
 import java.util.List;
 
@@ -37,4 +31,6 @@ public interface Userrolemapper {
     List<Menu> selectmenuforrole(Role role);
     //根据班级id获取所有的学生
     List<UserCple> selectstudentclassforid(Role role);
+    //根据传入的名称查询相关试卷（传入对应批次和试卷名称得到当前批次的该试卷）
+    Questionnaire selectquestionexa(Questionnaire questionnaire);
 }

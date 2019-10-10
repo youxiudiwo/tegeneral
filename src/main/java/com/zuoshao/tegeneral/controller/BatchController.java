@@ -2,6 +2,7 @@ package com.zuoshao.tegeneral.controller;
 
 import com.zuoshao.tegeneral.bean.Batch;
 import com.zuoshao.tegeneral.service.BatchService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+@Api(description = "批次管理接口")
 @Controller
 public class BatchController {
     @Autowired

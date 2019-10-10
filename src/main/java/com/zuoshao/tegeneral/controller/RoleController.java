@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@Api(description = "增加角色测试")
+@Api(description = "角色管理接口")
 public class RoleController {
     @Autowired
     private RoleService roleService;

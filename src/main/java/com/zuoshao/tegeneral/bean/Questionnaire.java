@@ -7,7 +7,7 @@ import javax.persistence.Id;
  * @author zuoshao
  * @date 2019/9/9 - 9:21
  */
-public class Questionnaire {
+public class  Questionnaire {
 
     @Column
     private Integer id;

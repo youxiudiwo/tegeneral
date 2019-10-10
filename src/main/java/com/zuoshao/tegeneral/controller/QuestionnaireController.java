@@ -25,9 +25,10 @@ import java.util.Map;
  * @date 2019/10/8 - 9:43
  */
 
-@Api(value = "QuestionnaireController|一个用来对应试卷的控制器")
+@Api(description = "试卷管理接口",value = "QuestionnaireController|一个用来对应试卷的控制器")
 @Controller
 public class QuestionnaireController {
+
 
     @Autowired
     QuestionService questionService;
@@ -53,12 +54,18 @@ public class QuestionnaireController {
         batch.setState(1);
         Batch getbatchstate = batchService.getbatchstate(batch);
 
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setBatch(getbatchstate.getId());
+        questionnaire.setName("评价老师");
+
+        Questionnaire getqeustionexa = questionService.getqeustionexa(questionnaire);
 
         for (User user : users) {
             Querytionexa querytionexa = new Querytionexa();
             querytionexa.setState(1);
             querytionexa.setName(getbatchstate.getName());
-            querytionexa.setQname("评价老师试卷");
+            querytionexa.setQid(getqeustionexa.getId());
+            querytionexa.setQname(getqeustionexa.getName());
             querytionexa.setTid(user.getId());
             querytionexa.setTname(user.getName());
 
@@ -70,4 +77,48 @@ public class QuestionnaireController {
 
         return menuss;
     }
+
+
+    @ApiOperation(value="根据当前登陆老师获取评价同行试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷")
+    @ApiImplicitParam(paramType="query", name = "teacherid", value = "用户id", required = true, dataType = "int")
+    @RequestMapping("/getteacherquestionnaire")
+    @ResponseBody
+    public Map<String,Object> getteacherquestionnaire(@RequestParam("teacherid")Integer studentid) {
+
+        //查询当前老师所在的学院中所有同行老师
+//
+//
+//        Studentclass getstudentclassid = questionService.getstudentclass(studentclass);
+//        Relationship relationship = new Relationship();
+//        relationship.setClassid(getstudentclassid.getClassid());
+//        List<User> users = questionService.getclassteacher(relationship);
+//        List<Querytionexa> listss = new ArrayList<>();
+//        Batch batch = new Batch();
+//        batch.setState(1);
+//        Batch getbatchstate = batchService.getbatchstate(batch);
+//
+//        Questionnaire questionnaire = new Questionnaire();
+//        questionnaire.setBatch(getbatchstate.getId());
+//        questionnaire.setName("评价老师");
+//
+//        Questionnaire getqeustionexa = questionService.getqeustionexa(questionnaire);
+//
+//        for (User user : users) {
+//            Querytionexa querytionexa = new Querytionexa();
+//            querytionexa.setState(1);
+//            querytionexa.setName(getbatchstate.getName());
+//            querytionexa.setQid(getqeustionexa.getId());
+//            querytionexa.setQname(getqeustionexa.getName());
+//            querytionexa.setTid(user.getId());
+//            querytionexa.setTname(user.getName());
+//
+//            listss.add(querytionexa);
+//        }
+//
+//        menuss.put("studentquestion", listss);
+//        menuss.put("code", 1);
+//
+        return menuss;
+    }
+
 }

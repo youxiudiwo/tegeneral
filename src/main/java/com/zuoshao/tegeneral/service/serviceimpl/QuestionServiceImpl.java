@@ -1,13 +1,7 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
-import com.zuoshao.tegeneral.bean.Index;
-import com.zuoshao.tegeneral.bean.Relationship;
-import com.zuoshao.tegeneral.bean.Studentclass;
-import com.zuoshao.tegeneral.bean.User;
-import com.zuoshao.tegeneral.mapper.IndexMapper;
-import com.zuoshao.tegeneral.mapper.RelationshipMapper;
-import com.zuoshao.tegeneral.mapper.Studentclassmapper;
-import com.zuoshao.tegeneral.mapper.Usermapper;
+import com.zuoshao.tegeneral.bean.*;
+import com.zuoshao.tegeneral.mapper.*;
 import com.zuoshao.tegeneral.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +15,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class QuestionServiceImpl implements QuestionService {
+
     @Autowired
-    IndexMapper indexmapper;
+    Userrolemapper userrolemapper;
     @Autowired
     Studentclassmapper studentclassmapper;
     @Autowired
@@ -30,11 +25,6 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     Usermapper usermapper;
 
-    @Override
-    public List<Map<String, Object>> getindexalltrue(Integer id) {
-        List<Index> indices = indexmapper.selectAll();
-        return buildTree(id,indices);
-    }
 
     @Override
     public Studentclass getstudentclass(Studentclass studentclass) {
@@ -60,6 +50,12 @@ public class QuestionServiceImpl implements QuestionService {
             users.add(select1);
         }
         return users;
+    }
+
+    @Override
+    public Questionnaire getqeustionexa(Questionnaire questionnaire) {
+        Questionnaire selectquestionexa = userrolemapper.selectquestionexa(questionnaire);
+        return selectquestionexa;
     }
 
 
