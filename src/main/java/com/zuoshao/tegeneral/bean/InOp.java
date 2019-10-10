@@ -10,16 +10,16 @@ import javax.persistence.Id;
 public class InOp{
 
     @Column
-    private Integer lid;
+    private Integer iid;
     @Column
     private Integer oid;
 
-    public Integer getLid() {
-        return lid;
+    public Integer getIid() {
+        return iid;
     }
 
-    public void setLid(Integer lid) {
-        this.lid = lid;
+    public void setIid(Integer iid) {
+        this.iid = iid;
     }
 
     public Integer getOid() {
