@@ -11,15 +11,19 @@ import java.util.Map;
 
 public interface IndexService {
     List<Map<String,Object>> selectIndex(int pid);
-    Integer insertindex(@Param("name")String name, @Param("weight")String weight, @Param("pid")Integer pid, @Param("sort")Integer sort);
+    Integer insertindex(@Param("id")Integer id,@Param("name")String name, @Param("weight")String weight, @Param("pid")Integer pid, @Param("sort")Integer sort);
     int deleteindex(Integer id);
     Integer updateindex1(@Param("name")String name,@Param("weight")String weight,@Param("id")Integer id);
 //    Integer updateindex2(@Param("weight")String weight,@Param("id")Integer id);
     List<Index> selectindex1(Integer id);
     List<Option> selectoption(Integer id);
-    Integer insertoption(@Param("name")String name, @Param("fraction")Integer fraction);
+    Integer insertoption(@Param("id")Integer id,@Param("name")String name, @Param("fraction")String fraction);
     Integer deleteoption();
     List<InOp> selectIn_Op(Integer id);
+    Integer updateOption(@Param("name")String name,@Param("fraction")String fraction,@Param("id")Integer id);
+    Integer selectIdOption(Integer id);
+    Integer selectIdIndex(Integer id);
+    Integer insertIn_Op(@Param("iid")Integer iid,@Param("oid")Integer oid);
 
     Integer selectId(Integer pid);
     Integer selectSort(Integer pid);

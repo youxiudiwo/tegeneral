@@ -44,17 +44,41 @@ public class IndexController {
 
     @RequestMapping("/insertIndex")
     @ResponseBody
-    @ApiOperation(value = "增加指标",httpMethod = "POST")
+    @ApiOperation(value = "增加同级指标及选项",httpMethod = "POST")
 //    @ApiImplicitParams({
 //            @ApiImplicitParam(name = "name",value = "输入指标名称",required = true,paramType = "name",dataType = "String"),
 //            @ApiImplicitParam(name = "weight",value = "输入指标名称",required = true,paramType = "weight",dataType = "String"),
 //            @ApiImplicitParam(name = "pid",value = "输入指标名称",required = true,paramType = "pid",dataType = "Integer"),
 //            @ApiImplicitParam(name = "sort",value = "输入指标名称",required = true,paramType = "sort",dataType = "Integer")
 //    })
-    public Map insertindex(@RequestParam("name")String name, @RequestParam("weight")String weight, @RequestParam("pid")Integer pid, @RequestParam("sort")Integer sort){      //增加
+    public Map insertindex(@RequestParam("name")String name, @RequestParam("weight")String weight, @RequestParam("当前选中的pid")Integer pid, @RequestParam("当前选中的sort")Integer sort, @RequestParam String[] xin){      //增加
         Map result = new HashMap();
-        Integer insert = indexService.insertindex(name,weight,pid,sort);
-        result.put("insertindex",insert);
+        Integer a;
+        for(int k = 8;;k++){
+            Integer zz = indexService.selectIdIndex(k);
+            if(zz == null){
+                Integer insert = indexService.insertindex(k,name,weight,pid,sort);
+                a = k;
+                break;
+            }
+        }
+        List<Integer> xx = new ArrayList<>();
+        for(int i = 0,j = 4 ;i < xin.length;i = i + 2){
+             Integer mm = indexService.selectIdOption(j);
+             if(mm == null) {
+                 Integer insert1 = indexService.insertoption(j, xin[i], xin[i + 1]);
+                 xx.add(j);
+             }else{
+                 j = j + 1;
+                 System.out.print("id已存在!!!");
+             }
+//            Integer insert1 = indexService.insertoption(j, xin[i], xin[i + 1]);
+//            xx.add(j);
+        }
+        for(int i = 0;i<xx.size();i++){
+            Integer gg = indexService.insertIn_Op(a,xx.get(i));
+            result.put("code",1);
+        }
         return result;
     }
 
@@ -72,9 +96,16 @@ public class IndexController {
     public Map  updateindex1(@RequestParam("name")String name,@RequestParam("id")Integer id,@RequestParam("weight")String weight,@RequestParam String[] xuanxiang){      //修改指标名称
         Map a = new HashMap();
         Integer update = indexService.updateindex1(name,weight,id);
-        for(int i = 0; i < xuanxiang.length - 1 ; i++){
-
+        List<InOp> selectIn_Op = indexService.selectIn_Op(id);
+        List<Integer> list1 = new ArrayList<>();
+        for(int i = 0;i<selectIn_Op.size();i++){
+            list1.add(selectIn_Op.get(i).getOid());
         }
+        for(int i = 0,j = 0 ; i < xuanxiang.length ;i = i + 2){
+            Integer c = indexService.updateOption(xuanxiang[i],xuanxiang[i+1],list1.get(j));
+            j++;
+        }
+        a.put("code",1);
         return a;
     }
 
@@ -88,10 +119,12 @@ public class IndexController {
 
     @RequestMapping("/selectIndexOption")
     @ResponseBody
-    @ApiOperation(value = "查询你单个指标",httpMethod = "POST")
+    @ApiOperation(value = "查询单个指标及其选项",httpMethod = "POST")
     public Map  selectIndexOption(@RequestParam Integer id){                            //点击指标名称，显示查询名称和权重以及选项
         Map a = new HashMap();
+        Map b = new HashMap();
         List<Index> selectindex1 = indexService.selectindex1(id);
+        System.out.print(selectindex1);
         List<InOp> selectIn_Op1 = indexService.selectIn_Op(id);
         List<Integer> list = new ArrayList<>();
         for(int i = 0;i<selectIn_Op1.size();i++ ){
@@ -101,8 +134,9 @@ public class IndexController {
             List<Option> selectoption = indexService.selectoption(list.get(i));
             a.put("selectoption"+ i ,selectoption);
         }
-        a.put("selectindex1",selectindex1);
-        return a;
+        b.put("data1",selectindex1);
+        b.put("data2",a);
+        return b;
     }
 
 //    @RequestMapping( "/insertOption")
@@ -134,11 +168,11 @@ public class IndexController {
         return integer3;
     }
 
-    @RequestMapping( "/insertIndexZ")
-    @ResponseBody
-    @ApiOperation(value = "增加子级指标",httpMethod = "POST")
-    public Integer insertIndexZ(@RequestParam String name,@RequestParam Integer id){
-        Integer integer = indexService.insertIndexF(name,id,0);
-        return integer ;
-    }
+//    @RequestMapping( "/insertIndexZ")
+//    @ResponseBody
+//    @ApiOperation(value = "增加子级指标",httpMethod = "POST")
+//    public Integer insertIndexZ(@RequestParam String name,@RequestParam Integer id){
+//        Integer integer = indexService.insertIndexF(name,id,0);
+//        return integer ;
+//    }
 }

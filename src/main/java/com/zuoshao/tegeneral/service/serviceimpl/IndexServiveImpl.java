@@ -5,6 +5,7 @@ import com.zuoshao.tegeneral.bean.Index;
 import com.zuoshao.tegeneral.bean.Option;
 import com.zuoshao.tegeneral.mapper.IndexMapper;
 import com.zuoshao.tegeneral.service.IndexService;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,8 +51,8 @@ public class IndexServiveImpl implements IndexService {
     }
 
     @Override
-    public Integer insertindex(@Param("name")String name, @Param("weight")String weight, @Param("pid")Integer pid, @Param("sort")Integer sort){
-        return indexmapper.insertindex(name,weight,pid,sort);
+    public Integer insertindex(@Param("id")Integer id,@Param("name")String name, @Param("weight")String weight, @Param("pid")Integer pid, @Param("sort")Integer sort){
+        return indexmapper.insertindex(id,name,weight,pid,sort);
     }
 
     @Override
@@ -79,8 +80,8 @@ public class IndexServiveImpl implements IndexService {
     }
 
     @Override
-    public Integer insertoption(@Param("name")String name, @Param("fraction")Integer fraction){
-        return indexmapper.insertoption(name,fraction);
+    public Integer insertoption(@Param("id")Integer id, @Param("name")String name, @Param("fraction")String fraction){
+        return indexmapper.insertoption(id,name,fraction);
     }
 
     @Override
@@ -106,5 +107,24 @@ public class IndexServiveImpl implements IndexService {
     @Override
     public List<InOp> selectIn_Op(Integer id){
         return indexmapper.selectIn_Op(id);
+    }
+
+    @Override
+    public Integer updateOption(@Param("name")String name,@Param("fraction")String fraction,@Param("id")Integer id){
+        return indexmapper.updateOption(name,fraction,id);
+    }
+
+    @Override
+    public Integer selectIdOption(Integer id){
+        return indexmapper.selectIdOption(id);
+    }
+    @Override
+    public Integer selectIdIndex(Integer id){
+        return  indexmapper.selectIdIndex(id);
+    }
+
+    @Override
+    public Integer insertIn_Op(@Param("iid")Integer iid,@Param("oid")Integer oid){
+        return indexmapper.insertIn_Op(iid,oid);
     }
 }

@@ -13,7 +13,7 @@
     </select>
 
     <insert id="insertindex">
-        insert into `index` (name,weight,pid,sort) value (#{name},#{weight},#{pid},#{sort})
+        insert into `index` (id,name,weight,pid,sort) value (#{id},#{name},#{weight},#{pid},#{sort})
     </insert>
 
     <delete id="deleteindex" parameterType="Integer">
@@ -28,7 +28,7 @@
     <!--</update>-->
 
     <select id="selectindex1" resultType="com.zuoshao.tegeneral.bean.Index">
-        select name,weight from `index` where id=#{id}
+        select * from `index` where id=#{id}
     </select>
     <select id="selectoption" resultType="com.zuoshao.tegeneral.bean.Option">
         select * from `option` where id = #{id}
@@ -39,7 +39,7 @@
     </delete>
 
     <insert id="insertoption">
-        insert into `option` (name,fraction) value (#{name},#{fraction})
+        insert into `option` (id,name,fraction) value (#{id},#{name},#{fraction})
     </insert>
 
     <select id="selectId" resultType="Integer">
@@ -55,4 +55,18 @@
     <select id="selectIn_Op" resultType="com.zuoshao.tegeneral.bean.InOp">
         select oid from in_op where iid = #{id}
     </select>
+
+    <update id="updateOption">
+        update `option` set name = #{name},fraction = #{fraction} where id = #{id}
+    </update>
+
+    <select id="selectIdOption" resultType="Integer">
+        select * from `option` where id = #{id}
+    </select>
+    <select id="selectIdIndex" resultType="Integer">
+        select * from `index` where id = #{id}
+    </select>
+    <insert id="insertIn_Op">
+        insert into in_op (iid,oid) value (#{iid},#{oid})
+    </insert>
 </mapper>
