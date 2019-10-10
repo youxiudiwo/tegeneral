@@ -31,7 +31,7 @@ import java.util.Map;
  *
  * @author SUNF
  */
-@Api(value = "RelationshipController|一个用来测试swagger注解的控制器")
+@Api(description = "授课关系管理接口",value = "")
 @Controller
 public class RelationshipController {
 

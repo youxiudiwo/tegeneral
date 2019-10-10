@@ -66,5 +66,7 @@ JOIN menu AS m ON rm.`mid`=m.`id` WHERE r.`name`= #{name}
     JOIN college AS co ON u.`collid`=co.`id`
     WHERE c.`id`= #{id}
     </select>
-
+    <select id="selectquestionexa" parameterType="com.zuoshao.tegeneral.bean.Questionnaire" resultType="com.zuoshao.tegeneral.bean.Questionnaire">
+       SELECT * FROM questionnaire AS q WHERE q.`name` LIKE CONCAT('%',#{name},'%') AND q.`batch`=#{batch}
+    </select>
 </mapper>

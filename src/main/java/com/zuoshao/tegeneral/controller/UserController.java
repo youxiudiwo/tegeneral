@@ -7,6 +7,7 @@ import com.zuoshao.tegeneral.bean.beanexa.UserCple;
 import com.zuoshao.tegeneral.mapper.Usermapper;
 import com.zuoshao.tegeneral.service.CollegeService;
 import com.zuoshao.tegeneral.service.UserService;
+import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.util.Map;
  * @author zuoshao
  * @date 2019/9/9 - 12:09
  */
+@Api(description = "用户管理接口")
 @RestController
 public class UserController {
     @Autowired
