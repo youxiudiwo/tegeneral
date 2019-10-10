@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@Api(description = "指标测试")
+@Api(description = "指标管理接口")
 public class IndexController {
 
     @Autowired

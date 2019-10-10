@@ -1,6 +1,7 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
 import com.zuoshao.tegeneral.bean.*;
+import com.zuoshao.tegeneral.bean.beanexa.QustionBatch;
 import com.zuoshao.tegeneral.mapper.*;
 import com.zuoshao.tegeneral.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,12 @@ public class QuestionServiceImpl implements QuestionService {
     public Questionnaire getqeustionexa(Questionnaire questionnaire) {
         Questionnaire selectquestionexa = userrolemapper.selectquestionexa(questionnaire);
         return selectquestionexa;
+    }
+
+    @Override
+    public List<QustionBatch> getquestionall() {
+        List<QustionBatch> selectquestionall = userrolemapper.selectquestionall();
+        return selectquestionall;
     }
 
 

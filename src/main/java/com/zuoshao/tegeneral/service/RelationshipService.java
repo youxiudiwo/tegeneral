@@ -6,6 +6,7 @@ import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.RelationShipmapping;
 import com.zuoshao.tegeneral.bean.beanexa.StudentClass;
 
+import javax.management.relation.Relation;
 import java.util.List;
 
 /**
@@ -23,4 +24,8 @@ public interface RelationshipService {
     List<Class> getclassall();
     //匹配学生班级信息
     List<StudentClass> getstudentclassasexa(User user);
+    //查询当前老师所在的学院
+    List<Relationship> getteacherrelationship(Relationship relationship);
+    //获取当前学院的所有老师
+    List<Relationship> getcollegeteacher(Relationship relationship);
 }
