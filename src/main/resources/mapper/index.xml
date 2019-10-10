@@ -21,17 +21,17 @@
     </delete>
 
     <update id="updateindex1">
-        update `index` set name = #{name} where id = #{id}
+        update `index` set name = #{name},weight = #{weight} where id = #{id}
     </update>
-    <update id="updateindex2">
-        update `index` set weight = #{weight} where id = #{id}
-    </update>
+    <!--<update id="updateindex2">-->
+        <!--update `index` set weight = #{weight} where id = #{id}-->
+    <!--</update>-->
 
     <select id="selectindex1" resultType="com.zuoshao.tegeneral.bean.Index">
         select name,weight from `index` where id=#{id}
     </select>
     <select id="selectoption" resultType="com.zuoshao.tegeneral.bean.Option">
-        select * from `option`
+        select * from `option` where id = #{id}
     </select>
 
     <delete id="deleteoption" >
@@ -51,4 +51,8 @@
     <insert id="insertIndexF">
         insert into `index` (name,weight,pid,sort) value (#{name},0,#{pid},#{sort})
     </insert>
+
+    <select id="selectIn_Op" resultType="com.zuoshao.tegeneral.bean.InOp">
+        select oid from in_op where iid = #{id}
+    </select>
 </mapper>

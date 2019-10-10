@@ -1,5 +1,6 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
+import com.zuoshao.tegeneral.bean.InOp;
 import com.zuoshao.tegeneral.bean.Index;
 import com.zuoshao.tegeneral.bean.Option;
 import com.zuoshao.tegeneral.mapper.IndexMapper;
@@ -59,13 +60,13 @@ public class IndexServiveImpl implements IndexService {
     }
 
     @Override
-    public  Integer updateindex1(@Param("name")String name,@Param("id")Integer id){
-        return indexmapper.updateindex1(name,id);
+    public  Integer updateindex1(@Param("name")String name,@Param("weight")String weight,@Param("id")Integer id){
+        return indexmapper.updateindex1(name,weight,id);
     }
-    @Override
-    public  Integer updateindex2(@Param("weight")String weight,@Param("id")Integer id){
-        return indexmapper.updateindex2(weight,id);
-    }
+//    @Override
+//    public  Integer updateindex2(@Param("weight")String weight,@Param("id")Integer id){
+//        return indexmapper.updateindex2(weight,id);
+//    }
 
     @Override
     public List<Index> selectindex1(Integer id){
@@ -73,8 +74,8 @@ public class IndexServiveImpl implements IndexService {
     }
 
     @Override
-    public List<Option> selectoption(){
-        return indexmapper.selectoption();
+    public List<Option> selectoption(Integer id){
+        return indexmapper.selectoption(id);
     }
 
     @Override
@@ -100,5 +101,10 @@ public class IndexServiveImpl implements IndexService {
     @Override
     public Integer insertIndexF(@Param("name")String name, @Param("pid")Integer pid, @Param("sort")Integer sort){
         return indexmapper.insertIndexF(name,pid,sort);
+    }
+
+    @Override
+    public List<InOp> selectIn_Op(Integer id){
+        return indexmapper.selectIn_Op(id);
     }
 }
