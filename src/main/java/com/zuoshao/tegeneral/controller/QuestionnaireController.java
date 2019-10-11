@@ -3,6 +3,7 @@ package com.zuoshao.tegeneral.controller;
 import com.zuoshao.tegeneral.bean.*;
 import com.zuoshao.tegeneral.bean.Class;
 import com.zuoshao.tegeneral.bean.beanexa.Querytionexa;
+import com.zuoshao.tegeneral.bean.beanexa.QuestionIndex;
 import com.zuoshao.tegeneral.bean.beanexa.QustionBatch;
 import com.zuoshao.tegeneral.bean.beanexa.UserCple;
 import com.zuoshao.tegeneral.service.BatchService;
@@ -92,6 +93,7 @@ public class QuestionnaireController {
             Querytionexa querytionexa = new Querytionexa();
             querytionexa.setState(1);
             querytionexa.setName(getbatchstate.getName());
+            querytionexa.setBid(getbatchstate.getId());
             querytionexa.setQid(getqeustionexa.getId());
             querytionexa.setQname(getqeustionexa.getName());
             querytionexa.setTid(user.getId());
@@ -167,6 +169,7 @@ public class QuestionnaireController {
             Querytionexa querytionexa = new Querytionexa();
             querytionexa.setState(1);
             querytionexa.setName(getbatchstate.getName());
+            querytionexa.setBid(getbatchstate.getId());
             querytionexa.setQid(getqeustionexa.getId());
             querytionexa.setQname(getqeustionexa.getName());
             querytionexa.setTid(userCple.getId());
@@ -215,6 +218,32 @@ public class QuestionnaireController {
 
 
         menuss.put("querytionexa", querytionexa);
+        menuss.put("code", 1);
+        return menuss;
+    }
+
+    @ApiOperation(value="试卷添加接口", notes="test: 1有正确")
+    @RequestMapping("/addquestion")
+    @ResponseBody
+    public Map<String,Object> addquestion(@RequestBody QuestionIndex questionIndex){
+
+        Map<String, Object> menuss = new HashMap<>();
+        Questionnaire questionnaire = new Questionnaire();
+
+        questionnaire.setName(questionIndex.getTitle());
+        questionnaire.setBatch(questionIndex.getId());
+        questionService.addquestion(questionnaire);
+
+        Questionnaire selectnewupdate = questionService.selectnewupdate();
+
+
+        for (int i = 0; i < questionIndex.getProblem().size() ; i++) {
+            QuIn quIn = new QuIn();
+            quIn.setQid(selectnewupdate.getId());
+            quIn.setLid(questionIndex.getProblem().get(i).getId());
+            questionService.addquestionindex(quIn);
+        }
+
         menuss.put("code", 1);
         return menuss;
     }

@@ -35,5 +35,7 @@ public interface Userrolemapper {
     Questionnaire selectquestionexa(Questionnaire questionnaire);
     //返回所有的试卷（批次）
     List<QustionBatch> selectquestionall();
+    //返回试卷最新插入记录
+    Questionnaire selectnewupdate();
 
 }

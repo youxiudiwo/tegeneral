@@ -25,6 +25,10 @@ public class QuestionServiceImpl implements QuestionService {
     RelationshipMapper relationshipMapper;
     @Autowired
     Usermapper usermapper;
+    @Autowired
+    QuestionMapper questionMapper;
+    @Autowired
+    QuInMapper quinmapper;
 
 
     @Override
@@ -63,6 +67,24 @@ public class QuestionServiceImpl implements QuestionService {
     public List<QustionBatch> getquestionall() {
         List<QustionBatch> selectquestionall = userrolemapper.selectquestionall();
         return selectquestionall;
+    }
+
+    @Override
+    public Integer addquestion(Questionnaire questionnaire) {
+        int insert = questionMapper.insert(questionnaire);
+        return insert;
+    }
+
+    @Override
+    public Questionnaire selectnewupdate() {
+        Questionnaire selectnewupdate = userrolemapper.selectnewupdate();
+        return selectnewupdate;
+    }
+
+    @Override
+    public Integer addquestionindex(QuIn quin) {
+        int insert = quinmapper.insert(quin);
+        return insert;
     }
 
 
