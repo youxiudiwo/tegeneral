@@ -33,11 +33,11 @@ public class GeneralController {
 
     @ApiOperation(value="评教完成后储存信息，评价总表", notes="test: 1有正确返回0发生异常错误")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType="query", name = "username", value = "评分人姓名", required = true, dataType = "int"),
+            @ApiImplicitParam(paramType="query", name = "username", value = "评分人姓名", required = true, dataType = "string"),
             @ApiImplicitParam(paramType="query", name = "userid2", value = "被评分人ID", required = true, dataType = "int"),
             @ApiImplicitParam(paramType="query", name = "quid", value = "问卷编号", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType="query", name = "opids", value = "选项编号数组", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType="query", name = "inids", value = "题目编号数组", required = true, dataType = "int"),
+            @ApiImplicitParam(paramType="query", name = "opids", value = "选项编号数组", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType="query", name = "inids", value = "题目编号数组", required = true, dataType = "string"),
             @ApiImplicitParam(paramType="query", name = "batch", value = "批次ID", required = true, dataType = "int")
    })
     @RequestMapping("/insertGeneral")
