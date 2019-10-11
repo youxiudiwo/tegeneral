@@ -90,10 +90,18 @@ public class IndexController {
         return 1;
     }
 
+    @RequestMapping("/updateIndex2")
+    @ResponseBody
+    @ApiOperation(value = "修改指标及其对应的选项",httpMethod = "POST")
+    public Map  updateindex1(@RequestParam("data")String data){
+
+        return null;
+    }
+
     @RequestMapping("/updateIndex1")
     @ResponseBody
     @ApiOperation(value = "修改指标及其对应的选项",httpMethod = "POST")
-    public Map  updateindex1(@RequestParam("name")String name,@RequestParam("id")Integer id,@RequestParam("weight")String weight,@RequestParam String[] xuanxiang){      //修改指标名称
+    public Map  updateindex1(@RequestParam("name")String name,@RequestParam("id")Integer id,@RequestParam("weight")String weight,@RequestParam List<Option> option){      //修改指标名称
         Map a = new HashMap();
         Integer update = indexService.updateindex1(name,weight,id);
         List<InOp> selectIn_Op = indexService.selectIn_Op(id);
@@ -101,10 +109,11 @@ public class IndexController {
         for(int i = 0;i<selectIn_Op.size();i++){
             list1.add(selectIn_Op.get(i).getOid());
         }
-        for(int i = 0,j = 0 ; i < xuanxiang.length ;i = i + 2){
-            Integer c = indexService.updateOption(xuanxiang[i],xuanxiang[i+1],list1.get(j));
-            j++;
-        }
+        System.out.println(option);
+//        for(int i = 0,j = 0 ; i < xuanxiang.length ;i = i + 2){
+//            Integer c = indexService.updateOption(xuanxiang[i],xuanxiang[i+1],list1.get(j));
+//            j++;
+//        }
         a.put("code",1);
         return a;
     }
@@ -123,7 +132,9 @@ public class IndexController {
     public Map  selectIndexOption(@RequestParam Integer id){                            //点击指标名称，显示查询名称和权重以及选项
 //        Map a = new HashMap();
         List<Option> a= new ArrayList<>();
-        Map b = new HashMap();
+
+        List<Map<String,Object>> lists= new ArrayList<>();
+
         List<Index> selectindex1 = indexService.selectindex1(id);
 //        System.out.print(selectindex1);
         List<InOp> selectIn_Op1 = indexService.selectIn_Op(id);
@@ -135,9 +146,14 @@ public class IndexController {
             List<Option> selectoption = indexService.selectoption(list.get(i));
             a.add(selectoption.get(0));
         }
-        b.put("title",selectindex1.get(0));
-        b.put("option",a);
-        return b;
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",selectindex1.get(0).getId());
+        map.put("name",selectindex1.get(0).getName());
+        map.put("weight",selectindex1.get(0).getWeight());
+        map.put("pid",selectindex1.get(0).getPid());
+        map.put("sort",selectindex1.get(0).getSort());
+        map.put("option",a);
+        return map;
     }
 
 //    @RequestMapping( "/insertOption")

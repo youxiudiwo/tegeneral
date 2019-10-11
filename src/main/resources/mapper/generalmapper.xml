@@ -21,6 +21,7 @@
         insert into general(userid,userid2,quid,opid,inid,batch,fraction) values(#{userid},#{userid2},#{quid},#{opid},#{inid},#{batch},#{fraction})
     </insert>
 
+    <!--映射数据-->
     <resultMap id="evaluationMap" type="com.zuoshao.tegeneral.bean.beanexa.GeneratePaper">
         <id property="qid" column="qid"></id>
         <result property="qtn_name" column="qtn_name"></result>
@@ -51,5 +52,11 @@
           left join in_op io on io.iid=ix.id
           left join `option` o on o.id=io.oid
         where qi.qid=#{qid}
+    </select>
+
+    <!--计算总分-->
+    <select id="addUserPageGeneral" resultType="HashMap">
+        select sum(fraction) as fraction from general
+        where userid=#{userid} and userid2=#{userid2} and quid=#{quid} and batch=#{batch}
     </select>
 </mapper>

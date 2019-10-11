@@ -1,7 +1,9 @@
 package com.zuoshao.tegeneral.controller;
 
+import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.FractionSum;
 import com.zuoshao.tegeneral.service.GeneralService;
+import com.zuoshao.tegeneral.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -26,18 +28,27 @@ public class GeneralController {
     @Autowired
     private GeneralService generalService;
 
+    @Autowired
+    private UserService userService;
+
     @ApiOperation(value="评教完成后储存信息，评价总表", notes="test: 1有正确返回0发生异常错误")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType="query", name = "userid", value = "评分人ID", required = true, dataType = "int"),
+            @ApiImplicitParam(paramType="query", name = "username", value = "评分人姓名", required = true, dataType = "string"),
             @ApiImplicitParam(paramType="query", name = "userid2", value = "被评分人ID", required = true, dataType = "int"),
             @ApiImplicitParam(paramType="query", name = "quid", value = "问卷编号", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType="query", name = "opids", value = "选项编号数组", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType="query", name = "inids", value = "题目编号数组", required = true, dataType = "int"),
+            @ApiImplicitParam(paramType="query", name = "opids", value = "选项编号数组", required = true, dataType = "string"),
+            @ApiImplicitParam(paramType="query", name = "inids", value = "题目编号数组", required = true, dataType = "string"),
             @ApiImplicitParam(paramType="query", name = "batch", value = "批次ID", required = true, dataType = "int")
    })
     @RequestMapping("/insertGeneral")
     @ResponseBody
-    public Map insertGeneral(int userid, int userid2, int quid, String opids, String inids, int batch){
+    public Map insertGeneral(String username, int userid2, int quid, String opids, String inids, int batch){
+
+        User user2 = new User();
+        user2.setUsername(username);
+        User userlogin = userService.userlogin(user2);
+        int userid = userlogin.getId();
+
         String a[]=opids.split(",");//选项的ID数组
         String t[]=inids.split(",");//题目的ID数组
         Map result =new HashMap();
