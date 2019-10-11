@@ -69,10 +69,10 @@ public class GeneralServiceImpl implements GeneralService {
                     omapTwo.put("title",itemTwo.getO_name());
                     optionListTwo.add(omapTwo);
                 });
-                tmapTwo.put("option:",optionListTwo);
+                tmapTwo.put("option",optionListTwo);
                 optionList.add(tmapTwo);
             });
-            tmap.put("problem:", optionList);
+            tmap.put("problem", optionList);
             ret.add(tmap);
         });
 
