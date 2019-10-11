@@ -189,7 +189,7 @@ public class QuestionnaireController {
         Map<String, Object> menuss = new HashMap<>();
 
         //获取当前老师信息
-        Integer teacherid = null;
+
         User user2 = new User();
         user2.setUsername(teachername);
         User userlogin = userService.userlogin(user2);
