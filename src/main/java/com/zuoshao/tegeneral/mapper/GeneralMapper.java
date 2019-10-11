@@ -5,6 +5,7 @@ import com.zuoshao.tegeneral.bean.beanexa.GeneratePaper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  **/
 @Repository
 public interface GeneralMapper{
+    List<HashMap> addUserPageGeneral(@Param("userid")int userid,@Param("userid2")int userid2,@Param("quid")int quid,@Param("batch")int batch);
     List<GeneratePaper> selectOnlineEvaluation(@Param("qid")int qid);
     List<GeneratePaper> selectOnlineEvaluationOptions(@Param("qid")int qid);
     List<FractionSum> addFractions(@Param("ixid") int ixid, @Param("osid") int osid);

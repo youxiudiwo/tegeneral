@@ -52,7 +52,7 @@ public class GeneralController {
         String a[]=opids.split(",");//选项的ID数组
         String t[]=inids.split(",");//题目的ID数组
         Map result =new HashMap();
-        float sum = 0;//计算总分
+        float sum = 0;//每道题的分数
         for (int i=0;i<a.length;i++){
             String options = a[i];//选项单独一个
             String targets_id = t[i];//题目单独一个
