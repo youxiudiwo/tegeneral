@@ -12,10 +12,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -98,15 +95,15 @@ public class IndexController {
     @RequestMapping("/updateIndex2")
     @ResponseBody
     @ApiOperation(value = "修改指标及其对应的选项",httpMethod = "POST")
-    public Map  updateindex1(HttpServletRequest request){
+    public Map  updateindex1(@RequestBody Indexoption showData){
+        System.out.println(showData);
+//        String ds = request.getParameter("showData");
 
-        String ds = request.getParameter("showData");
-
-        JSONObject jsonObject=JSONObject.fromObject(ds);
-        Indexoption stu=(Indexoption)JSONObject.toBean(jsonObject, Indexoption.class);
+//        JSONObject jsonObject=JSONObject.fromObject(ds);
+//        Indexoption stu=(Indexoption)JSONObject.toBean(jsonObject, Indexoption.class);
 
         Map<String,Object> map = new HashMap<>();
-        map.put("stu",stu);
+        map.put("stu",showData);
 
         return map;
     }
