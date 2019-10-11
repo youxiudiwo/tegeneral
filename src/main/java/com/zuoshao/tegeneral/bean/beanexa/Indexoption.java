@@ -13,7 +13,7 @@ public class Indexoption {
     @Column
     private String name;
     @Column
-    private double wight;
+    private String wight;
     @Column
     private Integer id;
     @Column
@@ -29,11 +29,11 @@ public class Indexoption {
         this.name = name;
     }
 
-    public double getWight() {
+    public String getWight() {
         return wight;
     }
 
-    public void setWight(double wight) {
+    public void setWight(String wight) {
         this.wight = wight;
     }
 
