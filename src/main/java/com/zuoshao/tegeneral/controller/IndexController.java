@@ -121,10 +121,11 @@ public class IndexController {
     @ResponseBody
     @ApiOperation(value = "查询单个指标及其选项",httpMethod = "POST")
     public Map  selectIndexOption(@RequestParam Integer id){                            //点击指标名称，显示查询名称和权重以及选项
-        Map a = new HashMap();
+//        Map a = new HashMap();
+        List<Option> a= new ArrayList<>();
         Map b = new HashMap();
         List<Index> selectindex1 = indexService.selectindex1(id);
-        System.out.print(selectindex1);
+//        System.out.print(selectindex1);
         List<InOp> selectIn_Op1 = indexService.selectIn_Op(id);
         List<Integer> list = new ArrayList<>();
         for(int i = 0;i<selectIn_Op1.size();i++ ){
@@ -132,10 +133,10 @@ public class IndexController {
         }
         for(int i = 0;i<list.size();i++){
             List<Option> selectoption = indexService.selectoption(list.get(i));
-            a.put("selectoption"+ i ,selectoption);
+            a.add(selectoption.get(0));
         }
-        b.put("data1",selectindex1);
-        b.put("data2",a);
+        b.put("title",selectindex1.get(0));
+        b.put("option",a);
         return b;
     }
 

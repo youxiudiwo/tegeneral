@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+       mamespace：命名空间;指定为接口的全类名可以进行接口绑定
+       id：唯一标识
+       resultType：返回值类型
+-->
+<mapper namespace="com.zuoshao.tegeneral.mapper.GeneralMapper">
+    <!--计算分数-->
+    <select id="addFractions" resultType="com.zuoshao.tegeneral.bean.beanexa.FractionSum">
+        SELECT SUM(ix.`weight`*os.`fraction`) AS `fraction` FROM `index` ix
+          LEFT JOIN in_op io ON io.`iid`=ix.`id`
+          LEFT JOIN `option` os ON os.`id`=io.`oid`
+        WHERE ix.`id`=#{ixid} AND os.`id`=#{osid}
+    </select>
+
+    <!--插入数据到评价总表-->
+    <insert id="insertGeneral">
+        insert into general(userid,userid2,quid,opid,inid,batch,fraction) values(#{userid},#{userid2},#{quid},#{opid},#{inid},#{batch},#{fraction})
+    </insert>
+
+    <resultMap id="evaluationMap" type="com.zuoshao.tegeneral.bean.beanexa.GeneratePaper">
+        <id property="qid" column="qid"></id>
+        <result property="qtn_name" column="qtn_name"></result>
+        <result property="b_name" column="b_name"></result>
+        <result property="iid" column="iid"></result>
+        <result property="ix_name" column="ix_name"></result>
+        <result property="oid" column="oid"></result>
+        <result property="o_name" column="o_name"></result>
+    </resultMap>
+
+    <!--生成试卷-->
+    <select id="selectOnlineEvaluation" resultMap="evaluationMap">
+        select qi.qid,qtn.name as qtn_name,b.name as b_name,ix.id as iid,ix.name as ix_name,o.id as oid,o.name as o_name from qu_in qi
+          left join questionnaire qtn on qi.qid=qtn.id
+          left join batch b on b.id=qtn.batch
+          left join `index` ix on ix.id=qi.iid
+          left join in_op io on io.iid=ix.id
+          left join `option` o on o.id=io.oid
+        where qi.qid=#{qid}
+    </select>
+
+    <!--生成试卷-->
+    <select id="selectOnlineEvaluationOptions" resultMap="evaluationMap">
+        select qi.qid,qtn.name as qtn_name,b.name as b_name,ix.id as iid,ix.name as ix_name,o.id as oid,o.name as o_name from qu_in qi
+          left join questionnaire qtn on qi.qid=qtn.id
+          left join batch b on b.id=qtn.batch
+          left join `index` ix on ix.id=qi.iid
+          left join in_op io on io.iid=ix.id
+          left join `option` o on o.id=io.oid
+        where qi.qid=#{qid}
+    </select>
+</mapper>
