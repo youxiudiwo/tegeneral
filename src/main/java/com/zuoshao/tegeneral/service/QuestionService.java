@@ -21,4 +21,13 @@ public interface QuestionService {
     Questionnaire getqeustionexa(Questionnaire questionnaire);
     //查询所有的试卷
     List<QustionBatch> getquestionall();
+
+    //插入一张试卷
+    Integer addquestion(Questionnaire questionnaire);
+
+    //返回最新插入的试卷
+    Questionnaire selectnewupdate();
+
+    //插入试卷和标题关联
+    Integer addquestionindex(QuIn quin);
 }

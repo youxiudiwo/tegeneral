@@ -8,6 +8,8 @@ import javax.persistence.Column;
  */
 public class Querytionexa {
     @Column
+    private Integer bid;
+    @Column
     private String name;
     @Column
     private  Integer state;
@@ -19,6 +21,14 @@ public class Querytionexa {
     private String tname;
     @Column
     private Integer tid;
+
+    public Integer getBid() {
+        return bid;
+    }
+
+    public void setBid(Integer bid) {
+        this.bid = bid;
+    }
 
     public String getTname() {
         return tname;

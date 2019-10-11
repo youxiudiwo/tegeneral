@@ -74,4 +74,8 @@ JOIN menu AS m ON rm.`mid`=m.`id` WHERE r.`name`= #{name}
         SELECT q.`id`,q.`name`,b.`id` AS batchid,b.`name` AS batch,b.`state` AS state FROM
  questionnaire AS q JOIN batch AS b ON q.`batch`=b.`id`
     </select>
+    
+    <select id="selectnewupdate" resultType="com.zuoshao.tegeneral.bean.Questionnaire">
+         SELECT * FROM questionnaire ORDER BY `name` DESC LIMIT 1
+    </select>
 </mapper>
