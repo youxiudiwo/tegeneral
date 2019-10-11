@@ -83,7 +83,7 @@ public class GeneralController {
     public Map selectOnlineEvaluation(int qid){
         Map result=new HashMap();
         List<Map<String, Object>> online = generalService.selectOnlineEvaluation(qid);
-        result.put("subdata::",online);
+        result.put("subdata",online);
         return result;
     }
 }
