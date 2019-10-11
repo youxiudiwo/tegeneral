@@ -2,14 +2,15 @@ package com.zuoshao.tegeneral.controller;
 
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.FractionSum;
+import com.zuoshao.tegeneral.bean.beanexa.ScoreAdd;
 import com.zuoshao.tegeneral.service.GeneralService;
 import com.zuoshao.tegeneral.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,46 +32,65 @@ public class GeneralController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation(value="评教完成后储存信息，评价总表", notes="test: 1有正确返回0发生异常错误")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType="query", name = "username", value = "评分人姓名", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType="query", name = "userid2", value = "被评分人ID", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType="query", name = "quid", value = "问卷编号", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType="query", name = "opids", value = "选项编号数组", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType="query", name = "inids", value = "题目编号数组", required = true, dataType = "string"),
-            @ApiImplicitParam(paramType="query", name = "batch", value = "批次ID", required = true, dataType = "int")
-   })
+    @ApiOperation(value="评教完成后储存信息，评价总表和分数汇总表", notes="test: 1有正确返回0发生异常错误",httpMethod = "POST")
+    @ApiImplicitParam(name = "scoreAdd" ,value = "JSONObject",required = true)
     @RequestMapping("/insertGeneral")
     @ResponseBody
-    public Map insertGeneral(String username, int userid2, int quid, String opids, String inids, int batch){
+    public Map insertGeneral(@RequestBody ScoreAdd scoreAdd){
+        Map result =new HashMap();
 
+        //得到评分人ID
         User user2 = new User();
-        user2.setUsername(username);
+        user2.setUsername(scoreAdd.getName());
         User userlogin = userService.userlogin(user2);
         int userid = userlogin.getId();
+        //被评分人ID
+        int userid2 = 0;
+        //试卷ID
+        int quid = 0;
+        //批次ID
+        int batch = 0;
+        //指标ID
+        int ixid = 0;
+        //选项ID
+        int osid = 0;
 
-        String a[]=opids.split(",");//选项的ID数组
-        String t[]=inids.split(",");//题目的ID数组
-        Map result =new HashMap();
-        float sum = 0;//每道题的分数
-        for (int i=0;i<a.length;i++){
-            String options = a[i];//选项单独一个
-            String targets_id = t[i];//题目单独一个
+        //每道题的分数
+        float sum = 0;
 
-            //转换成int类型
-            int ixid = Integer.parseInt(options);
-            int osid = Integer.parseInt(targets_id);
+        //试卷总分数
+        float add = 0;
+        for (int i=0;i<scoreAdd.getProblem().size();i++){
+            //被评分人ID
+            userid2 = scoreAdd.getTid();
+            //试卷ID
+            quid = scoreAdd.getId();
+            //批次ID
+            batch = scoreAdd.getBid();
+            //指标ID
+            ixid = scoreAdd.getProblem().get(i).getId();
+            //选项ID
+            osid = scoreAdd.getProblem().get(i).getClick();
 
-
-            FractionSum fractionSum = new FractionSum();
-            List<FractionSum> fractions = generalService.addFractions(ixid,osid);//查询此题目的此选项分数
-            sum = fractions.get(0).getFraction();//计算整张试卷分数
+            //查询此题目的此选项分数
+            List<FractionSum> fractions = generalService.addFractions(ixid,osid);
+            //计算此题的分数
+            sum = fractions.get(0).getFraction();
             String fraction = String.valueOf(sum);
             if (generalService.insertGeneral(userid,userid2,quid,ixid,osid,batch,fraction)){
                 result.put("test",1);
             }else{
                 result.put("test",0);
             }
+        }
+        //计算整张试卷的分数
+        List<FractionSum> scoresAdd = generalService.addUserPageGeneral(userid,userid2,quid,batch);
+        add = scoresAdd.get(0).getFraction();
+        String scores = String.valueOf(add);
+        if (generalService.insertScorePageGeneral(userid,userid2,batch,scores,quid)){
+            result.put("test",1);
+        }else{
+            result.put("test",0);
         }
         return result;
     }
