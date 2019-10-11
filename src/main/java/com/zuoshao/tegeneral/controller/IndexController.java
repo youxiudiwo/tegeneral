@@ -53,22 +53,22 @@ public class IndexController {
 //            @ApiImplicitParam(name = "pid",value = "输入指标名称",required = true,paramType = "pid",dataType = "Integer"),
 //            @ApiImplicitParam(name = "sort",value = "输入指标名称",required = true,paramType = "sort",dataType = "Integer")
 //    })
-    public Map insertindex(@RequestParam("name")String name, @RequestParam("weight")String weight, @RequestParam("当前选中的pid")Integer pid, @RequestParam("当前选中的sort")Integer sort, @RequestParam String[] xin){      //增加
+    public Map insertindex(@RequestBody Indexoption showData){      //增加
         Map result = new HashMap();
         Integer a;
         for(int k = 8;;k++){
             Integer zz = indexService.selectIdIndex(k);
             if(zz == null){
-                Integer insert = indexService.insertindex(k,name,weight,pid,sort);
+                Integer insert = indexService.insertindex(k,showData.getName(),showData.getWight(),showData.getId(),showData.getSort());
                 a = k;
                 break;
             }
         }
         List<Integer> xx = new ArrayList<>();
-        for(int i = 0,j = 4 ;i < xin.length;i = i + 2){
+        for(int i = 0,j = 4 ;i < showData.getOption().size();i = i + 2){
              Integer mm = indexService.selectIdOption(j);
              if(mm == null) {
-                 Integer insert1 = indexService.insertoption(j, xin[i], xin[i + 1]);
+                 Integer insert1 = indexService.insertoption(j, showData.getOption().get(i).getName(), String.valueOf(showData.getOption().get(i).getFraction()));
                  xx.add(j);
              }else{
                  j = j + 1;
@@ -91,35 +91,38 @@ public class IndexController {
         int delete = indexService.deleteindex(id);
         return 1;
     }
-
-    @RequestMapping("/updateIndex2")
-    @ResponseBody
-    @ApiOperation(value = "修改指标及其对应的选项",httpMethod = "POST")
-    public Map  updateindex1(@RequestBody Indexoption showData){
-        System.out.println(showData);
-//        String ds = request.getParameter("showData");
-
-//        JSONObject jsonObject=JSONObject.fromObject(ds);
-//        Indexoption stu=(Indexoption)JSONObject.toBean(jsonObject, Indexoption.class);
-
-        Map<String,Object> map = new HashMap<>();
-        map.put("stu",showData);
-
-        return map;
-    }
+//
+//    @RequestMapping("/updateIndex2")
+//    @ResponseBody
+//    @ApiOperation(value = "修改指标及其对应的选项",httpMethod = "POST")
+//    public Map  updateindex1(@RequestBody Indexoption showData){
+//        System.out.println(showData);
+////        String ds = request.getParameter("showData");
+//
+////        JSONObject jsonObject=JSONObject.fromObject(ds);
+////        Indexoption stu=(Indexoption)JSONObject.toBean(jsonObject, Indexoption.class);
+//
+//        Map<String,Object> map = new HashMap<>();
+//        map.put("stu",showData);
+//
+//        return map;
+//    }
 
     @RequestMapping("/updateIndex1")
     @ResponseBody
     @ApiOperation(value = "修改指标及其对应的选项",httpMethod = "POST")
-    public Map  updateindex1(@RequestParam("name")String name,@RequestParam("id")Integer id,@RequestParam("weight")String weight,@RequestParam List<Option> option){      //修改指标名称
+    public Map  updateindex1(@RequestBody Indexoption showData){      //修改指标名称
+
         Map a = new HashMap();
-        Integer update = indexService.updateindex1(name,weight,id);
-        List<InOp> selectIn_Op = indexService.selectIn_Op(id);
+        Integer update = indexService.updateindex1(showData.getName(),showData.getWight(),showData.getId());
+        List<InOp> selectIn_Op = indexService.selectIn_Op(showData.getId());
         List<Integer> list1 = new ArrayList<>();
         for(int i = 0;i<selectIn_Op.size();i++){
             list1.add(selectIn_Op.get(i).getOid());
         }
-        System.out.println(option);
+        for (int i = 0; i < list1.size() ; i++) {
+            Integer c = indexService.updateOption(showData.getOption().get(i).getName(),String.valueOf(showData.getOption().get(i).getFraction()),list1.get(i));
+        }
 //        for(int i = 0,j = 0 ; i < xuanxiang.length ;i = i + 2){
 //            Integer c = indexService.updateOption(xuanxiang[i],xuanxiang[i+1],list1.get(j));
 //            j++;
