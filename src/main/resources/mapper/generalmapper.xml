@@ -55,7 +55,7 @@
     </select>
 
     <!--计算总分-->
-    <select id="addUserPageGeneral" resultMap="HashMap">
+    <select id="addUserPageGeneral" resultType="HashMap">
         select sum(fraction) as fraction from general
         where userid=#{userid} and userid2=#{userid2} and quid=#{quid} and batch=#{batch}
     </select>
