@@ -7,12 +7,16 @@ import com.zuoshao.tegeneral.bean.T;
 import com.zuoshao.tegeneral.service.IndexService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,7 +97,19 @@ public class IndexController {
     @RequestMapping("/updateIndex2")
     @ResponseBody
     @ApiOperation(value = "修改指标及其对应的选项",httpMethod = "POST")
-    public Map  updateindex1(@RequestParam("data")String data){
+    public Map  updateindex1(HttpServletRequest request){
+
+        String ds = request.getParameter("data");
+        JSONArray json=JSONArray.fromObject(ds);
+        JSONObject jsonOne;
+        List<Map<String,String>> list=new ArrayList<>();
+        for(int i=0;i<json.size();i++) {
+            Map<String, String> updataMap = new HashMap<String, String>();
+            jsonOne = json.getJSONObject(i);
+            updataMap.put("name", String.valueOf(jsonOne.get("name")) );
+            updataMap.put("weight", String.valueOf(jsonOne.get("weight")));
+            list.add(updataMap);
+        }
 
         return null;
     }
