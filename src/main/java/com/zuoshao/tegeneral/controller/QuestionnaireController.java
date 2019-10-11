@@ -41,12 +41,15 @@ public class QuestionnaireController {
     UserService userService;
 
     Studentclass studentclass = new Studentclass();
-    Map<String, Object> menuss = new HashMap<>();
+
 
     @ApiOperation(value="获取所有试卷信息", notes="获取当前所有试卷信息")
     @RequestMapping("/getquestion")
     @ResponseBody
     public Map<String,Object> getquestionall(){
+
+        Map<String, Object> menuss = new HashMap<>();
+
         List<QustionBatch> getquestionall = questionService.getquestionall();
         menuss.put("questionall", getquestionall);
         menuss.put("code", 1);
@@ -55,12 +58,21 @@ public class QuestionnaireController {
 
 
     @ApiOperation(value="根据当前登陆学生获取评价老师试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷")
-    @ApiImplicitParam(paramType="query", name = "studentid", value = "学生id", required = true, dataType = "int")
+    @ApiImplicitParam(paramType="query", name = "studentname", value = "学生名字", required = true, dataType = "string")
     @RequestMapping("/getstudentquestionnaire")
     @ResponseBody
-    public Map<String,Object> getstudentclassasexa(@RequestParam("studentid")Integer studentid) {
+    public Map<String,Object> getstudentclassasexa(@RequestParam("studentname")String studentname) {
 
-        studentclass.setStudentid(studentid);
+        Map<String, Object> menuss = new HashMap<>();
+
+        //用户名获取学生信息
+        Integer teacherid = null;
+        User user2 = new User();
+        user2.setUsername(studentname);
+        User userlogin = userService.userlogin(user2);
+
+
+        studentclass.setStudentid(userlogin.getId());
         Studentclass getstudentclassid = questionService.getstudentclass(studentclass);
         Relationship relationship = new Relationship();
         relationship.setClassid(getstudentclassid.getClassid());
@@ -100,6 +112,8 @@ public class QuestionnaireController {
     @RequestMapping("/getteacherquestionnaire")
     @ResponseBody
     public Map<String,Object> getteacherquestionnaire(@RequestParam("teachername")String teachername) {
+
+        Map<String, Object> menuss = new HashMap<>();
 
         Integer teacherid = null;
         User user2 = new User();
@@ -164,5 +178,46 @@ public class QuestionnaireController {
         menuss.put("code", 1);
         return menuss;
     }
+
+
+    @ApiOperation(value="获取自测试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷")
+    @ApiImplicitParam(paramType="query", name = "teachername", value = "老师用户名", required = true, dataType = "string")
+    @RequestMapping("/getteacherzcquestion")
+    @ResponseBody
+    public Map<String,Object> getteacherzcquestion(@RequestParam("teachername")String teachername) {
+
+        Map<String, Object> menuss = new HashMap<>();
+
+        //获取当前老师信息
+        Integer teacherid = null;
+        User user2 = new User();
+        user2.setUsername(teachername);
+        User userlogin = userService.userlogin(user2);
+
+        //1.获取当前批次状态为开启的试卷，2.获取当前自测评价接口的试卷
+        Batch batch = new Batch();
+        batch.setState(1);
+        Batch getbatchstate = batchService.getbatchstate(batch);
+
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setBatch(getbatchstate.getId());
+        questionnaire.setName("自测");
+        Questionnaire getqeustionexa = questionService.getqeustionexa(questionnaire);
+
+        Querytionexa querytionexa = new Querytionexa();
+        querytionexa.setState(1);
+        querytionexa.setName(getbatchstate.getName());
+        querytionexa.setQid(getqeustionexa.getId());
+        querytionexa.setQname(getqeustionexa.getName());
+        querytionexa.setTid(userlogin.getId());
+        querytionexa.setTname(userlogin.getName());
+
+
+
+        menuss.put("querytionexa", querytionexa);
+        menuss.put("code", 1);
+        return menuss;
+    }
+
 
 }
