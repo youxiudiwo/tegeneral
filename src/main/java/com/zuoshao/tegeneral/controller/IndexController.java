@@ -53,25 +53,22 @@ public class IndexController {
 //            @ApiImplicitParam(name = "pid",value = "输入指标名称",required = true,paramType = "pid",dataType = "Integer"),
 //            @ApiImplicitParam(name = "sort",value = "输入指标名称",required = true,paramType = "sort",dataType = "Integer")
 //    })
-    public Map insertindex(@RequestParam("name")String name, @RequestParam("weight")String weight, @RequestParam("当前选中的pid")Integer pid, @RequestParam("当前选中的sort")Integer sort, @RequestParam String[] xin){      //增加
-
-
-
+    public Map insertindex(@RequestBody Indexoption showData){      //增加
         Map result = new HashMap();
         Integer a;
         for(int k = 8;;k++){
             Integer zz = indexService.selectIdIndex(k);
             if(zz == null){
-                Integer insert = indexService.insertindex(k,name,weight,pid,sort);
+                Integer insert = indexService.insertindex(k,showData.getName(),showData.getWight(),showData.getId(),showData.getSort());
                 a = k;
                 break;
             }
         }
         List<Integer> xx = new ArrayList<>();
-        for(int i = 0,j = 4 ;i < xin.length;i = i + 2){
+        for(int i = 0,j = 4 ;i < showData.getOption().size();i = i + 2){
              Integer mm = indexService.selectIdOption(j);
              if(mm == null) {
-                 Integer insert1 = indexService.insertoption(j, xin[i], xin[i + 1]);
+                 Integer insert1 = indexService.insertoption(j, showData.getOption().get(i).getName(), String.valueOf(showData.getOption().get(i).getFraction()));
                  xx.add(j);
              }else{
                  j = j + 1;

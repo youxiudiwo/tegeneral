@@ -7,10 +7,7 @@ import com.zuoshao.tegeneral.service.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -82,5 +79,10 @@ public class GeneralServiceImpl implements GeneralService {
     @Override
     public List<Map<String, Object>> selectOnlineEvaluationOptions(int qid) {
         return null;
+    }
+
+    @Override
+    public List<HashMap> addUserPageGeneral(int userid, int userid2, int quid, int batch) {
+        return generalMapper.addUserPageGeneral(userid, userid2, quid, batch);
     }
 }
