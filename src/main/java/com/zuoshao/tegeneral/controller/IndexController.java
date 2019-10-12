@@ -8,8 +8,6 @@ import com.zuoshao.tegeneral.bean.beanexa.Indexoption;
 import com.zuoshao.tegeneral.service.IndexService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;

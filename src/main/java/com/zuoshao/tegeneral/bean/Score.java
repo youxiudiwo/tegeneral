@@ -14,7 +14,13 @@ public class Score {
     @Column
     private Integer userid;
     @Column
-    private Integer scores;
+    private String scores;
+    @Column
+    private Integer batch;
+    @Column
+    private Integer question;
+    @Column
+    private Integer userid2;
 
     public Integer getId() {
         return id;
@@ -32,11 +38,19 @@ public class Score {
         this.userid = userid;
     }
 
-    public Integer getScores() {
+    public String getScores() {
         return scores;
     }
 
-    public void setScores(Integer scores) {
+    public void setScores(String scores) {
         this.scores = scores;
+    }
+
+    public Integer getUserid2() {
+        return userid2;
+    }
+
+    public void setUserid2(Integer userid2) {
+        this.userid2 = userid2;
     }
 }
