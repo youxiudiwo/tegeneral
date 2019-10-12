@@ -76,9 +76,27 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public Questionnaire getaquestion(Questionnaire questionnaire) {
+        Questionnaire select = questionMapper.selectOne(questionnaire);
+        return select;
+    }
+
+    @Override
+    public List<Questionnaire> getallquestion(Questionnaire questionnaire) {
+        List<Questionnaire> select = questionMapper.select(questionnaire);
+        return select;
+    }
+
+    @Override
     public Questionnaire selectnewupdate() {
         Questionnaire selectnewupdate = userrolemapper.selectnewupdate();
         return selectnewupdate;
+    }
+
+    @Override
+    public Questionnaire insertquestion(Questionnaire questionnaire) {
+        Questionnaire insertquestion = userrolemapper.insertquestion(questionnaire);
+        return insertquestion;
     }
 
     @Override
