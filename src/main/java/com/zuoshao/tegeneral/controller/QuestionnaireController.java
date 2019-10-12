@@ -44,7 +44,7 @@ public class QuestionnaireController {
     Studentclass studentclass = new Studentclass();
 
 
-    @ApiOperation(value="获取所有试卷信息", notes="获取当前所有试卷信息")
+    @ApiOperation(value="获取所有试卷信息", notes="获取当前所有试卷信息",httpMethod = "POST")
     @RequestMapping("/getquestion")
     @ResponseBody
     public Map<String,Object> getquestionall(){
@@ -58,7 +58,7 @@ public class QuestionnaireController {
     }
 
 
-    @ApiOperation(value="根据当前登陆学生获取评价老师试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷")
+    @ApiOperation(value="根据当前登陆学生获取评价老师试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷",httpMethod = "POST")
     @ApiImplicitParam(paramType="query", name = "studentname", value = "学生名字", required = true, dataType = "string")
     @RequestMapping("/getstudentquestionnaire")
     @ResponseBody
@@ -67,7 +67,6 @@ public class QuestionnaireController {
         Map<String, Object> menuss = new HashMap<>();
 
         //用户名获取学生信息
-        Integer teacherid = null;
         User user2 = new User();
         user2.setUsername(studentname);
         User userlogin = userService.userlogin(user2);
@@ -109,7 +108,7 @@ public class QuestionnaireController {
     }
 
 
-    @ApiOperation(value="根据当前登陆老师获取评价同行试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷")
+    @ApiOperation(value="根据当前登陆老师获取评价同行试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷",httpMethod = "POST")
     @ApiImplicitParam(paramType="query", name = "teachername", value = "老师用户名", required = true, dataType = "string")
     @RequestMapping("/getteacherquestionnaire")
     @ResponseBody
@@ -183,7 +182,7 @@ public class QuestionnaireController {
     }
 
 
-    @ApiOperation(value="获取自测试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷")
+    @ApiOperation(value="获取自测试卷信息", notes="test: 1有正确返回0表示当前批次没有状态为开启的试卷",httpMethod = "POST")
     @ApiImplicitParam(paramType="query", name = "teachername", value = "老师用户名", required = true, dataType = "string")
     @RequestMapping("/getteacherzcquestion")
     @ResponseBody
@@ -222,31 +221,42 @@ public class QuestionnaireController {
         return menuss;
     }
 
-    @ApiOperation(value="试卷添加接口", notes="test: 1有正确")
+    @ApiOperation(value="试卷添加接口", notes="code: 1有正确,0代表当前批次这张试卷已经存在",httpMethod = "POST")
     @RequestMapping("/addquestion")
     @ResponseBody
     public Map<String,Object> addquestion(@RequestBody QuestionIndex questionIndex){
 
+
+
         Map<String, Object> menuss = new HashMap<>();
+        Batch batch = new Batch();
+        batch.setName(questionIndex.getBatch());
+        Batch getbatchstate = batchService.getbatchstate(batch);
+
         Questionnaire questionnaire = new Questionnaire();
-
         questionnaire.setName(questionIndex.getTitle());
-        questionnaire.setBatch(questionIndex.getId());
-        questionService.addquestion(questionnaire);
+        questionnaire.setBatch(getbatchstate.getId());
 
-        Questionnaire selectnewupdate = questionService.selectnewupdate();
+        List<Questionnaire> getallquestion = questionService.getallquestion(questionnaire);
+        if (getallquestion.size()==0){
+            questionService.addquestion(questionnaire);
+            Questionnaire getaquestions = questionService.getaquestion(questionnaire);
+            for (int i = 0; i < questionIndex.getProblem().size() ; i++) {
+                QuIn quIn = new QuIn();
+                quIn.setQid(getaquestions.getId());
+                quIn.setIid(questionIndex.getProblem().get(i).getId());
+                questionService.addquestionindex(quIn);
+            }
 
-
-        for (int i = 0; i < questionIndex.getProblem().size() ; i++) {
-            QuIn quIn = new QuIn();
-            quIn.setQid(selectnewupdate.getId());
-            quIn.setLid(questionIndex.getProblem().get(i).getId());
-            questionService.addquestionindex(quIn);
+            menuss.put("code", 1);
+            return menuss;
+        }else {
+            menuss.put("code", 0);
+            return menuss;
         }
-
-        menuss.put("code", 1);
-        return menuss;
     }
+
+
 
 
 }
