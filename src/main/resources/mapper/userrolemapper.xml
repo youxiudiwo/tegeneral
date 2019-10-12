@@ -76,6 +76,13 @@ JOIN menu AS m ON rm.`mid`=m.`id` WHERE r.`name`= #{name}
     </select>
     
     <select id="selectnewupdate" resultType="com.zuoshao.tegeneral.bean.Questionnaire">
-         SELECT * FROM questionnaire ORDER BY `name` DESC LIMIT 1
+         SELECT LAST_INSERT_ID();
     </select>
+
+    <insert id="insertquestion" useGeneratedKeys="true" keyProperty="Id" parameterType="com.zuoshao.tegeneral.bean.Questionnaire">
+
+    insert into questionnaire(`name`,batch) values(#{name},#{batch})
+
+</insert>
+
 </mapper>

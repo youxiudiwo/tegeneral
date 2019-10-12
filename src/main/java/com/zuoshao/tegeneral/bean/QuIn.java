@@ -12,7 +12,7 @@ public class QuIn{
     @Column
     private Integer qid;
     @Column
-    private Integer lid;
+    private Integer iid;
 
     public Integer getQid() {
         return qid;
@@ -22,11 +22,11 @@ public class QuIn{
         this.qid = qid;
     }
 
-    public Integer getLid() {
-        return lid;
+    public Integer getIid() {
+        return iid;
     }
 
-    public void setLid(Integer lid) {
-        this.lid = lid;
+    public void setIid(Integer iid) {
+        this.iid = iid;
     }
 }

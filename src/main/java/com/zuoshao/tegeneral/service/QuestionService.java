@@ -24,9 +24,15 @@ public interface QuestionService {
 
     //插入一张试卷
     Integer addquestion(Questionnaire questionnaire);
+    //查询一张试卷
+    Questionnaire getaquestion(Questionnaire questionnaire);
+    List<Questionnaire> getallquestion(Questionnaire questionnaire);
 
     //返回最新插入的试卷
     Questionnaire selectnewupdate();
+
+    //插入试卷返回id
+    Questionnaire insertquestion(Questionnaire questionnaire);
 
     //插入试卷和标题关联
     Integer addquestionindex(QuIn quin);

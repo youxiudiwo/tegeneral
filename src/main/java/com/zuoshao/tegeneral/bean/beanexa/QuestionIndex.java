@@ -9,18 +9,19 @@ import java.util.List;
  */
 public class QuestionIndex {
     @Column
-    private Integer id;
+    private String batch;
     @Column
     private String title;
     @Column
     private List<Indexoption> problem;
 
-    public Integer getId() {
-        return id;
+
+    public String getBatch() {
+        return batch;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBatch(String batch) {
+        this.batch = batch;
     }
 
     public String getTitle() {
