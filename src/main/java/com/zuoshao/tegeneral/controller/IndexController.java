@@ -88,7 +88,13 @@ public class IndexController {
     @ResponseBody
     @ApiOperation(value = "删除单个指标",httpMethod = "POST")
     public int deleteindex(@RequestParam Integer id){              //删除节点和叶，目前只能删除选中的那一个，修改中。。。。
-        int delete = indexService.deleteindex(id);
+        List<Index> a = indexService.selectindex1(id);
+        Integer b = a.get(0).getPid();
+        if(b == 0){
+            return 0;
+        }else{
+            int delete = indexService.deleteindex(id);
+        }
         return 1;
     }
 //
@@ -191,11 +197,15 @@ public class IndexController {
     @ResponseBody
     @ApiOperation(value = "增加父级指标",httpMethod = "POST")
     public Integer insertIndexF(@RequestParam String name,@RequestParam Integer pid){
-        Integer integer1 = indexService.selectId(pid);
-        Integer integer2 = indexService.selectSort(pid);
-        Integer a = integer2 + 1;
-        Integer integer3 = indexService.insertIndexF(name,integer1,a);
-        return integer3;
+        if(pid == 0){
+            return 0;
+        }else {
+            Integer integer1 = indexService.selectId(pid);
+            Integer integer2 = indexService.selectSort(pid);
+            Integer a = integer2 + 1;
+            Integer integer3 = indexService.insertIndexF(name,integer1,a);
+        }
+        return 1;
     }
 
 //    @RequestMapping( "/insertIndexZ")
