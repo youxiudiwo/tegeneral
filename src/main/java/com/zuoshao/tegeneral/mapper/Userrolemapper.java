@@ -43,4 +43,8 @@ public interface Userrolemapper {
     //返回评教统计的人
     List<Pjtjbean> getpjtj();
 
+    //模糊评教统计
+
+    List<Pjtjbean> getpjtexa(User user);
+
 }

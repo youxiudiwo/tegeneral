@@ -43,4 +43,10 @@ public class ScoreServiceImpl implements ScoreService {
         return getpjtj;
     }
 
+    @Override
+    public List<Pjtjbean> getpjtjexa(User user) {
+        List<Pjtjbean> getpjtexa = userrolemapper.getpjtexa(user);
+        return getpjtexa;
+    }
+
 }

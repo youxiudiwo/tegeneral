@@ -98,4 +98,15 @@ LEFT JOIN `batch` b ON s.`batch`=b.`id`
 GROUP BY u.`name`
     </select>
 
+    <select id="getpjtexa" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.beanexa.Pjtjbean">
+        SELECT u.`name` AS uname,ce.`name` AS cname,b.`name` AS bname,u.`id` AS uid,b.`id` AS bid FROM `score` s
+LEFT JOIN `user` u ON s.`userid2`=u.`id`
+LEFT JOIN `college` ce ON ce.`id`=u.`collid`
+LEFT JOIN `batch` b ON s.`batch`=b.`id`
+WHERE CONCAT(u.`name`,ce.`name`,b.`name`) LIKE CONCAT('%',#{name},'%')
+GROUP BY u.`name`
+    </select>
+
+
+
 </mapper>

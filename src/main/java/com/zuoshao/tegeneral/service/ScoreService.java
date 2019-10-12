@@ -12,4 +12,5 @@ public interface ScoreService {
     List<Score> selectScore1(@Param("userid2") Integer userid2,@Param("batch") Integer batch);
     List<Score> selectallScore(Score score);
     List<Pjtjbean> getpjtj();
+    List<Pjtjbean> getpjtjexa(User user);
 }
