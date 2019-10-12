@@ -13,8 +13,17 @@ public class QuestionIndex {
     @Column
     private String title;
     @Column
+    private String type;
+    @Column
     private List<Indexoption> problem;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getBatch() {
         return batch;

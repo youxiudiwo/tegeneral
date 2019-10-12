@@ -226,15 +226,14 @@ public class QuestionnaireController {
     @ResponseBody
     public Map<String,Object> addquestion(@RequestBody QuestionIndex questionIndex){
 
-
-
         Map<String, Object> menuss = new HashMap<>();
         Batch batch = new Batch();
         batch.setName(questionIndex.getBatch());
         Batch getbatchstate = batchService.getbatchstate(batch);
 
         Questionnaire questionnaire = new Questionnaire();
-        questionnaire.setName(questionIndex.getTitle());
+
+        questionnaire.setName(questionIndex.getTitle()+questionIndex.getType());
         questionnaire.setBatch(getbatchstate.getId());
 
         List<Questionnaire> getallquestion = questionService.getallquestion(questionnaire);

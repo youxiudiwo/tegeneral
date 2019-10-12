@@ -85,4 +85,9 @@ JOIN menu AS m ON rm.`mid`=m.`id` WHERE r.`name`= #{name}
 
 </insert>
 
+    <select id="selectquestion">
+         SELECT q.`id`,q.`name`,b.`id` AS batchid,b.`name` AS batch,b.`state` AS state FROM
+ questionnaire AS q JOIN batch AS b ON q.`batch`=b.`id` WHERE CONCAT(`q.name`,batch,c.`name`) LIKE CONCAT('%',#{name},'%')
+    </select>
+
 </mapper>
