@@ -57,7 +57,7 @@ public class ScoreController {
     @ApiOperation(value = "老师评价的分数统计排行",httpMethod = "POST")
     public Map scorepaihang(@RequestParam("batch")Integer batch) {
 
-        Integer sum = 0;
+        float sum = 0;
         Map reslut = new HashMap();
         Score score = new Score();
         score.setBatch(batch);
@@ -75,7 +75,7 @@ public class ScoreController {
             User s = userService.userlogin(user);
             List<Score> as = scoreService.selectScore1(s.getId(),batch);
             for(Integer i = 0;i < as.size();i++){
-                sum = sum + Integer.valueOf(as.get(i).getScores());
+                sum = sum + Float.parseFloat(as.get(i).getScores());
             }
             String Average = String.valueOf(sum/as.size());
             userss.add(s.getName());
@@ -83,7 +83,7 @@ public class ScoreController {
             sum = 0;
         }
 
-         reslut.put("教师名称",userss);
+         reslut.put("data",userss);
         return reslut;
     }
 
