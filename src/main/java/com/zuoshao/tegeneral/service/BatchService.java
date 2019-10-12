@@ -15,4 +15,8 @@ public interface BatchService {
     //查看当前批次是否开启
     Batch getbatchstate(Batch batch);
 
+    Integer updateBatchF(Integer id);
+    Integer updateBatchT(Integer id);
+    List<Batch> selectBatch();
+
 }

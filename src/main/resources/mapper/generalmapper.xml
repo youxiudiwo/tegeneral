@@ -55,8 +55,13 @@
     </select>
 
     <!--计算总分-->
-    <select id="addUserPageGeneral" resultType="HashMap">
+    <select id="addUserPageGeneral" resultType="com.zuoshao.tegeneral.bean.beanexa.FractionSum">
         select sum(fraction) as fraction from general
         where userid=#{userid} and userid2=#{userid2} and quid=#{quid} and batch=#{batch}
     </select>
+
+    <!--插入数据到分数汇总表-->
+    <insert id="insertScorePageGeneral">
+        insert into score(userid,userid2,batch,scores,question) values(#{userid},#{userid2},#{batch},#{scores},#{question})
+    </insert>
 </mapper>

@@ -19,6 +19,12 @@ public class General {
     private Integer quid;
     @Column
     private Integer opid;
+    @Column
+    private Integer inid;
+    @Column
+    private Integer batch;
+    @Column
+    private String fraction;
 
     public Integer getId() {
         return id;
@@ -58,5 +64,29 @@ public class General {
 
     public void setOpid(Integer opid) {
         this.opid = opid;
+    }
+
+    public Integer getInid() {
+        return inid;
+    }
+
+    public void setInid(Integer inid) {
+        this.inid = inid;
+    }
+
+    public Integer getBatch() {
+        return batch;
+    }
+
+    public void setBatch(Integer batch) {
+        this.batch = batch;
+    }
+
+    public String getFraction() {
+        return fraction;
+    }
+
+    public void setFraction(String fraction) {
+        this.fraction = fraction;
     }
 }

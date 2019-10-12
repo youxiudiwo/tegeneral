@@ -82,7 +82,16 @@ public class GeneralServiceImpl implements GeneralService {
     }
 
     @Override
-    public List<HashMap> addUserPageGeneral(int userid, int userid2, int quid, int batch) {
+    public List<FractionSum> addUserPageGeneral(int userid, int userid2, int quid, int batch) {
         return generalMapper.addUserPageGeneral(userid, userid2, quid, batch);
+    }
+
+    @Override
+    public Boolean insertScorePageGeneral(int userid, int userid2, int batch, String scores, int question) {
+        int userResult = generalMapper.insertScorePageGeneral(userid, userid2, batch, scores, question);
+        if(userResult > 0){
+            return true;
+        }
+        return false;
     }
 }
