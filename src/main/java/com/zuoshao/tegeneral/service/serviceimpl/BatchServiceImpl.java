@@ -39,4 +39,18 @@ public class BatchServiceImpl implements BatchService {
         Batch batch1 = batchMapper.selectOne(batch);
         return batch1;
     }
+
+    @Override
+    public Integer updateBatchF(Integer id){
+        return batchMapper.updateBatchF(id);
+    }
+    @Override
+    public Integer updateBatchT(Integer id){
+        return batchMapper.updateBatchT(id);
+    }
+
+    @Override
+    public List<Batch> selectBatch(){
+        return batchMapper.selectBatch();
+    }
 }
