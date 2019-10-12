@@ -15,4 +15,5 @@
     <select id="selectScore1" resultType="com.zuoshao.tegeneral.bean.Score">
         select * from score where userid2=#{userid2} and batch = #{batch}
     </select>
+
 </mapper>

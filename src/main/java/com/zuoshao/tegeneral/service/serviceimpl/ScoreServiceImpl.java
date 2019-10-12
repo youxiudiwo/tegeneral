@@ -1,6 +1,7 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
 import com.zuoshao.tegeneral.bean.Score;
+import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.mapper.ScoreMapper;
 import com.zuoshao.tegeneral.service.ScoreService;
 import org.apache.ibatis.annotations.Param;
@@ -24,4 +25,11 @@ public class ScoreServiceImpl implements ScoreService {
     public   List<Score> selectScore1(@Param("userid2") Integer userid2,@Param("batch") Integer batch){
         return scoreMapper.selectScore1(userid2, batch);
     }
+
+    @Override
+    public List<Score> selectallScore(Score score) {
+        List<Score> scores = scoreMapper.select(score);
+        return scores;
+    }
+
 }
