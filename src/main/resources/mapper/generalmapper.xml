@@ -35,11 +35,11 @@
     <!--生成试卷-->
     <select id="selectOnlineEvaluation" resultMap="evaluationMap">
         select qi.qid,qtn.name as qtn_name,b.name as b_name,ix.id as iid,ix.name as ix_name,o.id as oid,o.name as o_name from qu_in qi
-          left join questionnaire qtn on qi.qid=qtn.id
-          left join batch b on b.id=qtn.batch
-          left join `index` ix on ix.id=qi.iid
-          left join in_op io on io.iid=ix.id
-          left join `option` o on o.id=io.oid
+            left join questionnaire qtn on qi.qid=qtn.id
+            left join batch b on b.id=qtn.batch
+            left join `index` ix on ix.id=qi.iid
+            left join in_op io on io.iid=ix.id
+            left join `option` o on o.id=io.oid
         where qi.qid=#{qid}
     </select>
 
@@ -64,4 +64,20 @@
     <insert id="insertScorePageGeneral">
         insert into score(userid,userid2,batch,scores,question) values(#{userid},#{userid2},#{batch},#{scores},#{question})
     </insert>
+
+    <!--生成试卷预览-->
+    <resultMap id="previewPageMap" type="com.zuoshao.tegeneral.bean.beanexa.PreviewPage">
+        <id property="iid" column="iid"></id>
+        <result property="ix_name" column="ix_name"></result>
+        <result property="oid" column="oid"></result>
+        <result property="o_name" column="o_name"></result>
+    </resultMap>
+
+    <select id="selectPage" resultMap="previewPageMap">
+        select ix.id as iid,ix.name as ix_name,o.id as oid,o.name as o_name from `index` ix
+          left join in_op io on ix.id=io.iid
+          left join `option` o on o.id=io.oid
+        where ix.id=#{id}
+    </select>
+
 </mapper>

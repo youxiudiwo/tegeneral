@@ -2,6 +2,7 @@ package com.zuoshao.tegeneral.mapper;
 
 import com.zuoshao.tegeneral.bean.beanexa.FractionSum;
 import com.zuoshao.tegeneral.bean.beanexa.GeneratePaper;
+import com.zuoshao.tegeneral.bean.beanexa.PreviewPage;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +18,7 @@ public interface GeneralMapper{
     List<FractionSum> addUserPageGeneral(@Param("userid")int userid,@Param("userid2")int userid2,@Param("quid")int quid,@Param("batch")int batch);
     List<GeneratePaper> selectOnlineEvaluation(@Param("qid")int qid);
     List<GeneratePaper> selectOnlineEvaluationOptions(@Param("qid")int qid);
+    List<PreviewPage> selectPage(@Param("id")int id);
     List<FractionSum> addFractions(@Param("ixid") int ixid, @Param("osid") int osid);
     int insertGeneral(@Param("userid")int userid,@Param("userid2")int userid2,@Param("quid")int quid,@Param("opid")int opid,@Param("inid")int inid,@Param("batch")int batch,@Param("fraction")String fraction);
     int insertScorePageGeneral(@Param("userid")int userid,@Param("userid2")int userid2,@Param("batch")int batch,@Param("scores")String scores,@Param("question")int question);

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: luquanlin
@@ -104,6 +102,26 @@ public class GeneralController {
         Map result=new HashMap();
         List<Map<String, Object>> online = generalService.selectOnlineEvaluation(qid);
         result.put("subdata",online);
+        return result;
+    }
+
+    //添加试卷的时候预览
+    @ApiOperation(value="添加试卷预览", notes="直接返回数据",httpMethod = "POST")
+    @ApiImplicitParam(paramType="query", name = "index", value = "指标ID", required = true, dataType = "String")
+    @ResponseBody
+    @RequestMapping("/previewPage")
+    public Map  selectPage(String index){
+        Map result=new HashMap();
+        List<Map<String, Object>> indexList = new LinkedList<>();
+        List<Object> optionList = new LinkedList<>();
+        String indexId[]=index.split(",");
+        for (int i=0;i<indexId.length;i++) {
+            int id = Integer.parseInt(indexId[i]);
+            Map<String, Object> omap = new LinkedHashMap<>();
+            List<Map<String, Object>> indexOptions = generalService.selectPage(id);
+            optionList.add(indexOptions);
+        }
+        result.put("problem",optionList);
         return result;
     }
 }

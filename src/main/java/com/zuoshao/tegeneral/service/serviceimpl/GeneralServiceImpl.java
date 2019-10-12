@@ -2,6 +2,7 @@ package com.zuoshao.tegeneral.service.serviceimpl;
 
 import com.zuoshao.tegeneral.bean.beanexa.FractionSum;
 import com.zuoshao.tegeneral.bean.beanexa.GeneratePaper;
+import com.zuoshao.tegeneral.bean.beanexa.PreviewPage;
 import com.zuoshao.tegeneral.mapper.GeneralMapper;
 import com.zuoshao.tegeneral.service.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,8 +78,28 @@ public class GeneralServiceImpl implements GeneralService {
     }
 
     @Override
-    public List<Map<String, Object>> selectOnlineEvaluationOptions(int qid) {
-        return null;
+    public List<Map<String, Object>> selectPage(int id) {
+        List<PreviewPage> list = generalMapper.selectPage(id);
+        Map<Integer, List<PreviewPage>> map = list.stream().collect(Collectors.groupingBy(PreviewPage::getIid));
+        List<Map<String, Object>> ret = new LinkedList<Map<String, Object>>();
+        map.forEach( (k,v)->{
+            Map<String, Object> tmap = new LinkedHashMap<>();
+            tmap.put("id", k);
+            List<Map<String, Object>> optionList = new LinkedList<>();
+            v.stream().forEach(item->{
+                Map<String, Object> omap = new LinkedHashMap<>();
+                tmap.put("title", item.getIx_name());
+
+                omap.put("id", item.getOid());
+                omap.put("title", item.getO_name());
+                optionList.add(omap);
+            });
+            tmap.put("option", optionList);
+
+            ret.add(tmap);
+        });
+
+        return ret;
     }
 
     @Override
