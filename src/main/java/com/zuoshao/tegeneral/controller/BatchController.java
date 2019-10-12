@@ -4,6 +4,7 @@ import com.zuoshao.tegeneral.bean.Batch;
 import com.zuoshao.tegeneral.service.BatchService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,7 @@ public class BatchController {
     public Integer updateBatchF(){
         List<Batch> a = batchService.selectBatch();
         List<Integer> list = new ArrayList<>();
+
         for(int i = 0;i<a.size();i++){
             list.add(a.get(i).getId());
         }
