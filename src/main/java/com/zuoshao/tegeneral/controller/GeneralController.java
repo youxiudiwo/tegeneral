@@ -1,5 +1,6 @@
 package com.zuoshao.tegeneral.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.FractionSum;
 import com.zuoshao.tegeneral.bean.beanexa.ScoreAdd;
@@ -8,10 +9,12 @@ import com.zuoshao.tegeneral.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
@@ -107,19 +110,22 @@ public class GeneralController {
 
     //添加试卷的时候预览
     @ApiOperation(value="添加试卷预览", notes="直接返回数据",httpMethod = "POST")
-    @ApiImplicitParam(paramType="query", name = "index", value = "指标ID", required = true, dataType = "String")
+    @ApiImplicitParam(paramType="query", name = "index", value = "指标ID", required = true, dataType = "string")
     @ResponseBody
     @RequestMapping("/previewPage")
-    public Map  selectPage(String index){
+    public Map  selectPage(@RequestBody String index){
+        //3,2
+        //"3","2"
         Map result=new HashMap();
-        List<Map<String, Object>> indexList = new LinkedList<>();
         List<Object> optionList = new LinkedList<>();
+        index=index.substring(1);
+        index=index.substring(0,index.length()-1);
         String indexId[]=index.split(",");
         for (int i=0;i<indexId.length;i++) {
             int id = Integer.parseInt(indexId[i]);
             Map<String, Object> omap = new LinkedHashMap<>();
             List<Map<String, Object>> indexOptions = generalService.selectPage(id);
-            optionList.add(indexOptions);
+            optionList.add(indexOptions.get(0));
         }
         result.put("problem",optionList);
         return result;
