@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+       mamespace：命名空间;指定为接口的全类名可以进行接口绑定
+       id：唯一标识
+       resultType：返回值类型
+-->
+<mapper namespace="com.zuoshao.tegeneral.mapper.ScoreMapper">
+    <select id="selectScore" resultType="com.zuoshao.tegeneral.bean.Score">
+        select * from score where userid=#{userid} and batch = #{batch}
+    </select>
+
+    <select id="selectScore1" resultType="com.zuoshao.tegeneral.bean.Score">
+        select * from score where userid2=#{userid2} and batch = #{batch}
+    </select>
+</mapper>
