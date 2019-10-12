@@ -86,4 +86,6 @@ public class ScoreController {
          reslut.put("教师名称",userss);
         return reslut;
     }
+
+
 }

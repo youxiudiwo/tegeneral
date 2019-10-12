@@ -40,4 +40,7 @@ public interface Userrolemapper {
     //插入试卷返回id
     Questionnaire insertquestion(Questionnaire questionnaire);
 
+    //返回评教统计的人
+    List<Pjtjbean> getpjtj();
+
 }

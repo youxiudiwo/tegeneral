@@ -90,4 +90,12 @@ JOIN menu AS m ON rm.`mid`=m.`id` WHERE r.`name`= #{name}
  questionnaire AS q JOIN batch AS b ON q.`batch`=b.`id` WHERE CONCAT(`q.name`,batch,c.`name`) LIKE CONCAT('%',#{name},'%')
     </select>
 
+    <select id="getpjtj" resultType="com.zuoshao.tegeneral.bean.beanexa.Pjtjbean">
+SELECT u.`name` AS uname,ce.`name` AS cname,b.`name` AS bname,u.`id` AS uid,b.`id` AS bid FROM `score` s
+LEFT JOIN `user` u ON s.`userid2`=u.`id`
+LEFT JOIN `college` ce ON ce.`id`=u.`collid`
+LEFT JOIN `batch` b ON s.`batch`=b.`id`
+GROUP BY u.`name`
+    </select>
+
 </mapper>
