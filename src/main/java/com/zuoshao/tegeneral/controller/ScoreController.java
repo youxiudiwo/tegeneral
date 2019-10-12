@@ -83,7 +83,7 @@ public class ScoreController {
             sum = 0;
         }
 
-         reslut.put("教师名称",userss);
+         reslut.put("data",userss);
         return reslut;
     }
 }
