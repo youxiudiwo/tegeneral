@@ -25,6 +25,12 @@ public class IndexController {
     @Autowired
     IndexService indexService;
 
+    //启动
+    @RequestMapping(value = {"/*","/*/*"})
+    public String showl(){
+        return "index";
+    }
+
 //    @RequestMapping("indexTest")
 //    public String indextest(){
 //        return "indexTest";
