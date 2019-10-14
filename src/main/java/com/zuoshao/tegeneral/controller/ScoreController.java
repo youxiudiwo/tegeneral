@@ -87,5 +87,30 @@ public class ScoreController {
         return reslut;
     }
 
+    @RequestMapping("/selectScoreTeacher")
+    @ResponseBody
+    @ApiOperation(value = "老师查看自己的每一期的平均分数",httpMethod = "POST")
+    public Map selectScoreTeacher(@RequestParam("id")Integer id) {
+        float sum = 0;
+        Map reslut = new HashMap();
+        List<Score> scores = scoreService.selectScoreTeacher(id);
+        Set<Integer> set = new TreeSet<>();
+        for (Score sc:scores) {
+            set.add(sc.getBatch());
+        }
+        List<String> avg = new ArrayList<>();
+        for (Integer s:set) {
+            List<Score> scores1 = scoreService.selectScore1(id,s);
+            for (int i = 0; i < scores1.size() ; i++) {
+               sum = sum + Float.parseFloat(scores1.get(i).getScores());
+            }
+            String Average = String.valueOf(sum/scores1.size());
+            avg.add(Average);
+            sum = 0;
+        }
+        reslut.put("data",avg);
+
+        return reslut;
+    }
 
 }

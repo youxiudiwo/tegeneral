@@ -13,4 +13,6 @@ public interface ScoreService {
     List<Score> selectallScore(Score score);
     List<Pjtjbean> getpjtj();
     List<Pjtjbean> getpjtjexa(User user);
+
+    List<Score> selectScoreTeacher(Integer id);
 }

@@ -49,4 +49,8 @@ public class ScoreServiceImpl implements ScoreService {
         return getpjtexa;
     }
 
+    @Override
+    public  List<Score> selectScoreTeacher(Integer id){
+        return scoreMapper.selectScoreTeacher(id);
+    }
 }

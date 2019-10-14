@@ -13,4 +13,5 @@ public interface ScoreMapper extends Mapper<Score> {
 
     List<Score> select();
 
+    List<Score> selectScoreTeacher(Integer id);
 }
