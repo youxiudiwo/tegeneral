@@ -107,6 +107,13 @@ WHERE CONCAT(u.`name`,ce.`name`,b.`name`) LIKE CONCAT('%',#{name},'%')
 GROUP BY u.`name`
     </select>
 
+    <select id="getquestiontypetj" resultType="com.zuoshao.tegeneral.bean.beanexa.QuestionType" parameterType="com.zuoshao.tegeneral.bean.Option">
+        SELECT b.`id`,b.`name` AS bname,s.`scores`,qn.`name` AS qname  FROM batch b
+LEFT JOIN score s ON s.`batch`=b.`id`
+LEFT JOIN questionnaire qn ON qn.`id`=s.`question`
+WHERE s.`userid2`=#{id} AND b.`state`=1
+    </select>
+
 
 
 </mapper>

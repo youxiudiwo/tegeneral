@@ -47,4 +47,6 @@ public interface Userrolemapper {
 
     List<Pjtjbean> getpjtexa(User user);
 
+    //分类查询试卷分数
+    List<QuestionType> getquestiontypetj(Option option);
 }

@@ -1,8 +1,10 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
+import com.zuoshao.tegeneral.bean.Option;
 import com.zuoshao.tegeneral.bean.Score;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.Pjtjbean;
+import com.zuoshao.tegeneral.bean.beanexa.QuestionType;
 import com.zuoshao.tegeneral.mapper.ScoreMapper;
 import com.zuoshao.tegeneral.mapper.Userrolemapper;
 import com.zuoshao.tegeneral.service.ScoreService;
@@ -62,5 +64,12 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public String selectBatchName(Integer id){
         return scoreMapper.selectBatchName(id);
+    }
+
+    @Override
+    public List<QuestionType> getquestiontypetj(Option option) {
+        List<QuestionType> getquestiontypetj = userrolemapper.getquestiontypetj(option);
+        return getquestiontypetj;
+
     }
 }

@@ -1,9 +1,12 @@
 package com.zuoshao.tegeneral.controller;
 
 import com.zuoshao.tegeneral.bean.Batch;
+import com.zuoshao.tegeneral.bean.Option;
 import com.zuoshao.tegeneral.bean.Score;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.bean.beanexa.Pjtjbean;
+import com.zuoshao.tegeneral.bean.beanexa.QuestionType;
+import com.zuoshao.tegeneral.bean.beanexa.ScoreSelect;
 import com.zuoshao.tegeneral.service.BatchService;
 import com.zuoshao.tegeneral.service.ScoreService;
 import com.zuoshao.tegeneral.service.UserService;
@@ -16,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author zuoshao
@@ -89,6 +89,32 @@ public class ScoretowController  {
         Map<String, Object> map = new HashMap<>();
         map.put("pjtjexa",getpjtjexa);
         return map;
+    }
+
+    @RequestMapping("/getquestiontypetj")
+    @ResponseBody
+    @ApiOperation(value = "评教统计分类返回", httpMethod = "POST")
+    @ApiImplicitParam(paramType = "query", name = "username", value = "用户信息", required = true, dataType = "String")
+    public List<ScoreSelect> getquestiontypetj(@RequestParam("username") String username) {
+
+        User user = new User();
+        user.setUsername(username);
+        User userlogin = userService.userlogin(user);
+
+        Option option = new Option();
+        option.setId(userlogin.getId());
+
+        List<QuestionType> getquestiontypetj = scoreService.getquestiontypetj(option);
+        List<ScoreSelect> lists = new ArrayList<>();
+
+
+        for (QuestionType qu : getquestiontypetj) {
+            ScoreSelect scoreSelect = new ScoreSelect();
+            scoreSelect.setName(qu.getQname());
+            scoreSelect.setScore(qu.getScores());
+            lists.add(scoreSelect);
+        }
+        return lists;
     }
 
     }
