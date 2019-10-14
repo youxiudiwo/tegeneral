@@ -53,4 +53,14 @@ public class ScoreServiceImpl implements ScoreService {
     public  List<Score> selectScoreTeacher(Integer id){
         return scoreMapper.selectScoreTeacher(id);
     }
+
+    @Override
+    public  Integer selectUserId(String name){
+        return scoreMapper.selectUserId(name);
+    }
+
+    @Override
+    public String selectBatchName(Integer id){
+        return scoreMapper.selectBatchName(id);
+    }
 }

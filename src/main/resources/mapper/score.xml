@@ -19,4 +19,11 @@
     <select id="selectScoreTeacher" resultType="com.zuoshao.tegeneral.bean.Score">
         select * from score where userid2 = #{id}
     </select>
+
+    <select id="selectUserId" resultType="Integer">
+        select id from user where username = #{name}
+    </select>
+    <select id="selectBatchName" resultType="String">
+        select name from batch where id = #{id}
+    </select>
 </mapper>

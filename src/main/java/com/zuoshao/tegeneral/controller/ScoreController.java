@@ -90,7 +90,14 @@ public class ScoreController {
     @RequestMapping("/selectScoreTeacher")
     @ResponseBody
     @ApiOperation(value = "老师查看自己的每一期的平均分数",httpMethod = "POST")
-    public Map selectScoreTeacher(@RequestParam("id")Integer id) {
+    public Map selectScoreTeacher(@RequestParam("name")String name) {
+
+//        User user = new User();
+//        User user1 = userService.userlogin(user);
+//        Integer id = user1.getId();
+        Integer qq = scoreService.selectUserId(name);
+        Integer id = qq;
+
         float sum = 0;
         Map reslut = new HashMap();
         List<Score> scores = scoreService.selectScoreTeacher(id);
@@ -98,18 +105,21 @@ public class ScoreController {
         for (Score sc:scores) {
             set.add(sc.getBatch());
         }
-        List<String> avg = new ArrayList<>();
+        List<Map<String,Object>> avgs = new ArrayList<Map<String,Object>>();
         for (Integer s:set) {
+            Map<String,Object> mm = new HashMap<String, Object>();
             List<Score> scores1 = scoreService.selectScore1(id,s);
             for (int i = 0; i < scores1.size() ; i++) {
                sum = sum + Float.parseFloat(scores1.get(i).getScores());
             }
             String Average = String.valueOf(sum/scores1.size());
-            avg.add(Average);
+            String name1 = scoreService.selectBatchName(s);
             sum = 0;
+            mm.put("name",name1);
+            mm.put("score",Average);
+            avgs.add(mm);
         }
-        reslut.put("data",avg);
-
+        reslut.put("data",avgs);
         return reslut;
     }
 

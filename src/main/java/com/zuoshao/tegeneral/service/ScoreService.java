@@ -15,4 +15,6 @@ public interface ScoreService {
     List<Pjtjbean> getpjtjexa(User user);
 
     List<Score> selectScoreTeacher(Integer id);
+    Integer selectUserId(String name);
+    String selectBatchName(Integer id);
 }
