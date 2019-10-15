@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+       mamespace：命名空间;指定为接口的全类名可以进行接口绑定
+       id：唯一标识
+       resultType：返回值类型
+-->
+<mapper namespace="com.zuoshao.tegeneral.mapper.StudentClassAndRelationShipMapper">
+    <select id="selectstudents" resultType="com.zuoshao.tegeneral.bean.User">
+        select u.id,u.name,u.username from user u
+          left join us_ro ur on ur.uid=u.id
+          left join role r on r.id=ur.rid
+          left join studentclass sc on sc.studentid=u.id
+        where r.name="学生" and sc.id is null
+    </select>
+
+
+
+</mapper>
