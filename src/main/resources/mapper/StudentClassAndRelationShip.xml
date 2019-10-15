@@ -8,6 +8,7 @@
        resultType：返回值类型
 -->
 <mapper namespace="com.zuoshao.tegeneral.mapper.StudentClassAndRelationShipMapper">
+    <!--直接返回没有班级的学生用户数据-->
     <select id="selectstudents" resultType="com.zuoshao.tegeneral.bean.User">
         select u.id,u.name,u.username from user u
           left join us_ro ur on ur.uid=u.id
@@ -16,6 +17,18 @@
         where r.name="学生" and sc.id is null
     </select>
 
+    <!--查询是老师的所有用户-->
+    <select id="selectAllTeacher" resultType="com.zuoshao.tegeneral.bean.User">
+        select * from user u
+          left join us_ro ur on ur.uid=u.id
+          left join role r on r.id=ur.rid
+        where r.name="老师"
+    </select>
+
+    <!--查询所有课程信息-->
+    <select id="selectAllCurriculum" resultType="com.zuoshao.tegeneral.bean.Curriculum">
+        select * from curriculum
+    </select>
 
 
 </mapper>

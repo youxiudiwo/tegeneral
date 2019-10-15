@@ -1,5 +1,6 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
+import com.zuoshao.tegeneral.bean.Curriculum;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.mapper.StudentClassAndRelationShipMapper;
 import com.zuoshao.tegeneral.service.StudentClassAndRelationShipService;
@@ -21,5 +22,15 @@ public class StudentClassAndRelationShipServiceImpl implements StudentClassAndRe
     @Override
     public List<User> selectstudents() {
         return studentClassAndRelationShipMapper.selectstudents();
+    }
+
+    @Override
+    public List<User> selectAllTeacher() {
+        return studentClassAndRelationShipMapper.selectAllTeacher();
+    }
+
+    @Override
+    public List<Curriculum> selectAllCurriculum() {
+        return studentClassAndRelationShipMapper.selectAllCurriculum();
     }
 }

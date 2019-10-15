@@ -1,5 +1,6 @@
 package com.zuoshao.tegeneral.controller;
 
+import com.zuoshao.tegeneral.bean.Curriculum;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.service.StudentClassAndRelationShipService;
 import io.swagger.annotations.Api;
@@ -33,4 +34,26 @@ public class StudentClassAndRelationShipController {
         result.put("data",users);
         return result;
     }
+
+    @ApiOperation(value="直接返回所有老师的用户数据", notes="直接返回所有老师的用户数据",httpMethod = "POST")
+    @RequestMapping("/selectAllTeacher")
+    @ResponseBody
+    public Map selectAllTeacher(){
+        Map result = new HashMap();
+        List<User> teacher = studentClassAndRelationShipService.selectAllTeacher();
+        result.put("data",teacher);
+        return result;
+    }
+
+    @ApiOperation(value="直接返回所有课程数据", notes="直接返回所有课程数据",httpMethod = "POST")
+    @RequestMapping("/selectAllCurriculum")
+    @ResponseBody
+    public Map selectAllCurriculum(){
+        Map result = new HashMap();
+        List<Curriculum> curricula = studentClassAndRelationShipService.selectAllCurriculum();
+        result.put("data",curricula);
+        return result;
+    }
+
+
 }
