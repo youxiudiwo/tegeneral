@@ -1,6 +1,7 @@
 package com.zuoshao.tegeneral.service.serviceimpl;
 
 import com.zuoshao.tegeneral.bean.Curriculum;
+import com.zuoshao.tegeneral.bean.Relationship;
 import com.zuoshao.tegeneral.bean.Studentclass;
 import com.zuoshao.tegeneral.bean.User;
 import com.zuoshao.tegeneral.mapper.StudentClassAndRelationShipMapper;
@@ -38,6 +39,15 @@ public class StudentClassAndRelationShipServiceImpl implements StudentClassAndRe
     @Override
     public boolean insertStudentsClass(Studentclass studentclass) {
         int result = studentClassAndRelationShipMapper.insertStudentsClass(studentclass);
+        if(result>0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean insertRelationShip(Relationship relationship) {
+        int result = studentClassAndRelationShipMapper.insertRelationShip(relationship);
         if(result>0){
             return true;
         }

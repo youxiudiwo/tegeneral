@@ -34,4 +34,9 @@
     <insert id="insertStudentsClass" parameterType="com.zuoshao.tegeneral.bean.Studentclass">
         insert into studentclass(studentid,classid) values(#{studentid},#{classid})
     </insert>
+
+    <!--插入授课信息-->
+    <insert id="insertRelationShip" parameterType="com.zuoshao.tegeneral.bean.Relationship">
+        insert into relationship(teacherid,collegeid,currid,classid) values(#{teacherid},#{collegeid},#{currid},#{classid})
+    </insert>
 </mapper>

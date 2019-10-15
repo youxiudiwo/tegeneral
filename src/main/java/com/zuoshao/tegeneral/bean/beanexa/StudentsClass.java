@@ -1,7 +1,6 @@
 package com.zuoshao.tegeneral.bean.beanexa;
 
 import javax.persistence.Column;
-import java.util.List;
 
 /**
  * @Author: luquanlin
@@ -11,13 +10,23 @@ import java.util.List;
 
 public class StudentsClass {
     @Column
-    private List<ClassStudents> studentsClass;
+    private Integer classid;
+    @Column
+    private Integer[] studentid;
 
-    public List<ClassStudents> getStudentsClass() {
-        return studentsClass;
+    public Integer getClassid() {
+        return classid;
     }
 
-    public void setStudentsClass(List<ClassStudents> studentsClass) {
-        this.studentsClass = studentsClass;
+    public void setClassid(Integer classid) {
+        this.classid = classid;
+    }
+
+    public Integer[] getStudentid() {
+        return studentid;
+    }
+
+    public void setStudentid(Integer[] studentid) {
+        this.studentid = studentid;
     }
 }

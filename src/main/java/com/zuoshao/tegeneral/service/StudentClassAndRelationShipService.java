@@ -1,6 +1,7 @@
 package com.zuoshao.tegeneral.service;
 
 import com.zuoshao.tegeneral.bean.Curriculum;
+import com.zuoshao.tegeneral.bean.Relationship;
 import com.zuoshao.tegeneral.bean.Studentclass;
 import com.zuoshao.tegeneral.bean.User;
 
@@ -18,4 +19,5 @@ public interface StudentClassAndRelationShipService {
     List<User> selectAllTeacher();
     List<Curriculum> selectAllCurriculum();
     boolean insertStudentsClass(Studentclass studentclass);
+    boolean insertRelationShip(Relationship relationship);
 }

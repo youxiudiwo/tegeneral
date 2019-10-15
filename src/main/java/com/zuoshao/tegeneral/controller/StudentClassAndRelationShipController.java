@@ -1,8 +1,10 @@
 package com.zuoshao.tegeneral.controller;
 
 import com.zuoshao.tegeneral.bean.Curriculum;
+import com.zuoshao.tegeneral.bean.Relationship;
 import com.zuoshao.tegeneral.bean.Studentclass;
 import com.zuoshao.tegeneral.bean.User;
+import com.zuoshao.tegeneral.bean.beanexa.RelationShip;
 import com.zuoshao.tegeneral.bean.beanexa.StudentsClass;
 import com.zuoshao.tegeneral.service.StudentClassAndRelationShipService;
 import io.swagger.annotations.Api;
@@ -65,17 +67,35 @@ public class StudentClassAndRelationShipController {
     @ResponseBody
     public Map insertStudentsClass(@RequestBody StudentsClass studentsClass) {
         Map result = new HashMap();
-        Studentclass studentclass = new Studentclass();
-        for(int i = 0;i<studentsClass.getStudentsClass().size();i++){
-            studentclass.setClassid(studentsClass.getStudentsClass().get(i).getClassid());
-            for (int j=0;j<studentsClass.getStudentsClass().get(i).getStudentid().length;j++){
-                studentclass.setStudentid(studentsClass.getStudentsClass().get(i).getStudentid()[j]);
-                if(studentClassAndRelationShipService.insertStudentsClass(studentclass)){
-                    result.put("data",1);
-                }else{
-                    result.put("data",0);
-                }
+        Studentclass ss = new Studentclass();
+        ss.setClassid(studentsClass.getClassid());
+        for (int i=0;i<studentsClass.getStudentid().length;i++){
+            ss.setStudentid(studentsClass.getStudentid()[i]);
+            if(studentClassAndRelationShipService.insertStudentsClass(ss)){
+                result.put("data",1);
+            }else{
+                result.put("data",0);
             }
+        }
+
+        return result;
+    }
+
+    @ApiOperation(value="新建授课管理", notes="data:1成功插入，0插入失败",httpMethod = "POST")
+    @ApiImplicitParam(name = "relationShip" ,value = "JSONObject",required = true)
+    @RequestMapping("/insertRelationShip")
+    @ResponseBody
+    public Map insertRelationShip(@RequestBody RelationShip relationShip) {
+        Map result = new HashMap();
+        Relationship rs = new Relationship();
+        rs.setClassid(relationShip.getClassid());
+        rs.setCollegeid(relationShip.getCollegeid());
+        rs.setCurrid(relationShip.getCourseid());
+        rs.setTeacherid(relationShip.getTeacherid());
+        if(studentClassAndRelationShipService.insertRelationShip(rs)){
+            result.put("data",1);
+        }else{
+            result.put("data",0);
         }
         return result;
     }
