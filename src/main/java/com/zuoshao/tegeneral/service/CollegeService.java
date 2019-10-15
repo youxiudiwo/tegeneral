@@ -14,5 +14,5 @@ public interface CollegeService {
     College getCollege(College college);
 
     List<College> getCollege();
-
+    String selectCollegeName(Integer id);
 }

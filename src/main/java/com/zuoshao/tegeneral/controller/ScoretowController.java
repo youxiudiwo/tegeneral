@@ -8,6 +8,7 @@ import com.zuoshao.tegeneral.bean.beanexa.Pjtjbean;
 import com.zuoshao.tegeneral.bean.beanexa.QuestionType;
 import com.zuoshao.tegeneral.bean.beanexa.ScoreSelect;
 import com.zuoshao.tegeneral.service.BatchService;
+import com.zuoshao.tegeneral.service.CollegeService;
 import com.zuoshao.tegeneral.service.ScoreService;
 import com.zuoshao.tegeneral.service.UserService;
 import io.swagger.annotations.Api;
@@ -35,6 +36,8 @@ public class ScoretowController  {
     UserService userService;
     @Autowired
     BatchService batchService;
+    @Autowired
+    CollegeService collegeService;
 
     @RequestMapping("/getpjtj")
     @ResponseBody
@@ -95,7 +98,7 @@ public class ScoretowController  {
     @ResponseBody
     @ApiOperation(value = "评教统计分类返回", httpMethod = "POST")
     @ApiImplicitParam(paramType = "query", name = "username", value = "用户信息", required = true, dataType = "String")
-    public List<ScoreSelect> getquestiontypetj(@RequestParam("username") String username) {
+    public Map getquestiontypetj(@RequestParam("username") String username) {
 
         User user = new User();
         user.setUsername(username);
@@ -106,6 +109,7 @@ public class ScoretowController  {
 
         List<QuestionType> getquestiontypetj = scoreService.getquestiontypetj(option);
         List<ScoreSelect> lists = new ArrayList<>();
+        Map result = new HashMap();
 
 
         for (QuestionType qu : getquestiontypetj) {
@@ -114,7 +118,20 @@ public class ScoretowController  {
             scoreSelect.setScore(qu.getScores());
             lists.add(scoreSelect);
         }
-        return lists;
+        float sum = 0;
+        double score = 0;
+        for (int i = 0; i < lists.size() ; i++) {
+            sum = sum + lists.get(i).getScore();
+        }
+        score = sum / lists.size();
+        String batch = getquestiontypetj.get(0).getBname();
+        Integer id = userlogin.getCollid();
+        String collegeName = collegeService.selectCollegeName(id);
+        result.put("collegeName",collegeName);
+        result.put("batch",batch);
+        result.put("score",score);
+        result.put("data",lists);
+        return result;
     }
 
     }

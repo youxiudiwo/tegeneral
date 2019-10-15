@@ -6,4 +6,5 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 public interface CollegeMapper extends Mapper<College> {
+    String selectCollegeName(Integer id);
 }
