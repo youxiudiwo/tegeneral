@@ -30,5 +30,8 @@
         select * from curriculum
     </select>
 
-
+    <!--插入学生班级-->
+    <insert id="insertStudentsClass" parameterType="com.zuoshao.tegeneral.bean.Studentclass">
+        insert into studentclass(studentid,classid) values(#{studentid},#{classid})
+    </insert>
 </mapper>

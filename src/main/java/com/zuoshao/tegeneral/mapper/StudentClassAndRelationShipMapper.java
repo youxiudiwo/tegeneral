@@ -1,6 +1,7 @@
 package com.zuoshao.tegeneral.mapper;
 
 import com.zuoshao.tegeneral.bean.Curriculum;
+import com.zuoshao.tegeneral.bean.Studentclass;
 import com.zuoshao.tegeneral.bean.User;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,5 @@ public interface StudentClassAndRelationShipMapper {
     List<User> selectstudents();
     List<User> selectAllTeacher();
     List<Curriculum> selectAllCurriculum();
+    int insertStudentsClass(Studentclass studentclass);
 }
