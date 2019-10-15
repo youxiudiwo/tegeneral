@@ -26,13 +26,14 @@ spring:
   ###################ant.design 前端########################
   #thymelafe\u914D\u7F6E
   thymeleaf:
-    prefix: classpath:static/
+    prefix: classpath:/templates/
     suffix: .html
     encoding: UTF-8
     content-type: text/html
     cache: false
     check-template-location: true
     mode: LEGACYHTML5
+    static-path-pattern: /static/**
 
 #mybatis
 mybatis:

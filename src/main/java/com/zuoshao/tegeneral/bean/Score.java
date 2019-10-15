@@ -50,7 +50,24 @@ public class Score {
         return userid2;
     }
 
+
     public void setUserid2(Integer userid2) {
         this.userid2 = userid2;
+    }
+
+    public Integer getBatch() {
+        return batch;
+    }
+
+    public void setBatch(Integer batch) {
+        this.batch = batch;
+    }
+
+    public Integer getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Integer question) {
+        this.question = question;
     }
 }

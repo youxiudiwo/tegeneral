@@ -90,4 +90,30 @@ JOIN menu AS m ON rm.`mid`=m.`id` WHERE r.`name`= #{name}
  questionnaire AS q JOIN batch AS b ON q.`batch`=b.`id` WHERE CONCAT(`q.name`,batch,c.`name`) LIKE CONCAT('%',#{name},'%')
     </select>
 
+    <select id="getpjtj" resultType="com.zuoshao.tegeneral.bean.beanexa.Pjtjbean">
+SELECT u.`name` AS uname,ce.`name` AS cname,b.`name` AS bname,u.`id` AS uid,b.`id` AS bid FROM `score` s
+LEFT JOIN `user` u ON s.`userid2`=u.`id`
+LEFT JOIN `college` ce ON ce.`id`=u.`collid`
+LEFT JOIN `batch` b ON s.`batch`=b.`id`
+GROUP BY u.`name`
+    </select>
+
+    <select id="getpjtexa" parameterType="com.zuoshao.tegeneral.bean.User" resultType="com.zuoshao.tegeneral.bean.beanexa.Pjtjbean">
+        SELECT u.`name` AS uname,ce.`name` AS cname,b.`name` AS bname,u.`id` AS uid,b.`id` AS bid FROM `score` s
+LEFT JOIN `user` u ON s.`userid2`=u.`id`
+LEFT JOIN `college` ce ON ce.`id`=u.`collid`
+LEFT JOIN `batch` b ON s.`batch`=b.`id`
+WHERE CONCAT(u.`name`,ce.`name`,b.`name`) LIKE CONCAT('%',#{name},'%')
+GROUP BY u.`name`
+    </select>
+
+    <select id="getquestiontypetj" resultType="com.zuoshao.tegeneral.bean.beanexa.QuestionType" parameterType="com.zuoshao.tegeneral.bean.Option">
+        SELECT b.`id`,b.`name` AS bname,s.`scores`,qn.`name` AS qname  FROM batch b
+LEFT JOIN score s ON s.`batch`=b.`id`
+LEFT JOIN questionnaire qn ON qn.`id`=s.`question`
+WHERE s.`userid2`=#{id} AND b.`state`=1
+    </select>
+
+
+
 </mapper>
