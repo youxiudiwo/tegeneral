@@ -40,4 +40,9 @@ public class CollegeServiceImpl implements CollegeService {
         return collegeMapper.selectAll();
     }
 
+    @Override
+    public String selectCollegeName(Integer id){
+        return collegeMapper.selectCollegeName(id);
+    }
+
 }
