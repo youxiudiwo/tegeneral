@@ -71,6 +71,7 @@ public class QuestionnaireController {
         user2.setUsername(studentname);
         User userlogin = userService.userlogin(user2);
 
+        List<Integer> a = questionService.selectTeacherP(userlogin);
 
         studentclass.setStudentid(userlogin.getId());
         Studentclass getstudentclassid = questionService.getstudentclass(studentclass);
@@ -89,18 +90,25 @@ public class QuestionnaireController {
         Questionnaire getqeustionexa = questionService.getqeustionexa(questionnaire);
 
         for (User user : users) {
-            Querytionexa querytionexa = new Querytionexa();
-            querytionexa.setState(1);
-            querytionexa.setName(getbatchstate.getName());
-            querytionexa.setBid(getbatchstate.getId());
-            querytionexa.setQid(getqeustionexa.getId());
-            querytionexa.setQname(getqeustionexa.getName());
-            querytionexa.setTid(user.getId());
-            querytionexa.setTname(user.getName());
+            boolean isok=true;
+            for (Integer i:a){
+                if (i==user.getId()){
+                    isok=false;
+                }
+            }
+            if(isok){
+                Querytionexa querytionexa = new Querytionexa();
+                querytionexa.setState(1);
+                querytionexa.setName(getbatchstate.getName());
+                querytionexa.setBid(getbatchstate.getId());
+                querytionexa.setQid(getqeustionexa.getId());
+                querytionexa.setQname(getqeustionexa.getName());
+                querytionexa.setTid(user.getId());
+                querytionexa.setTname(user.getName());
+                listss.add(querytionexa);
+            }
 
-            listss.add(querytionexa);
         }
-
         menuss.put("studentquestion", listss);
         menuss.put("code", 1);
 
@@ -120,6 +128,8 @@ public class QuestionnaireController {
         User user2 = new User();
         user2.setUsername(teachername);
         User userlogin = userService.userlogin(user2);
+
+        List<Integer> a = questionService.selectTeacherP(userlogin);
 
         //查询当前老师所在的学院中所有同行老师
         Relationship relationship = new Relationship();
@@ -165,17 +175,24 @@ public class QuestionnaireController {
 
         List<Querytionexa> lists = new ArrayList<>();
         for (UserCple userCple:list){
-            Querytionexa querytionexa = new Querytionexa();
-            querytionexa.setState(1);
-            querytionexa.setName(getbatchstate.getName());
-            querytionexa.setBid(getbatchstate.getId());
-            querytionexa.setQid(getqeustionexa.getId());
-            querytionexa.setQname(getqeustionexa.getName());
-            querytionexa.setTid(userCple.getId());
-            querytionexa.setTname(userCple.getName());
-            lists.add(querytionexa);
+            boolean isok=true;
+            for (Integer i:a){
+                if (i==userCple.getId()){
+                    isok=false;
+                }
+            }
+            if(isok) {
+                Querytionexa querytionexa = new Querytionexa();
+                querytionexa.setState(1);
+                querytionexa.setName(getbatchstate.getName());
+                querytionexa.setBid(getbatchstate.getId());
+                querytionexa.setQid(getqeustionexa.getId());
+                querytionexa.setQname(getqeustionexa.getName());
+                querytionexa.setTid(userCple.getId());
+                querytionexa.setTname(userCple.getName());
+                lists.add(querytionexa);
+            }
         }
-
         menuss.put("studentquestion", lists);
         menuss.put("code", 1);
         return menuss;
@@ -196,29 +213,45 @@ public class QuestionnaireController {
         user2.setUsername(teachername);
         User userlogin = userService.userlogin(user2);
 
-        //1.获取当前批次状态为开启的试卷，2.获取当前自测评价接口的试卷
-        Batch batch = new Batch();
-        batch.setState(1);
-        Batch getbatchstate = batchService.getbatchstate(batch);
+        Integer integer = questionService.selectZice(userlogin);
 
-        Questionnaire questionnaire = new Questionnaire();
-        questionnaire.setBatch(getbatchstate.getId());
-        questionnaire.setName("自测");
-        Questionnaire getqeustionexa = questionService.getqeustionexa(questionnaire);
+            //1.获取当前批次状态为开启的试卷，2.获取当前自测评价接口的试卷
+            Batch batch = new Batch();
+            batch.setState(1);
+            Batch getbatchstate = batchService.getbatchstate(batch);
 
-        Querytionexa querytionexa = new Querytionexa();
-        querytionexa.setState(1);
-        querytionexa.setName(getbatchstate.getName());
-        querytionexa.setQid(getqeustionexa.getId());
-        querytionexa.setQname(getqeustionexa.getName());
-        querytionexa.setTid(userlogin.getId());
-        querytionexa.setTname(userlogin.getName());
+            Questionnaire questionnaire = new Questionnaire();
+            questionnaire.setBatch(getbatchstate.getId());
+            questionnaire.setName("自测");
+            Questionnaire getqeustionexa = questionService.getqeustionexa(questionnaire);
 
+            int qll=0;
+            qll = integer;
+            if (qll==0){
+                Querytionexa querytionexa = new Querytionexa();
+                querytionexa.setQstate(1);
+                querytionexa.setState(1);
+                querytionexa.setName(getbatchstate.getName());
+                querytionexa.setQid(getqeustionexa.getId());
+                querytionexa.setQname(getqeustionexa.getName());
+                querytionexa.setTid(userlogin.getId());
+                querytionexa.setTname(userlogin.getName());
+                menuss.put("querytionexa", querytionexa);
+                menuss.put("code", 1);
+            }else{
+                Querytionexa querytionexa = new Querytionexa();
+                querytionexa.setQstate(0);
+                querytionexa.setState(1);
+                querytionexa.setName(getbatchstate.getName());
+                querytionexa.setQid(getqeustionexa.getId());
+                querytionexa.setQname(getqeustionexa.getName());
+                querytionexa.setTid(userlogin.getId());
+                querytionexa.setTname(userlogin.getName());
+                menuss.put("querytionexa", querytionexa);
+                menuss.put("code", 2);
+            }
+            return menuss;
 
-
-        menuss.put("querytionexa", querytionexa);
-        menuss.put("code", 1);
-        return menuss;
     }
 
     @ApiOperation(value="试卷添加接口", notes="code: 1有正确,0代表当前批次这张试卷已经存在",httpMethod = "POST")

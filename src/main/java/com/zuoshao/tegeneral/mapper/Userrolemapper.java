@@ -49,4 +49,10 @@ public interface Userrolemapper {
 
     //分类查询试卷分数
     List<QuestionType> getquestiontypetj(Option option);
+
+    //当前人是否自测过
+    Integer selectZice(User user);
+
+    //当前已评价的老师
+    List<Integer> selectTeacherP(User user);
 }

@@ -21,6 +21,9 @@ public class Querytionexa {
     private String tname;
     @Column
     private Integer tid;
+    @Column
+    private Integer qstate;
+
 
     public Integer getBid() {
         return bid;
@@ -54,13 +57,6 @@ public class Querytionexa {
         this.name = name;
     }
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
 
     public Integer getQid() {
         return qid;
@@ -76,5 +72,21 @@ public class Querytionexa {
 
     public void setQname(String qname) {
         this.qname = qname;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Integer getQstate() {
+        return qstate;
+    }
+
+    public void setQstate(Integer qstate) {
+        this.qstate = qstate;
     }
 }

@@ -36,4 +36,10 @@ public interface QuestionService {
 
     //插入试卷和标题关联
     Integer addquestionindex(QuIn quin);
+
+    //判断当前用户是否自测过
+    Integer selectZice(User user);
+
+    //当前已评价的老师
+    List<Integer> selectTeacherP(User user);
 }

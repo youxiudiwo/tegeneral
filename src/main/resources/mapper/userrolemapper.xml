@@ -114,6 +114,18 @@ LEFT JOIN questionnaire qn ON qn.`id`=s.`question`
 WHERE s.`userid2`=#{id} AND b.`state`=1
     </select>
 
+    <select id="selectZice" parameterType="com.zuoshao.tegeneral.bean.User" resultType="Integer">
+        select count(*) from general as gen join batch as b on gen.batch=b.id
+where b.state = 1 and gen.userid=#{id} and gen.userid2=#{id};
+    </select>
 
+<select id="selectTeacherP" resultType="Integer" parameterType="com.zuoshao.tegeneral.bean.User">
+    select userid2 from  general as gen
+join batch as ba
+on gen.batch = ba.id
+where ba.state = 1
+and userid = #{id} group by userid2
+
+</select>
 
 </mapper>

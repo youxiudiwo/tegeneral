@@ -105,6 +105,17 @@ public class QuestionServiceImpl implements QuestionService {
         return insert;
     }
 
+    @Override
+    public Integer selectZice(User user) {
+        Integer integer = userrolemapper.selectZice(user);
+        return integer;
+    }
+
+    @Override
+    public List<Integer> selectTeacherP(User user){
+        return userrolemapper.selectTeacherP(user);
+    }
+
 
     public List<Map<String, Object>> buildTree(Integer pid, List<Index> list){
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
