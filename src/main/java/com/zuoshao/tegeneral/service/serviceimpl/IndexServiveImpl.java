@@ -105,6 +105,12 @@ public class IndexServiveImpl implements IndexService {
     }
 
     @Override
+    public Integer selectindexziji(Index index) {
+        Integer selectindexziji = indexmapper.selectindexziji(index);
+        return selectindexziji;
+    }
+
+    @Override
     public List<InOp> selectIn_Op(Integer id){
         return indexmapper.selectIn_Op(id);
     }
@@ -126,5 +132,14 @@ public class IndexServiveImpl implements IndexService {
     @Override
     public Integer insertIn_Op(@Param("iid")Integer iid,@Param("oid")Integer oid){
         return indexmapper.insertIn_Op(iid,oid);
+    }
+
+    @Override
+    public Integer selectIdMax(){
+        return indexmapper.selectIdMax();
+    }
+    @Override
+    public Integer deleteIn_OP(Integer id){
+        return indexmapper.deleteIn_OP(id);
     }
 }

@@ -30,4 +30,7 @@ public interface IndexMapper{
     Integer selectId(Integer pid);
     Integer selectSort(Integer pid);
     Integer insertIndexF(@Param("name")String name, @Param("pid")Integer pid, @Param("sort")Integer sort);
+    Integer selectindexziji(Index index);
+    Integer selectIdMax();
+    Integer deleteIn_OP(Integer id);
 }

@@ -18,6 +18,8 @@ import java.util.List;
 public interface UserService {
     //用户登录查看用户是否存在
     public User userlogin(User user);
+    //判断当前用户是否注册
+    public List<User> selectuserzhuce(User user);
     //查看当前用户拥有的角色
     public List<Menu> userMenu(User user);
     //查询当前所有用户的信息

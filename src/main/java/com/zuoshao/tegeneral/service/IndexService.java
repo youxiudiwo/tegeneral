@@ -3,6 +3,7 @@ package com.zuoshao.tegeneral.service;
 import com.zuoshao.tegeneral.bean.InOp;
 import com.zuoshao.tegeneral.bean.Index;
 import com.zuoshao.tegeneral.bean.Option;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
@@ -28,4 +29,7 @@ public interface IndexService {
     Integer selectId(Integer pid);
     Integer selectSort(Integer pid);
     Integer insertIndexF(@Param("name")String name, @Param("pid")Integer pid, @Param("sort")Integer sort);
+    Integer selectindexziji(Index index);
+    Integer selectIdMax();
+    Integer deleteIn_OP(Integer id);
 }

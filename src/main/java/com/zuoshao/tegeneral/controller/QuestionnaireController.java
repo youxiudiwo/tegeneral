@@ -236,17 +236,19 @@ public class QuestionnaireController {
                 querytionexa.setQname(getqeustionexa.getName());
                 querytionexa.setTid(userlogin.getId());
                 querytionexa.setTname(userlogin.getName());
+                querytionexa.setBid(getbatchstate.getId());
                 menuss.put("querytionexa", querytionexa);
                 menuss.put("code", 1);
             }else{
                 Querytionexa querytionexa = new Querytionexa();
-                querytionexa.setQstate(0);
-                querytionexa.setState(1);
-                querytionexa.setName(getbatchstate.getName());
-                querytionexa.setQid(getqeustionexa.getId());
-                querytionexa.setQname(getqeustionexa.getName());
-                querytionexa.setTid(userlogin.getId());
-                querytionexa.setTname(userlogin.getName());
+//                querytionexa.setQstate(0);
+//                querytionexa.setState(1);
+//                querytionexa.setName(getbatchstate.getName());
+//                querytionexa.setQid(getqeustionexa.getId());
+//                querytionexa.setQname(getqeustionexa.getName());
+//                querytionexa.setTid(userlogin.getId());
+//                querytionexa.setTname(userlogin.getName());
+//                querytionexa.setBid(getbatchstate.getId());
                 menuss.put("querytionexa", querytionexa);
                 menuss.put("code", 2);
             }

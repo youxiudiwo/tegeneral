@@ -3,6 +3,7 @@ package com.zuoshao.tegeneral.controller;
 import com.zuoshao.tegeneral.bean.Menu;
 import com.zuoshao.tegeneral.bean.Role;
 import com.zuoshao.tegeneral.bean.beanexa.RoleMenu;
+import com.zuoshao.tegeneral.bean.beanexa.Roleaddbean;
 import com.zuoshao.tegeneral.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -75,7 +76,7 @@ public class RoleController {
 
     @RequestMapping(value = "/getmenuforrole")
     @ResponseBody
-    public  Map<String,Object> getmenuforrole(@Param("exa")String exa){
+    public  Map<String,Object> getmenuforrole(@RequestParam("exa")String exa){
         Role role = new Role();
         role.setName(exa);
         List<Menu> menus = roleService.getmenuforrole(role);
@@ -89,17 +90,17 @@ public class RoleController {
     @RequestMapping("/addrole")
     @ResponseBody
     @ApiOperation(value = "增加一个角色",httpMethod = "POST")
-    public Map insertRole(@RequestParam String rolename,@RequestParam Integer[] menu){
+    public Map insertRole(@RequestBody Roleaddbean roleaddbean){
         Map result = new HashMap();
-        Role selects = roleService.selectRole(rolename);
+        Role selects = roleService.selectRole(roleaddbean.getRolename());
         if(selects == null){
-            Integer integer = roleService.insertRole(rolename);
-            for(int i = 0;i<menu.length;i++){
-                Integer menus = roleService.insertRo_Me(rolename,menu[i]);
+            Integer integer = roleService.insertRole(roleaddbean.getRolename());
+            for(int i = 0;i<roleaddbean.getMenu().length;i++){
+                Integer menus = roleService.insertRo_Me(roleaddbean.getRolename(),roleaddbean.getMenu()[i]);
             }
-            result.put("selects",1);
+            result.put("code",1);
         }else {
-            result.put("selects1",0);
+            result.put("code",0);
         }
         return result;
     }

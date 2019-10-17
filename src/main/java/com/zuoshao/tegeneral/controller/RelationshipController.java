@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,7 +53,7 @@ public class RelationshipController {
 
     @RequestMapping("/getrelationshipasexa")
     @ResponseBody
-    public Map<String,Object> getrelationshipasexa(@Param("exa")String exa){
+    public Map<String,Object> getrelationshipasexa(@RequestParam("exa")String exa){
         User user = new User();
         user.setName(exa);
         List<RelationShipmapping> getrelationshipasexa = relationshipService.getrelationshipasexa(user);
@@ -91,7 +92,7 @@ public class RelationshipController {
     @ApiImplicitParam(paramType="query", name = "exa", value = "用户信息", required = true, dataType = "String")
     @RequestMapping("/getstudentclassasexa")
     @ResponseBody
-    public Map<String,Object> getstudentclassasexa(@Param("exa")String exa){
+    public Map<String,Object> getstudentclassasexa(@RequestParam("exa")String exa){
         User user = new User();
         user.setName(exa);
         List<StudentClass> list = relationshipService.getstudentclassasexa(user);

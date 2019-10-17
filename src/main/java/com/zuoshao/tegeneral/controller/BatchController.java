@@ -59,7 +59,7 @@ public class BatchController {
     @RequestMapping("/updateBatchT")                 //开启批次
     @ResponseBody
     @ApiOperation(value = "开启批次",httpMethod = "POST")
-    public Integer updateBatchT(@RequestParam Integer id){
+    public Integer updateBatchT(@RequestParam("id") Integer id){
         List<Batch> a = batchService.selectBatch();
         List<Integer> list = new ArrayList<>();
         for(int i = 0;i<a.size();i++){

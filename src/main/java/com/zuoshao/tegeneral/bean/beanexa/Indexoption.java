@@ -13,13 +13,23 @@ public class Indexoption {
     @Column
     private String name;
     @Column
-    private String wight;
+    private String weight;
     @Column
     private Integer id;
     @Column
     private Integer sort;
     @Column
     private List<Option> option;
+    @Column
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getName() {
         return name;
@@ -29,12 +39,12 @@ public class Indexoption {
         this.name = name;
     }
 
-    public String getWight() {
-        return wight;
+    public String getWeight() {
+        return weight;
     }
 
-    public void setWight(String wight) {
-        this.wight = wight;
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
     public Integer getId() {

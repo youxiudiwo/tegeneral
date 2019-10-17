@@ -69,4 +69,16 @@
     <insert id="insertIn_Op">
         insert into in_op (iid,oid) value (#{iid},#{oid})
     </insert>
+
+
+    <select id="selectindexziji" resultType="Integer" parameterType="com.zuoshao.tegeneral.bean.Index">
+       SELECT COUNT(*) from `index` where pid=#{id}
+    </select>
+
+    <select id="selectIdMax" resultType="Integer">
+        SELECT MAX(id) FROM `option`
+    </select>
+    <delete id="deleteIn_OP">
+        delete from in_op where iid = #{id}
+    </delete>
 </mapper>

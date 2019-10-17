@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
@@ -98,7 +99,7 @@ public class GeneralController {
     @ApiImplicitParam(paramType="query", name = "qid", value = "试卷ID", required = true, dataType = "int")
     @ResponseBody
     @RequestMapping("/selectOnlineEvaluation")
-    public Map selectOnlineEvaluation(int qid){
+    public Map selectOnlineEvaluation(@RequestParam("qid") int qid){
         Map result=new HashMap();
         List<Map<String, Object>> online = generalService.selectOnlineEvaluation(qid);
         result.put("subdata",online);

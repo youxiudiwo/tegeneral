@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,16 +19,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @Api(description = "指标管理接口")
 public class IndexController {
 
     @Autowired
     IndexService indexService;
 
-//    //启动
+//    启动
 //    @RequestMapping(value = {"/*","/*/*"})
 //    public String showl(){
+//
 //        return "index";
 //    }
 
@@ -63,13 +65,18 @@ public class IndexController {
         for(int k = 8;;k++){
             Integer zz = indexService.selectIdIndex(k);
             if(zz == null){
-                Integer insert = indexService.insertindex(k,showData.getName(),showData.getWight(),showData.getId(),showData.getSort());
+                Integer insert = indexService.insertindex(k,showData.getName(),showData.getWeight(),showData.getId(),showData.getSort());
                 a = k;
                 break;
             }
         }
         List<Integer> xx = new ArrayList<>();
-        for(int i = 0,j = 4 ;i < showData.getOption().size();i = i + 2){
+
+        Integer aa = indexService.selectIdMax();
+        if(aa == null){
+            aa=0;
+        }
+        for(int i = 0,j = aa + 1 ;i < showData.getOption().size();i++,j++){
              Integer mm = indexService.selectIdOption(j);
              if(mm == null) {
                  Integer insert1 = indexService.insertoption(j, showData.getOption().get(i).getName(), String.valueOf(showData.getOption().get(i).getFraction()));
@@ -92,12 +99,14 @@ public class IndexController {
     @ResponseBody
     @ApiOperation(value = "删除单个指标",httpMethod = "POST")
     public int deleteindex(@RequestParam Integer id){              //删除节点和叶，目前只能删除选中的那一个，修改中。。。。
-        List<Index> a = indexService.selectindex1(id);
-        Integer b = a.get(0).getPid();
-        if(b == 0){
+        Index index = new Index();
+        Integer in = indexService.selectindexziji(index);
+        if(in != 0){
             return 0;
         }else{
             int delete = indexService.deleteindex(id);
+            int delete1 = indexService.deleteIn_OP(id);
+
         }
         return 1;
     }
@@ -124,7 +133,7 @@ public class IndexController {
     public Map  updateindex1(@RequestBody Indexoption showData){      //修改指标名称
 
         Map a = new HashMap();
-        Integer update = indexService.updateindex1(showData.getName(),showData.getWight(),showData.getId());
+        Integer update = indexService.updateindex1(showData.getName(),showData.getWeight(),showData.getId());
         List<InOp> selectIn_Op = indexService.selectIn_Op(showData.getId());
         List<Integer> list1 = new ArrayList<>();
         for(int i = 0;i<selectIn_Op.size();i++){
@@ -152,7 +161,7 @@ public class IndexController {
     @RequestMapping("/selectIndexOption")
     @ResponseBody
     @ApiOperation(value = "查询单个指标及其选项",httpMethod = "POST")
-    public Map  selectIndexOption(@RequestParam Integer id){                            //点击指标名称，显示查询名称和权重以及选项
+    public Map  selectIndexOption(@RequestParam("id") Integer id){                            //点击指标名称，显示查询名称和权重以及选项
 //        Map a = new HashMap();
         List<Option> a= new ArrayList<>();
 

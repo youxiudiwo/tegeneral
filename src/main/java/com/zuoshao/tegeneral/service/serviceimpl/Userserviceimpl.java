@@ -34,6 +34,12 @@ public class Userserviceimpl implements UserService {
     }
 
     @Override
+    public List<User> selectuserzhuce(User user) {
+        List<User> select = usermapper.select(user);
+        return select;
+    }
+
+    @Override
     public List<Menu> userMenu(User user) {
         List<Menu> menus = userrolemapper.selectuserrole(user);
         return menus;

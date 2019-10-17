@@ -36,7 +36,7 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public Map<String,Object> userlogin(@Param("password")String password, @Param("username")String username, HttpSession session) throws Exception{
+    public Map<String,Object> userlogin(@RequestParam("password")String password, @RequestParam("username")String username, HttpSession session) throws Exception{
 
         User user = new User();
         user.setUsername(username);
@@ -62,7 +62,7 @@ public class UserController {
 
     @RequestMapping(value = "/getmenu")
     @ResponseBody
-    public Map<String,Object> userlogin(@Param("username")String username, HttpSession session){
+    public Map<String,Object> userlogin(@RequestParam("username")String username, HttpSession session){
         User user = new User();
         user.setUsername(username);
         User userlogin = userService.userlogin(user);
@@ -87,7 +87,7 @@ public class UserController {
 
     @GetMapping("/getuserall")
     @ResponseBody
-    public PageInfo<UserCple> getAllPerson(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@Param("pageSize")Integer pageSize) {
+    public PageInfo<UserCple> getAllPerson(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@RequestParam("pageSize")Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<UserCple> list = userService.selectuserall();
         PageInfo<UserCple> pageInfo = new PageInfo<>(list);
@@ -99,7 +99,7 @@ public class UserController {
 
     @RequestMapping("/getuserforid")
     @ResponseBody
-    public Map<String, Object> getuserfotid(@Param("id")Integer id){
+    public Map<String, Object> getuserfotid(@RequestParam("id")Integer id){
         User user = new User();
         user.setId(id);
         UserCple selectuserforid = userService.selectuserforid(user);
@@ -111,7 +111,7 @@ public class UserController {
 
     @RequestMapping("/getuserforuserexa")
     @ResponseBody
-    public Map<String, Object> getuserforuserexa(@Param("exa")String exa){
+    public Map<String, Object> getuserforuserexa(@RequestParam("exa")String exa){
         User user = new User();
         user.setName(exa);
         List<UserCple> selectuserforexa = userService.selectuserforexa(user);
@@ -125,7 +125,7 @@ public class UserController {
 
     @RequestMapping("/getstudent")
     @ResponseBody
-    public  PageInfo<UserCple> getstudent(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@Param("pageSize")Integer pageSize,@Param("solter")Integer solter){
+    public  PageInfo<UserCple> getstudent(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@RequestParam("pageSize")Integer pageSize,@RequestParam("solter")Integer solter){
         if (solter==0) {
             User user = new User();
             user.setName("学生");
@@ -231,14 +231,11 @@ public class UserController {
         Integer collegei =Integer.parseInt(colleges);
 
         ArrayList<Integer> listss= (ArrayList<Integer>) map.get("role");
-
         System.out.println(listss);
-
-        Integer[] rolei = new Integer[20];
-        int i=0;
+        List<Integer> rolei = new ArrayList<>();
+//        Integer[] rolei = new Integer[20];
         for (Integer role:listss) {
-            rolei[i]=role;
-            i++;
+            rolei.add(role);
         }
 
         User user = new User();
@@ -249,11 +246,11 @@ public class UserController {
 
         User user2 = new User();
         user2.setUsername(username);
-        User userlogin1 = userService.userlogin(user2);
+        List<User> selectuserzhuce = userService.selectuserzhuce(user2);
 
         Map<String,Object> menuss=new HashMap<>();
 
-        if (userlogin1!=null){
+        if (selectuserzhuce.size()!=0){
             menuss.put("code",0);
             menuss.put("msg","添加失败用户名重复");
             return menuss;

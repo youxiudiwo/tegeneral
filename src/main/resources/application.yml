@@ -33,8 +33,6 @@ spring:
     cache: false
     check-template-location: true
     mode: LEGACYHTML5
-    static-path-pattern: /static/**
-
 #mybatis
 mybatis:
   configuration:
